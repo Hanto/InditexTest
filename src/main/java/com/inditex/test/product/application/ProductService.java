@@ -15,8 +15,8 @@ public class ProductService implements ProductServiceI
     //--------------------------------------------------------------------------------------------------------
 
     @Override
-    public Collection<Product>getProducts()
-    {   return productDAO.loadProducts(); }
+    public Collection<Product>getProducts(int page, int pageSize)
+    {   return productDAO.loadProducts(page, pageSize); }
 
     @Override
     public Product getProduct(long productId)

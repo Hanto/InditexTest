@@ -9,7 +9,6 @@ import java.util.Collection;
 
 public interface ProductDAO
 {
-    Collection<Product> loadProducts();
     Collection<Product> loadProducts(int page, int pageSize);
     Product loadProduct(ProductId productId);
     Price loadPrice(PriceId priceId);

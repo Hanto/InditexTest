@@ -46,10 +46,6 @@ public class JpaPersistenceAdapter implements ProductDAO
     private static final int DEFAULT_PAGESIZE = 10;
 
     @Override
-    public Collection<Product>loadProducts()
-    {   return loadProducts(0, DEFAULT_PAGESIZE); }
-
-    @Override
     public Collection<Product>loadProducts(int page, int pageSize)
     {
         List<Product> products = productRepo.findAll(PageRequest.of(0, pageSize)).stream()

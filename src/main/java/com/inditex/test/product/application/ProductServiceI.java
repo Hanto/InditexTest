@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public interface ProductServiceI
 {
-    Collection<Product> getProducts();
+    Collection<Product>getProducts(int page, int pageSize);
     Product getProduct(long productId);
     Price getPrice(long priceId);
     Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time);

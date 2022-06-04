@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -21,7 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController @RequestMapping(value ="/api", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE})
-@RequiredArgsConstructor
+@RequiredArgsConstructor @SuppressWarnings("all")
 public class WebAdapter
 {
     @Autowired private final ProductServiceI productService;
@@ -29,7 +31,7 @@ public class WebAdapter
     @Autowired private final ProductDTOAssembler productAssembler;
     @Autowired private ApplicationEventPublisher eventPublisher;
 
-    // MAIN:
+    // ROOT: (discovery)
     //--------------------------------------------------------------------------------------------------------
 
     @GetMapping("")
@@ -37,18 +39,24 @@ public class WebAdapter
     {
         ApiDTO api = new ApiDTO();
 
-        Link selfLink = linkTo(methodOn(WebAdapter.class).getIndex()).withSelfRel();
-        Link allProductsLink = linkTo(methodOn(WebAdapter.class).getProducts()).withRel("All products");
+        api.add(linkTo(methodOn(WebAdapter.class).getIndex()).withSelfRel());
+        api.add(linkTo(methodOn(WebAdapter.class).getProducts(null, null)).withRel("All products"));
+        api.add(linkTo(methodOn(WebAdapter.class).getProduct(null)).withRel("Product"));
+        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null, null, null, null)).withRel("Price for product"));
+        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null)).withRel("Price"));
 
-        api.add(selfLink);
-        api.add(allProductsLink);
         return api;
     }
 
-    @GetMapping("/product")
-    public CollectionModel<ProductDTO> getProducts()
+    // MAIN:
+    //--------------------------------------------------------------------------------------------------------
+
+    @GetMapping("/products/{page}/{pageSize}")
+    public CollectionModel<ProductDTO> getProducts(
+        @NotNull @PathVariable Integer page,
+        @NotNull @PathVariable Integer pageSize)
     {
-        Collection<Product> products = productService.getProducts();
+        Collection<Product> products = productService.getProducts(page , pageSize);
         return productAssembler.toCollectionModel(products);
     }
 
@@ -59,14 +67,14 @@ public class WebAdapter
         return productAssembler.toModel(product);
     }
 
-    @GetMapping("/price/{productId}/{brandId}/{priceListId}")
+    @GetMapping("/price/{productId}/{brandId}/{priceListId}/{dateTime}")
     public PriceDTO getPrice(
         @NotNull @PathVariable Long productId,
         @NotNull @PathVariable Long brandId,
         @NotNull @PathVariable Long priceListId,
-        @NotNull @RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)LocalDateTime time)
+        @NotNull @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)LocalDateTime dateTime)
     {
-        Price price = productService.assignedPriceFor(productId, brandId, priceListId, time);
+        Price price = productService.assignedPriceFor(productId, brandId, priceListId, dateTime);
         return priceAssembler.toModel(price);
     }
 
