@@ -12,7 +12,6 @@ public class PricesTest
             LocalDateTime.now(), LocalDateTime.now().plusSeconds(1), 1, Currency.EUR, 100.50f);
         Price price3 = buildPrice(1, 1, 1, 1,
             LocalDateTime.now(), LocalDateTime.now().plusSeconds(1), 1, Currency.EUR, 100.50f);
-
     }
 
 

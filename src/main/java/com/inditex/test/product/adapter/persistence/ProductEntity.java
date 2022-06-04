@@ -14,10 +14,12 @@ import static com.inditex.test.product.adapter.persistence.PriceEntity.PRICE_CAC
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 @Entity @DynamicInsert @DynamicUpdate @Table(name = "PRODUCTS")
-@Cache(region = PRICE_CACHE_REGION, usage = READ_WRITE)
+@Cache(region = ProductEntity.PRODUCT_CACHE_REGION, usage = READ_WRITE)
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
 public class ProductEntity
 {
+    public static final String PRODUCT_CACHE_REGION = "Products";
+
     @Id @GeneratedValue
     private long productId;
 

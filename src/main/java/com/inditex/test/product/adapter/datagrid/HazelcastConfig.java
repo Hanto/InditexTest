@@ -15,7 +15,7 @@ import java.net.URL;
 
 @Configuration
 @Log4j2 @RequiredArgsConstructor
-public class Hazelcast
+public class HazelcastConfig
 {
     @Autowired private final ResourcePatternResolver resourceResolver;
 

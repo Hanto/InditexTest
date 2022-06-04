@@ -4,6 +4,7 @@ import com.inditex.test.product.domain.*;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @RequiredArgsConstructor
 public class ProductService implements ProductServiceI
@@ -12,6 +13,10 @@ public class ProductService implements ProductServiceI
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
+
+    @Override
+    public Collection<Product>getProducts()
+    {   return productDAO.loadProducts(); }
 
     @Override
     public Product getProduct(long productId)

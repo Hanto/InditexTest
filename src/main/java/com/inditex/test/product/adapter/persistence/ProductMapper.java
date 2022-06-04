@@ -20,6 +20,14 @@ public class ProductMapper
     // MAPPERS:
     //--------------------------------------------------------------------------------------------------------
 
+    Product fromEntity(ProductEntity productEntity)
+    {
+        ProductId productId         = new ProductId(productEntity.getProductId());
+        ProductName name            = new ProductName(productEntity.getShortName(), productEntity.getLongName());
+
+        return new Product(productId, name, new Prices());
+    }
+
     Product fromEntity(ProductEntity productEntity, Collection<PriceEntity> priceEntities)
     {
         ProductId productId         = new ProductId(productEntity.getProductId());

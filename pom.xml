@@ -110,11 +110,13 @@
 			<version>3.4</version>
 		</dependency>
 
-		<!-- to generate a WEB on /swagger-ui/ -->
+		<!--  Swagger 2, to automatically generate API documentation
+        ======================================================================================!-->
+
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>3.0.0</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.9</version>
 		</dependency>
 
 		<!-- Testing

@@ -17,7 +17,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 {
     @Index(name = "productIdIndex", columnList = "productId")
 })
-@Cache(region = PRICE_CACHE_REGION, usage = READ_WRITE)
+@Cache(region = PriceEntity.PRICE_CACHE_REGION, usage = READ_WRITE)
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
 public class PriceEntity implements Persistable<Long>
 {
