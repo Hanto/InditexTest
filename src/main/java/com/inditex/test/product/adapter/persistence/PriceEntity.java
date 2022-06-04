@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -25,20 +26,29 @@ public class PriceEntity implements Persistable<Long>
     @Id @GeneratedValue
     private long priceId;
 
+    @NotNull
     private long productId;
 
+    @NotNull
     private long brandId;
 
+    @NotNull
     private long priceListId;
 
+    @NotNull
     private LocalDateTime startDate;
+
+    @NotNull
     private LocalDateTime endDate;
 
+    @NotNull
     private int priority;
 
+    @NotNull
     private String currency;
-    private BigDecimal money;
 
+    @NotNull
+    private BigDecimal money;
 
     // PERSISTABLE (for fast inserts:
     //--------------------------------------------------------------------------------------------------------

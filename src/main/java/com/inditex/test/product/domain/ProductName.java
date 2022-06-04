@@ -11,10 +11,10 @@ public class ProductName
     @NonNull String shortName;
     @NonNull String longName;
 
-    private static final int SHORTNAME_MIN_SIZE = 3;
-    private static final int SHORTNAME_MAX_SIZE = 20;
-    private static final int LONGNAME_MIN_SIZE = 3;
-    private static final int LONGNAME_MAX_SIZE = 100;
+    public static final int SHORTNAME_MIN_SIZE = 3;
+    public static final int SHORTNAME_MAX_SIZE = 20;
+    public static final int LONGNAME_MIN_SIZE = 3;
+    public static final int LONGNAME_MAX_SIZE = 100;
 
     // CONSTRUCTORS:
     //--------------------------------------------------------------------------------------------------------

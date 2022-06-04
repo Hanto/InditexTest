@@ -5,11 +5,15 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.inditex.test.product.domain.ProductName.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 @Entity @DynamicInsert @DynamicUpdate @Table(name = "PRODUCTS")
@@ -24,19 +28,32 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
     )
 })
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
-public class ProductEntity
+public class ProductEntity implements Persistable<Long>
 {
     public static final String GRAPH_ALL = "Product.All";
     public static final String PRODUCT_CACHE_REGION = "Products";
 
     @Id @GeneratedValue
+    @Setter(AccessLevel.NONE)
     private long productId;
 
+    @NotNull @Size(min = SHORTNAME_MIN_SIZE, max = SHORTNAME_MAX_SIZE)
     private String shortName;
 
+    @NotNull @Size(min = LONGNAME_MIN_SIZE, max = LONGNAME_MAX_SIZE)
     private String longName;
 
-    @OneToMany(mappedBy = "productId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
     private List<PriceEntity>prices = new ArrayList<>();
+
+    // PERSISTABLE (for fast inserts:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Override
+    public Long getId()
+    {   return productId; }
+
+    @Transient
+    private boolean isNew = false;
 }
