@@ -34,12 +34,15 @@ public class ProductEntity implements Persistable<Long>
     public static final String PRODUCT_CACHE_REGION = "Products";
 
     @Id @GeneratedValue
+    @Column(name = "PRODUCT_ID", nullable = false)
     @Setter(AccessLevel.NONE)
     private long productId;
 
+    @Column(name = "SHORT_NAME", nullable = false)
     @NotNull @Size(min = SHORTNAME_MIN_SIZE, max = SHORTNAME_MAX_SIZE)
     private String shortName;
 
+    @Column(name = "LONG_NAME", nullable = false)
     @NotNull @Size(min = LONGNAME_MIN_SIZE, max = LONGNAME_MAX_SIZE)
     private String longName;
 

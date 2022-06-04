@@ -24,29 +24,38 @@ public class PriceEntity implements Persistable<Long>
     public static final String PRICE_CACHE_REGION = "Price";
 
     @Id @GeneratedValue
+    @Column(name = "PRICE_ID", nullable = false)
     private long priceId;
 
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
     @NotNull
     private long productId;
 
+    @Column(name = "BRAND_ID", nullable = false)
     @NotNull
     private long brandId;
 
+    @Column(name = "PRICE_LIST_ID", nullable = false)
     @NotNull
     private long priceListId;
 
+    @Column(name = "START_DATE", nullable = false)
     @NotNull
     private LocalDateTime startDate;
 
+    @Column(name = "END_DATE", nullable = false)
     @NotNull
     private LocalDateTime endDate;
 
+    @Column(name = "PRIORITY", nullable = false)
     @NotNull
     private int priority;
 
+    @Column(name = "CURRENCY", nullable = false)
     @NotNull
     private String currency;
 
+    @Column(name = "MONEY", nullable = false)
     @NotNull
     private BigDecimal money;
 
