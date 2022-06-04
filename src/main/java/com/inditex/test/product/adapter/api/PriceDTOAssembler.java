@@ -1,12 +1,9 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.adapter.persistence.PriceMapper;
 import com.inditex.test.product.domain.Price;
-import com.inditex.test.product.domain.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;

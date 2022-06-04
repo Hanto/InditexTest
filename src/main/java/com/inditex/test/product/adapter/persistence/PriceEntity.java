@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static com.inditex.test.product.adapter.persistence.PriceEntity.PRICE_CACHE_REGION;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 @Entity @DynamicInsert @DynamicUpdate @Table(name = "PRICES", indexes =

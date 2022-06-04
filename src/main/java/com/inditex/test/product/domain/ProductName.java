@@ -4,7 +4,6 @@ import lombok.NonNull;
 import lombok.Value;
 
 import static java.lang.String.format;
-import static org.apache.commons.lang3.StringUtils.isAlphanumeric;
 
 @Value
 public class ProductName

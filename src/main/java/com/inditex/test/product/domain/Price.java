@@ -5,8 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 public class Price
 {
