@@ -2,6 +2,7 @@ package com.inditex.test.product.application;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.domain.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -14,15 +15,15 @@ public class ProductService implements ProductServiceI
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    @Override
+    @Override @Transactional
     public Collection<Product>getProducts(int page, int pageSize)
     {   return productDAO.loadProducts(page, pageSize); }
 
-    @Override
+    @Override @Transactional
     public Product getProduct(long productId)
     {   return productDAO.loadProduct(new ProductId(productId)); }
 
-    @Override
+    @Override @Transactional
     public Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time)
     {
         Product product = productDAO.loadProduct(new ProductId(productId));
@@ -30,7 +31,7 @@ public class ProductService implements ProductServiceI
         return product.getPrices().getPriceAt(time, new BrandId(brandId), new PriceListId(priceListId));
     }
 
-    @Override
+    @Override @Transactional
     public Price getPrice(long priceId)
     {   return  productDAO.loadPrice(new PriceId(priceId)); }
 }
