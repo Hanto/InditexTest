@@ -15,15 +15,18 @@ public class ProductService implements ProductServiceI
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
-    @Override @Transactional
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Collection<Product>getProducts(int page, int pageSize)
     {   return productDAO.loadProducts(page, pageSize); }
 
-    @Override @Transactional
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Product getProduct(long productId)
     {   return productDAO.loadProduct(new ProductId(productId)); }
 
-    @Override @Transactional
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time)
     {
         Product product = productDAO.loadProduct(new ProductId(productId));
@@ -31,7 +34,8 @@ public class ProductService implements ProductServiceI
         return product.getPrices().getPriceAt(time, new BrandId(brandId), new PriceListId(priceListId));
     }
 
-    @Override @Transactional
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Price getPrice(long priceId)
     {   return  productDAO.loadPrice(new PriceId(priceId)); }
 }
