@@ -1,0 +1,9 @@
+hazelcast:
+  map:
+    Prices:
+      time-to-live-seconds: 18000
+      max-idle-seconds: 7200
+      eviction:
+        eviction-policy: LRU
+        max-size-policy: PER_NODE
+        size: 1000
