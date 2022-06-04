@@ -1,5 +1,6 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
+import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
 import com.inditex.test.product.application.ProductDAO;
 import com.inditex.test.product.domain.Price;
 import com.inditex.test.product.domain.PriceId;
@@ -8,14 +9,18 @@ import com.inditex.test.product.domain.ProductId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
 
+import static com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs.named;
+import static com.inditex.test.product.adapter.persistence.ProductEntity.GRAPH_PRODUCT_ALL;
 import static java.lang.String.format;
 
 @Component
+@EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @RequiredArgsConstructor
 public class JpaPersistenceAdapter implements ProductDAO
 {
@@ -30,7 +35,7 @@ public class JpaPersistenceAdapter implements ProductDAO
     @Override
     public Product loadProduct(ProductId productId)
     {
-        ProductEntity productEntity = productRepo.findById(productId.getId())
+        ProductEntity productEntity = productRepo.findById(productId.getId(), named(GRAPH_PRODUCT_ALL))
             .orElseThrow(() -> new IllegalArgumentException(format("No product exists with the id: %s", productId.getId())));
 
         return productMapper.fromFullEntity(productEntity);

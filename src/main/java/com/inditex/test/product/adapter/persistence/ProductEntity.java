@@ -21,7 +21,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 @NamedEntityGraphs
 ({
     @NamedEntityGraph
-    (   name = ProductEntity.GRAPH_ALL, attributeNodes =
+    (   name = ProductEntity.GRAPH_PRODUCT_ALL, attributeNodes =
         {
             @NamedAttributeNode(value = "prices")
         }
@@ -30,7 +30,7 @@ import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
 public class ProductEntity implements Persistable<Long>
 {
-    public static final String GRAPH_ALL = "Product.All";
+    public static final String GRAPH_PRODUCT_ALL = "Product.All";
     public static final String PRODUCT_CACHE_REGION = "Products";
 
     @Id @GeneratedValue

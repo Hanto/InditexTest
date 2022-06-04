@@ -4,8 +4,8 @@ import com.hazelcast.config.Config;
 import com.hazelcast.config.YamlConfigBuilder;
 import com.hazelcast.core.HazelcastInstance;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.net.URL;
 
 @Configuration
-@Log4j2 @RequiredArgsConstructor
+@EnableCaching
+@RequiredArgsConstructor
 public class HazelcastConfig
 {
     @Autowired private final ResourcePatternResolver resourceResolver;
