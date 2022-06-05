@@ -169,6 +169,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Database profiler for DataJPATests-->
+		<dependency>
+			<groupId>io.sniffy</groupId>
+			<artifactId>sniffy-web</artifactId>
+			<version>3.1.12</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

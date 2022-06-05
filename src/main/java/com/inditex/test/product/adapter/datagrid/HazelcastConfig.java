@@ -2,6 +2,7 @@ package com.inditex.test.product.adapter.datagrid;// Created by jhant on 03/06/2
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.YamlConfigBuilder;
+import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,6 @@ class HazelcastConfig
         URL configURL = resourceResolver.getResource("classpath:hazelcast.yml").getURL();
         Config config = new YamlConfigBuilder(configURL).build();
 
-        return com.hazelcast.core.Hazelcast.newHazelcastInstance(config);
+        return Hazelcast.newHazelcastInstance(config);
     }
 }
