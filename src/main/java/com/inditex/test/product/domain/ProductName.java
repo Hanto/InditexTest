@@ -17,7 +17,7 @@ public class ProductName
     public static final int SHORTNAME_MIN_SIZE = 3;
     public static final int SHORTNAME_MAX_SIZE = 20;
     public static final int LONGNAME_MIN_SIZE = 3;
-    public static final int LONGNAME_MAX_SIZE = 100;
+    public static final int LONGNAME_MAX_SIZE = 50;
 
     // CONSTRUCTORS:
     //--------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ public class ProductName
             errors.add(format("Shortname: %s, should have between %s and %s characters", shortName, SHORTNAME_MIN_SIZE, SHORTNAME_MAX_SIZE));
 
         if (hasIncorrectName(longName))
-            errors.add(format("Longname: %s, should have only alphanumerical characters", shortName));
+            errors.add(format("Longname: %s, should have only alphanumerical characters", longName));
 
         if (hasIncorrectSize(longName, LONGNAME_MIN_SIZE, LONGNAME_MAX_SIZE))
             errors.add(format("Longname: %s, should have between %s and %s characters", longName, LONGNAME_MIN_SIZE, LONGNAME_MAX_SIZE));

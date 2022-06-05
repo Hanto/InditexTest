@@ -33,12 +33,6 @@ public class Money
         this.currency = currency;
     }
 
-    // CLONE:
-    //--------------------------------------------------------------------------------------------------------
-
-    public Money fromMoney(Money money)
-    {   return new Money(money.getCuantity(), money.getCurrency()); }
-
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
 

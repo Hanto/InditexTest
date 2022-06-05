@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@AllArgsConstructor @ToString @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 public class Price
 {
     @EqualsAndHashCode.Include

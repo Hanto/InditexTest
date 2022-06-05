@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class MoneyTest
 {
@@ -16,16 +16,16 @@ public class MoneyTest
         @Test @DisplayName("THEN: an exception is thrown")
         public void operationTest()
         {
-            Money money1 = new Money(100.50f, Currency.EUR);
-            Money money2 = new Money(100.50f, Currency.USD);
+            Money money1 = new Money(100.50f, "EUR");
+            Money money2 = new Money(100.50f, "USD");
 
-            try
-            {
-                money1.plus(money2);
-                failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
-            }
-            catch (Exception e)
-            {   assertThat(e).hasMessageContaining("Currency should be the same"); }
+            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
+                money1.plus(money2))
+                .withMessageContaining("Currency should be the same");
+
+            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
+                money1.minus(money2))
+                .withMessageContaining("Currency should be the same");
         }
     }
 
@@ -67,8 +67,4 @@ public class MoneyTest
             assertThat(money2).isNotEqualTo(result);
         }
     }
-
-
-
-
 }

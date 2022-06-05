@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class DateTimeIntervalTest
 {
@@ -16,24 +17,27 @@ public class DateTimeIntervalTest
         @Test @DisplayName("THEN: an exception is thrown")
         public void plusTest()
         {
-            try
-            {
-                new DateInterval(LocalDateTime.now().plusSeconds(1), LocalDateTime.now());
-                failBecauseExceptionWasNotThrown(IllegalArgumentException.class);
-            }
-            catch (Exception e)
-            {   assertThat(e).hasMessageContaining("Start date cannot be after End date"); }
+            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
+                new DateInterval(LocalDateTime.now().plusSeconds(1), LocalDateTime.now()))
+                .withMessageContaining("Start date cannot be after End date");
         }
     }
 
     @Nested @DisplayName("WHEN: an interval is created and end comes after start")
     public class InvalidDates
     {
-        @Test @DisplayName("THEN: cannot sum/substract")
+        @Test @DisplayName("THEN: dates are correctly stored")
         public void plusTest()
         {
-            assertThatNoException().isThrownBy(() ->
-                new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusSeconds(1)));
+            LocalDateTime start = LocalDateTime.now();
+            LocalDateTime end = LocalDateTime.now().plusSeconds(1);
+
+            DateInterval interval = new DateInterval(start, end);
+            DateInterval interval2 = new DateInterval(start, end);
+
+            assertThat(interval).isEqualTo(interval2);
+            assertThat(interval.getStartDate()).isEqualTo(start);
+            assertThat(interval.getEndDate()).isEqualTo(end);
         }
     }
 }
