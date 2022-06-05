@@ -24,7 +24,7 @@ public class DateInterval
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
 
-    public boolean isDateInTheInterval(LocalDateTime date)
+    public boolean isInDateInTheInterval(LocalDateTime date)
     {   return startDate.isBefore(date) && endDate.isAfter(date); }
 
     // VALIDATION:

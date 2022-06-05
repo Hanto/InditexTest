@@ -128,7 +128,7 @@ public class PricesTest
             @Test @DisplayName("THEN: a price in that time interval with the highest priority is returned")
             public void getPriceNowTest()
             {
-                Price priceNow = buildPrice(5L, 1L, 1, 1,LocalDateTime.now().toString(), LocalDateTime.now().plusMinutes(1).toString(), 2, EUR, 50.50f);
+                Price priceNow = buildPrice(5L, 1L, 1, 1,LocalDateTime.now().minusSeconds(1).toString(), LocalDateTime.now().plusMinutes(1).toString(), 2, EUR, 50.50f);
                 prices.addPrices(List.of(priceNow));
                 assertThat(prices.getPriceList()).hasSize(priceList.size() +1);
 
