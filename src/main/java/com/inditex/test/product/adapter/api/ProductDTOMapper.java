@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.domain.Product;
+import com.inditex.test.product.domain.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

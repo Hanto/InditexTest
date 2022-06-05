@@ -2,10 +2,10 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/0
 
 import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
 import com.inditex.test.product.application.ProductDAO;
-import com.inditex.test.product.domain.Price;
-import com.inditex.test.product.domain.PriceId;
-import com.inditex.test.product.domain.Product;
-import com.inditex.test.product.domain.ProductId;
+import com.inditex.test.product.domain.model.Price;
+import com.inditex.test.product.domain.model.PriceId;
+import com.inditex.test.product.domain.model.Product;
+import com.inditex.test.product.domain.model.ProductId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +28,17 @@ class JpaPersistenceAdapter implements ProductDAO
     @Autowired private final ProductRepository productRepo;
     @Autowired private final ProductMapper productMapper;
     @Autowired private final PriceMapper priceMapper;
+
+    // ID GENERATION:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Override
+    public long generateUniqueProductId()
+    {   return productRepo.getNextId(); }
+
+    @Override
+    public long generateUniquePriceId()
+    {   return priceRepo.getNextId(); }
 
     // PRODUCTS:
     //--------------------------------------------------------------------------------------------------------

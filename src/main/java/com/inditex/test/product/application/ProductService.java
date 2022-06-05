@@ -1,18 +1,37 @@
 package com.inditex.test.product.application;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.domain.*;
+import com.inditex.test.product.domain.model.*;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.StaleStateException;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @RequiredArgsConstructor
 public class ProductService implements ProductServiceI
 {
     private final ProductDAO productDAO;
 
-    // MAIN:
+    // CREATION:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void createProduct(String shortName, String longName)
+    {
+        ProductId id    = new ProductId(productDAO.generateUniqueProductId());
+        ProductName name= new ProductName(shortName, longName);
+        Product product = new Product(id, name);
+
+        productDAO.saveProduct(product);
+    }
+
+    // SELECT:
     //--------------------------------------------------------------------------------------------------------
 
     @Override
@@ -30,17 +49,29 @@ public class ProductService implements ProductServiceI
     public Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time)
     {
         Product product = productDAO.loadProduct(new ProductId(productId));
-
         return product.getPrices().getPriceAt(time, new BrandId(brandId), new PriceListId(priceListId));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Price getPrice(long priceId)
-    {   return  productDAO.loadPrice(new PriceId(priceId)); }
+    {   return productDAO.loadPrice(new PriceId(priceId)); }
+
+    // UPDATE:
+    //--------------------------------------------------------------------------------------------------------
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void saveProduct(Product product)
-    {   productDAO.saveProduct(product); }
+    @Retryable(
+        value = {StaleStateException.class},
+        maxAttempts = 3,
+        backoff = @Backoff(delay = 50, multiplier = 2, maxDelay = 1000))
+    @Transactional(
+        propagation = REQUIRES_NEW,
+        rollbackFor = Exception.class)
+    public void modifyShortName(long priceId, String shortName)
+    {
+        Product product = productDAO.loadProduct(new ProductId(priceId));
+        product.changeShortName(shortName);
+        productDAO.saveProduct(product);
+    }
 }

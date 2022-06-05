@@ -1,4 +1,4 @@
-package com.inditex.test.product.domain;// Created by jhant on 03/06/2022.
+package com.inditex.test.product.domain.model;// Created by jhant on 03/06/2022.
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -16,6 +16,15 @@ public class Product
     @Getter private ProductName productName;
     @Getter private final Prices prices;
     @Getter private final int version;
+
+    // CONSTRUCTOR:
+    //--------------------------------------------------------------------------------------------------------
+
+    public Product(ProductId productId, ProductName name)
+    {
+        this.productId = productId; this.productName = name;
+        this.prices = new Prices(); this.version = 0;
+    }
 
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------

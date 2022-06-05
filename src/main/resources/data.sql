@@ -1,3 +1,9 @@
+create sequence PRODUCT_ID_SEQUENCE
+  start WITH 1 increment BY 1 minvalue 1;
+
+create sequence PRICE_ID_SEQUENCE
+  start WITH 1 increment BY 1 minvalue 1;
+
 insert into PRODUCTS
 (product_Id, short_name, long_name, version) values
 (35455, 'Black TShirt', 'Black TShirt from hell', 0),

@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.inditex.test.product.domain.ProductName.*;
+import static com.inditex.test.product.domain.model.ProductName.*;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 @Entity @DynamicInsert @DynamicUpdate @Table(name = "PRODUCTS")

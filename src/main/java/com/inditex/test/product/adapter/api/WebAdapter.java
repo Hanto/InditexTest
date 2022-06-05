@@ -1,8 +1,8 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.application.ProductServiceI;
-import com.inditex.test.product.domain.Price;
-import com.inditex.test.product.domain.Product;
+import com.inditex.test.product.domain.model.Price;
+import com.inditex.test.product.domain.model.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

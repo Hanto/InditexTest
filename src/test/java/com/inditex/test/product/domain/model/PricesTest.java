@@ -1,4 +1,4 @@
-package com.inditex.test.product.domain;// Created by jhant on 04/06/2022.
+package com.inditex.test.product.domain.model;// Created by jhant on 04/06/2022.
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static com.inditex.test.product.domain.Currency.EUR;
+import static com.inditex.test.product.domain.model.Currency.EUR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -53,36 +53,16 @@ public class PricesTest
         @Nested @DisplayName("WHEN: Adding non existant prices")
         class DifferentPrice
         {
-            @Nested @DisplayName("WHEN: Prices have no ID")
-            class NewPrices
+            @Test @DisplayName("THEN: prices are added")
+            public void addNewPrice()
             {
-                @Test @DisplayName("THEN: prices are added")
-                public void addNewPrice()
-                {
-                    Price newPrice1 = buildPrice(null, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
-                    Price newPrice2 = buildPrice(null, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
+                Price newPrice1 = buildPrice(10L, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
+                Price newPrice2 = buildPrice(11L, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
 
-                    assertThat(prices.getPriceList()).hasSize(priceList.size());
-                    prices.addPrices(List.of(newPrice1));
-                    prices.addPrices(List.of(newPrice1));
-                    prices.addPrices(List.of(newPrice2));
-                    prices.addPrices(List.of(newPrice2));
-                    assertThat(prices.getPriceList()).hasSize(priceList.size() +2);
-                }
-            }
-
-            @Nested @DisplayName("WHEN: Prices have an ID")
-            class NoNewPrices
-            {
-                @Test @DisplayName("THEN: prices are added")
-                public void addPriceTest()
-                {
-                    Price newPrice = buildPrice(10L, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59" , 1, EUR, 50.50f);
-
-                    assertThat(prices.getPriceList()).hasSize(priceList.size());
-                    prices.addPrices(List.of(newPrice));
-                    assertThat(prices.getPriceList()).hasSize(priceList.size() +1);
-                }
+                assertThat(prices.getPriceList()).hasSize(priceList.size());
+                prices.addPrices(List.of(newPrice1));
+                prices.addPrices(List.of(newPrice2));
+                assertThat(prices.getPriceList()).hasSize(priceList.size() +2);
             }
         }
     }
@@ -111,7 +91,7 @@ public class PricesTest
             @Test @DisplayName("THEN: nothing is removed")
             public void removePriceTest()
             {
-                Price newPrice1 = buildPrice(null, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
+                Price newPrice1 = buildPrice(30L, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
 
 
                 assertThat(prices.getPriceList()).hasSize(priceList.size());
@@ -220,8 +200,8 @@ public class PricesTest
     private Price buildPrice(Long priceL, Long productL, long brandL, long priceListL,
         String startString, String endString, int priority, Currency currency, float quantity)
     {
-        PriceId priceId             = priceL != null ? new PriceId(priceL) : new PriceId();
-        ProductId productId         = productL != null ? new ProductId(productL) : new ProductId();
+        PriceId priceId             = new PriceId(priceL);
+        ProductId productId         = new ProductId(productL);
         BrandId branId              = new BrandId(brandL);
         PriceListId priceListId     = new PriceListId(priceListL);
         LocalDateTime start         = LocalDateTime.parse(startString);

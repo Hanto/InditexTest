@@ -1,4 +1,4 @@
-package com.inditex.test.product.domain;// Created by jhant on 05/06/2022.
+package com.inditex.test.product.domain.model;// Created by jhant on 05/06/2022.
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

@@ -1,4 +1,4 @@
-package com.inditex.test.product.domain;// Created by jhant on 03/06/2022.
+package com.inditex.test.product.domain.model;// Created by jhant on 03/06/2022.
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -16,10 +16,10 @@ public class Prices
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
 
-    void addPrices(Collection<Price> collection)
+    public void addPrices(Collection<Price> collection)
     {   prices.addAll(collection); }
 
-    void removePrice(Price price)
+    public void removePrice(Price price)
     {   prices.remove(price); }
 
     public Collection<Price> getPriceList()

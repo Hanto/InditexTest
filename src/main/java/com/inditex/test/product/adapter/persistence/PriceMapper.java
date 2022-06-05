@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.domain.*;
+import com.inditex.test.product.domain.model.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

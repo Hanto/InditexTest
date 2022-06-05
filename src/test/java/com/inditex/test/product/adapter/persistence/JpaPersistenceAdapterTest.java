@@ -1,7 +1,7 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.domain.Product;
-import com.inditex.test.product.domain.ProductId;
+import com.inditex.test.product.domain.model.Product;
+import com.inditex.test.product.domain.model.ProductId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
