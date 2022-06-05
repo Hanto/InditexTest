@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 @DataJpaTest @ActiveProfiles("JpaH2") @EnableSniffy
 @Import({JpaPersistenceAdapter.class, ProductMapper.class, PriceMapper.class})
@@ -114,6 +115,16 @@ class JpaPersistenceAdapterTest
             assertThat(price.getMoney().getCurrency().toString()).isEqualTo("EUR");
 
             profiler.verify(SqlQueries.atMostOneQuery());
+        }
+
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: a product can be saved")
+        public void saveProduct()
+        {
+            Product product = adapter.loadProduct(new ProductId(354550L));
+            product.changeShortName("newShortName");
+
+            assertThatNoException().isThrownBy(() -> adapter.saveProduct(product));
         }
     }
 }

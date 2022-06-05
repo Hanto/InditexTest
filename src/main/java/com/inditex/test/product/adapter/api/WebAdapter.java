@@ -87,15 +87,15 @@ class WebAdapter
 
     //TODO:
     @GetMapping("/brand/{brandId}")
-    public PriceDTO getBrand( @NotNull @PathVariable Long brandId)
+    public ApiDTO getBrand( @NotNull @PathVariable Long brandId)
     {
-        return null;
+        return new ApiDTO();
     }
 
     //TODO:
     @GetMapping("/priceList/{priceListId}")
-    public PriceDTO getPriceList( @NotNull @PathVariable Long priceListId)
+    public ApiDTO getPriceList( @NotNull @PathVariable Long priceListId)
     {
-        return null;
+        return new ApiDTO();
     }
 }
