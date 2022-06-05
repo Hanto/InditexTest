@@ -28,6 +28,6 @@ public class PricesTest
         DateInterval dateInterval   = new DateInterval(start, end);
         Money money                 = new Money(quantity, currency);
 
-        return new Price(productId, priceId, branId, priceListId, dateInterval, priority, money);
+        return new Price(priceId, productId, branId, priceListId, dateInterval, priority, money);
     }
 }

@@ -1,0 +1,78 @@
+package com.inditex.test.product.adapter.api;// Created by jhant on 05/06/2022.
+
+import com.inditex.test.product.application.ProductServiceI;
+import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+
+import java.time.LocalDateTime;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest(controllers = WebAdapter.class)
+public class WebAdapterTest
+{
+    @Autowired private MockMvc mockMvc;
+    @MockBean private ProductServiceI productService;
+    @MockBean private PriceDTOAssembler priceAssembler;
+    @MockBean private ProductDTOAssembler productAssembler;
+
+    // MAIN:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Test
+    void getProductsTest() throws Exception
+    {
+        MockHttpServletRequestBuilder get = get("/api/products/{page}/{pageSize}", 1, 10);
+
+        mockMvc.perform(get)
+            .andExpect(status().isOk());
+
+        BDDMockito.then(productService)
+            .should().getProducts(1, 10);
+    }
+
+    @Test
+    void getProductTest() throws Exception
+    {
+        MockHttpServletRequestBuilder get = get("/api/product/{productId}", 38455L);
+
+        mockMvc.perform(get)
+            .andExpect(status().isOk());
+
+        BDDMockito.then(productService)
+            .should().getProduct(38455L);
+    }
+
+    @Test
+    void getAssignedPriceTest() throws Exception
+    {
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        MockHttpServletRequestBuilder get = get("/api/price/{productId}/{brandId}/{priceListId}/{dateTime}",
+            3945, 1, 1, dateTime);
+
+        mockMvc.perform(get)
+            .andExpect(status().isOk());
+
+        BDDMockito.then(productService)
+            .should().assignedPriceFor(3945, 1, 1, dateTime);
+    }
+
+    @Test
+    void getPriceTest() throws Exception
+    {
+        MockHttpServletRequestBuilder get = get("/api/price/{priceId}",1);
+
+        mockMvc.perform(get)
+            .andExpect(status().isOk());
+
+        BDDMockito.then(productService)
+            .should().getPrice(1);
+    }
+}

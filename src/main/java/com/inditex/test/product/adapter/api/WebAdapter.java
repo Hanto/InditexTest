@@ -6,7 +6,6 @@ import com.inditex.test.product.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.MediaTypes;
@@ -31,7 +30,6 @@ public class WebAdapter
     @Autowired private final ProductServiceI productService;
     @Autowired private final PriceDTOAssembler priceAssembler;
     @Autowired private final ProductDTOAssembler productAssembler;
-    @Autowired private ApplicationEventPublisher eventPublisher;
 
     // ROOT: (discovery)
     //--------------------------------------------------------------------------------------------------------
