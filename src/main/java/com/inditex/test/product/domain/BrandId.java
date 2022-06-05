@@ -14,5 +14,5 @@ public class BrandId
     //--------------------------------------------------------------------------------------------------------
 
     public BrandId()
-    {   this.id = UUID.randomUUID().getLeastSignificantBits(); }
+    {   this.id = UUID.randomUUID().getMostSignificantBits(); }
 }

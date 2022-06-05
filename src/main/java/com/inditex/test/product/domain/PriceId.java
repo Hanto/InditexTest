@@ -14,5 +14,5 @@ public class PriceId
     //--------------------------------------------------------------------------------------------------------
 
     public PriceId()
-    {   this.id = UUID.randomUUID().getLeastSignificantBits(); }
+    {   this.id = UUID.randomUUID().getMostSignificantBits(); }
 }

@@ -14,5 +14,5 @@ public class ProductId
     //--------------------------------------------------------------------------------------------------------
 
     public ProductId()
-    {   this.id = UUID.randomUUID().getLeastSignificantBits(); }
+    {   this.id = UUID.randomUUID().getMostSignificantBits(); }
 }
