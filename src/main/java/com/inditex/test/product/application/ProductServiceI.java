@@ -12,4 +12,6 @@ public interface ProductServiceI
     Product getProduct(long productId);
     Price getPrice(long priceId);
     Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time);
+
+    void saveProduct(Product product);
 }

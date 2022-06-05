@@ -23,6 +23,9 @@ public class PriceEntity implements Persistable<Long>
 {
     public static final String PRICE_CACHE_REGION = "Price";
 
+    // ENTITY:
+    //--------------------------------------------------------------------------------------------------------
+
     @Id @GeneratedValue
     @Column(name = "PRICE_ID", nullable = false)
     private long priceId;

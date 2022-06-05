@@ -1,6 +1,6 @@
 insert into PRODUCTS
-(product_Id, short_name, long_name) values
-(35456, 'Black TShirt', 'Black TShirt from hell');
+(product_Id, short_name, long_name, version) values
+(35456, 'Black TShirt', 'Black TShirt from hell', 0);
 
 insert into PRICES
 (price_Id, product_Id, brand_Id, price_List_Id, start_Date, end_Date, priority, currency, money) values

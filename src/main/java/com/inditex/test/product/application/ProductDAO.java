@@ -12,4 +12,6 @@ public interface ProductDAO
     Collection<Product> loadProducts(int page, int pageSize);
     Product loadProduct(ProductId productId);
     Price loadPrice(PriceId priceId);
+
+    void saveProduct(Product product);
 }

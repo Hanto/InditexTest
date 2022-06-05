@@ -38,4 +38,9 @@ public class ProductService implements ProductServiceI
     @Transactional(rollbackFor = Exception.class)
     public Price getPrice(long priceId)
     {   return  productDAO.loadPrice(new PriceId(priceId)); }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void saveProduct(Product product)
+    {   productDAO.saveProduct(product); }
 }

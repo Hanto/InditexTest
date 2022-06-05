@@ -29,7 +29,7 @@ public class JpaPersistenceAdapter implements ProductDAO
     @Autowired private final ProductMapper productMapper;
     @Autowired private final PriceMapper priceMapper;
 
-    // MAIN:
+    // PRODUCTS:
     //--------------------------------------------------------------------------------------------------------
 
     @Override
@@ -49,6 +49,16 @@ public class JpaPersistenceAdapter implements ProductDAO
         return list.stream()
             .map(productMapper::fromBaseEntity).toList();
     }
+
+    @Override
+    public void saveProduct(Product product)
+    {
+        ProductEntity entity = productMapper.fromDomain(product);
+        productRepo.save(entity);
+    }
+
+    // PRICES:
+    //--------------------------------------------------------------------------------------------------------
 
     @Override
     public Price loadPrice(PriceId priceId)

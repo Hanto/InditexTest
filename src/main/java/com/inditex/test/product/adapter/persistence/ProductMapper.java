@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_SINGLETON;
 
@@ -25,7 +26,7 @@ public class ProductMapper
         ProductName name            = new ProductName(productEntity.getShortName(), productEntity.getLongName());
         Collection<Price> priceList = productEntity.getPrices().stream().map(priceMapper::fromEntity).toList();
 
-        Product product = new Product(productId, name, new Prices());
+        Product product = new Product(productId, name, new Prices(), productEntity.getVersion());
         product.addPrices(priceList);
 
         return product;
@@ -36,6 +37,20 @@ public class ProductMapper
         ProductId productId         = new ProductId(productEntity.getProductId());
         ProductName name            = new ProductName(productEntity.getShortName(), productEntity.getLongName());
 
-        return new Product(productId, name, new Prices());
+        return new Product(productId, name, new Prices(), productEntity.getVersion());
+    }
+
+    ProductEntity fromDomain(Product product)
+    {
+        List<PriceEntity>priceEntities = product.getPrices().getPriceList().stream()
+            .map(priceMapper::fromDomain).toList();
+
+        return ProductEntity.builder()
+            .productId(product.getProductId().getId())
+            .shortName(product.getProductName().getShortName())
+            .longName(product.getProductName().getLongName())
+            .prices(priceEntities)
+            .version(product.getVersion())
+            .build();
     }
 }

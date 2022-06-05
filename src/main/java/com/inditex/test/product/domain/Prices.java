@@ -19,6 +19,15 @@ public class Prices
     void addPrices(Collection<Price> collection)
     {   prices.addAll(collection); }
 
+    public void removePrice(PriceId priceId)
+    {
+        Optional<Price> priceOpt = prices.stream()
+            .filter(p -> p.getPriceId().equals(priceId))
+            .findFirst();
+
+        priceOpt.ifPresent(prices::remove);
+    }
+
     public List<Price> getPriceList()
     {   return Collections.unmodifiableList(prices); }
 

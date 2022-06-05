@@ -22,6 +22,21 @@ public class PriceMapper
         int priority                = entity.getPriority();
         Money money                 = new Money(entity.getMoney(), entity.getCurrency());
 
-        return new Price(productId, priceId, branId, priceListId, dateInterval, priority, money);
+        return new Price(priceId, productId, branId, priceListId, dateInterval, priority, money);
+    }
+
+    PriceEntity fromDomain(Price price)
+    {
+        return PriceEntity.builder()
+            .priceId(price.getPriceId().getId())
+            .productId(price.getProductId().getId())
+            .brandId(price.getBrandId().getId())
+            .priceListId(price.getPriceListId().getId())
+            .startDate(price.getDateInterval().getStartDate())
+            .endDate(price.getDateInterval().getEndDate())
+            .priority(price.getPriority())
+            .money(price.getMoney().getCuantity())
+            .currency(price.getMoney().getCurrency().name())
+            .build();
     }
 }

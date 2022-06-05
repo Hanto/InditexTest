@@ -2,7 +2,6 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/0
 
 import lombok.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.domain.Persistable;
@@ -33,6 +32,9 @@ public class ProductEntity implements Persistable<Long>
     public static final String GRAPH_PRODUCT_ALL = "Product.All";
     public static final String PRODUCT_CACHE_REGION = "Products";
 
+    // ENTITY:
+    //--------------------------------------------------------------------------------------------------------
+
     @Id @GeneratedValue
     @Column(name = "PRODUCT_ID", nullable = false)
     @Setter(AccessLevel.NONE)
@@ -47,8 +49,14 @@ public class ProductEntity implements Persistable<Long>
     private String longName;
 
     @OneToMany(mappedBy = "productId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Cache(usage= CacheConcurrencyStrategy.READ_ONLY)
+    @Cache(usage= READ_WRITE)
     private List<PriceEntity>prices = new ArrayList<>();
+
+    // VERSION:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Version
+    private Integer version = 0;
 
     // PERSISTABLE (for fast inserts:
     //--------------------------------------------------------------------------------------------------------

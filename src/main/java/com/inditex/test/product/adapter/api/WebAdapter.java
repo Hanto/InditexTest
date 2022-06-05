@@ -4,6 +4,7 @@ import com.inditex.test.product.application.ProductServiceI;
 import com.inditex.test.product.domain.Price;
 import com.inditex.test.product.domain.Product;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController @RequestMapping(value ="/api", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE})
 @RequiredArgsConstructor @SuppressWarnings("all")
+@Log4j2
 public class WebAdapter
 {
     @Autowired private final ProductServiceI productService;

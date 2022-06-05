@@ -8,22 +8,19 @@ import lombok.ToString;
 @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 public class Price
 {
-    @Getter
-    private final ProductId productId;
+    @Getter private PriceId priceId;
+    @Getter private ProductId productId;
+    @Getter private BrandId brandId;
+    @Getter private PriceListId priceListId;
 
-    @Getter
-    private final PriceId priceId;
+    @Getter private DateInterval dateInterval;
+    @Getter int priority;
+    @Getter Money money;
 
-    @Getter
-    private final BrandId brandId;
+    // NEW CONSTRUCTOR:
+    //--------------------------------------------------------------------------------------------------------
 
-    @Getter
-    private final PriceListId priceListId;
-
-    @Getter
-    private final DateInterval dateInterval;
-
-    @Getter final int priority;
-
-    @Getter final Money money;
+    public static Price newProduct(ProductId productId, BrandId brandId, PriceListId priceListId,
+        DateInterval dateInterval, int priority, Money money)
+    {   return new Price(new PriceId(null), productId, brandId, priceListId, dateInterval, priority, money); }
 }
