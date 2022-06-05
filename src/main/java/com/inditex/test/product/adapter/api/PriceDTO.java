@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data @EqualsAndHashCode(callSuper = false) @NoArgsConstructor @AllArgsConstructor @Builder
-public class PriceDTO extends RepresentationModel<PriceDTO>
+class PriceDTO extends RepresentationModel<PriceDTO>
 {
     private long priceId;
     private long productId;

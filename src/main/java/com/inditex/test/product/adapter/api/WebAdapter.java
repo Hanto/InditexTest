@@ -25,7 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController @RequestMapping(value ="/api", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE})
 @RequiredArgsConstructor @SuppressWarnings("all")
 @Log4j2
-public class WebAdapter
+class WebAdapter
 {
     @Autowired private final ProductServiceI productService;
     @Autowired private final PriceDTOAssembler priceAssembler;

@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.hibernate.jpa.QueryHints.HINT_CACHEABLE;
 
-public interface PriceRepository extends EntityGraphJpaRepository<PriceEntity, Long>
+interface PriceRepository extends EntityGraphJpaRepository<PriceEntity, Long>
 {
     @QueryHints({@QueryHint(name = HINT_CACHEABLE, value = "true")})
     List<PriceEntity> findByProductId(Long productId);

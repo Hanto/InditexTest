@@ -4,7 +4,7 @@ import com.inditex.test.product.domain.Price;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PriceDTOMapper
+class PriceDTOMapper
 {
     PriceDTO fromModel(Price model)
     {

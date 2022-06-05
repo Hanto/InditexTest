@@ -22,7 +22,7 @@ import static java.lang.String.format;
 @Component
 @EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @RequiredArgsConstructor
-public class JpaPersistenceAdapter implements ProductDAO
+class JpaPersistenceAdapter implements ProductDAO
 {
     @Autowired private final PriceRepository priceRepo;
     @Autowired private final ProductRepository productRepo;

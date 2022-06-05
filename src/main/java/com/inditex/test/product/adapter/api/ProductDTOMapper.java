@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ProductDTOMapper
+class ProductDTOMapper
 {
     ProductDTO fromModel(Product model)
     {

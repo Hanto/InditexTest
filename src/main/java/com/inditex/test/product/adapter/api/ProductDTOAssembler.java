@@ -12,7 +12,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component @RequiredArgsConstructor
-public class ProductDTOAssembler implements RepresentationModelAssembler<Product, ProductDTO>
+class ProductDTOAssembler implements RepresentationModelAssembler<Product, ProductDTO>
 {
     @Autowired private final ProductDTOMapper mapper;
     @Autowired private final PriceDTOAssembler priceDTOAssembler;

@@ -2,6 +2,6 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/0
 
 import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaRepository;
 
-public interface ProductRepository extends EntityGraphJpaRepository<ProductEntity, Long>
+interface ProductRepository extends EntityGraphJpaRepository<ProductEntity, Long>
 {
 }

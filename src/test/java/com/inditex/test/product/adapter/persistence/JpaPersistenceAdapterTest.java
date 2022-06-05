@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest @ActiveProfiles("JpaH2")
 @Import({JpaPersistenceAdapter.class, ProductMapper.class, PriceMapper.class})
-public class JpaPersistenceAdapterTest
+class JpaPersistenceAdapterTest
 {
     @Autowired private JpaPersistenceAdapter adapter;
 

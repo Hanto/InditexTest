@@ -9,7 +9,7 @@ import java.util.Collection;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 
 @Data @EqualsAndHashCode(callSuper = false) @NoArgsConstructor @AllArgsConstructor @Builder
-public class ProductDTO extends RepresentationModel<ProductDTO>
+class ProductDTO extends RepresentationModel<ProductDTO>
 {
     private long productId;
     private String shortName;

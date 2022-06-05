@@ -16,7 +16,7 @@ import java.net.URL;
 @Configuration
 @EnableCaching
 @RequiredArgsConstructor
-public class HazelcastConfig
+class HazelcastConfig
 {
     @Autowired private final ResourcePatternResolver resourceResolver;
 

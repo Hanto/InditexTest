@@ -13,7 +13,7 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 
 @Component @Scope(SCOPE_SINGLETON)
 @RequiredArgsConstructor
-public class ProductMapper
+class ProductMapper
 {
     @Autowired private final PriceMapper priceMapper;
 
