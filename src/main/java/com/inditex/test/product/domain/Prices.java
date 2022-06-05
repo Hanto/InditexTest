@@ -11,7 +11,7 @@ import static java.lang.String.format;
 @NoArgsConstructor @ToString
 public class Prices
 {
-    private final List<Price>prices = new ArrayList<>();
+    private final Set<Price>prices = new HashSet<>();
 
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
@@ -19,17 +19,11 @@ public class Prices
     void addPrices(Collection<Price> collection)
     {   prices.addAll(collection); }
 
-    public void removePrice(PriceId priceId)
-    {
-        Optional<Price> priceOpt = prices.stream()
-            .filter(p -> p.getPriceId().equals(priceId))
-            .findFirst();
+    void removePrice(Price price)
+    {   prices.remove(price); }
 
-        priceOpt.ifPresent(prices::remove);
-    }
-
-    public List<Price> getPriceList()
-    {   return Collections.unmodifiableList(prices); }
+    public Collection<Price> getPriceList()
+    {   return Collections.unmodifiableSet(prices); }
 
     public Price getPriceNow(BrandId brand, PriceListId priceList)
     {   return getPriceAt(LocalDateTime.now(), brand, priceList); }

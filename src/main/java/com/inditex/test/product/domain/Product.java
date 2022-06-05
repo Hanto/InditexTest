@@ -11,16 +11,11 @@ import java.util.List;
 @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 public class Product
 {
+    @EqualsAndHashCode.Include
     @Getter private ProductId productId;
     @Getter private ProductName productName;
     @Getter private final Prices prices;
     @Getter private final int version;
-
-    // NEW CONSTRUCTOR:
-    //--------------------------------------------------------------------------------------------------------
-
-    public static Product newProduct(ProductName productName)
-    {   return new Product(new ProductId(null), productName, new Prices(), 0); }
 
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
@@ -36,8 +31,8 @@ public class Product
         prices.addPrices(collection);
     }
 
-    public void removePrice(PriceId priceId)
-    {   this.prices.removePrice(priceId); }
+    public void removePrice(Price price)
+    {   this.prices.removePrice(price); }
 
     public void changeShortName(String shortName)
     {   this.productName = new ProductName(shortName, productName.getLongName()); }

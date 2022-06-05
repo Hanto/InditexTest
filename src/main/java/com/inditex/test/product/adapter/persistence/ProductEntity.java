@@ -35,7 +35,7 @@ public class ProductEntity implements Persistable<Long>
     // ENTITY:
     //--------------------------------------------------------------------------------------------------------
 
-    @Id @GeneratedValue
+    @Id
     @Column(name = "PRODUCT_ID", nullable = false)
     @Setter(AccessLevel.NONE)
     private long productId;

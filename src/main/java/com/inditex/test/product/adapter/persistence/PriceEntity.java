@@ -26,7 +26,7 @@ public class PriceEntity implements Persistable<Long>
     // ENTITY:
     //--------------------------------------------------------------------------------------------------------
 
-    @Id @GeneratedValue
+    @Id
     @Column(name = "PRICE_ID", nullable = false)
     private long priceId;
 

@@ -5,9 +5,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
+@AllArgsConstructor @ToString @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Price
 {
+    @EqualsAndHashCode.Include
     @Getter private PriceId priceId;
     @Getter private ProductId productId;
     @Getter private BrandId brandId;
@@ -16,11 +17,4 @@ public class Price
     @Getter private DateInterval dateInterval;
     @Getter int priority;
     @Getter Money money;
-
-    // NEW CONSTRUCTOR:
-    //--------------------------------------------------------------------------------------------------------
-
-    public static Price newProduct(ProductId productId, BrandId brandId, PriceListId priceListId,
-        DateInterval dateInterval, int priority, Money money)
-    {   return new Price(new PriceId(null), productId, brandId, priceListId, dateInterval, priority, money); }
 }
