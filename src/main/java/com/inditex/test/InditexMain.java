@@ -2,8 +2,9 @@ package com.inditex.test;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.retry.annotation.EnableRetry;
 
-@SpringBootApplication
+@SpringBootApplication @EnableRetry
 public class InditexMain
 {
 	public static void main(String[] args)
