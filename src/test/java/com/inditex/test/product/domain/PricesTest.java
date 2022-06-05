@@ -34,8 +34,7 @@ public class PricesTest
     @Test
     public void addPriceTest()
     {
-        Price newPrice = buildPrice(5L, 2L, 2, 1,
-            "2020-06-14T00:00:00", "2020-12-31T23:59:59" , 1, EUR, 50.50f);
+        Price newPrice = buildPrice(5L, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59" , 1, EUR, 50.50f);
 
         assertThat(prices.getPriceList()).hasSize(4);
         prices.addPrices(List.of(newPrice));
@@ -45,8 +44,7 @@ public class PricesTest
     @Test
     public void addDuplicateTest()
     {
-        Price newPrice = buildPrice(5L, 2L, 2, 1,
-            "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
+        Price newPrice = buildPrice(5L, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
 
         assertThat(prices.getPriceList()).hasSize(4);
         prices.addPrices(List.of(newPrice));
@@ -57,8 +55,7 @@ public class PricesTest
     @Test
     public void addNewPrice()
     {
-        Price newPrice = buildPrice(null, 2L, 2, 1,
-            "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
+        Price newPrice = buildPrice(null, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
 
         assertThat(prices.getPriceList()).hasSize(4);
         prices.addPrices(List.of(newPrice));
@@ -69,11 +66,9 @@ public class PricesTest
     @Test
     public void addNewPrice2()
     {
-        Price newPrice = buildPrice(null, 2L, 2, 1,
-            "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
+        Price newPrice = buildPrice(null, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
 
-        Price newPrice2 = buildPrice(null, 2L, 2, 1,
-            "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
+        Price newPrice2 = buildPrice(null, 2L, 2, 1,"2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
 
         assertThat(prices.getPriceList()).hasSize(4);
         prices.addPrices(List.of(newPrice));
