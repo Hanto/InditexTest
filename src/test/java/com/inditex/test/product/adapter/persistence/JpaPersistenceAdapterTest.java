@@ -9,6 +9,8 @@ import io.sniffy.Spy;
 import io.sniffy.boot.EnableSniffy;
 import io.sniffy.sql.SqlQueries;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -36,78 +38,82 @@ class JpaPersistenceAdapterTest
     // TESTS:
     //--------------------------------------------------------------------------------------------------------
 
-    @Test
-    @Sql("/test.sql")
-    public void generateProductIdTest()
+    @Nested @DisplayName("WHEN: the database is initialized and queried")
+    class Database
     {
-        long sequence = adapter.generateUniqueProductId();
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: a sequence for productId can be retrieved")
+        public void generateProductIdTest()
+        {
+            long sequence = adapter.generateUniqueProductId();
 
-        assertThat(sequence).isEqualTo(1);
-        sequence = adapter.generateUniqueProductId();
-        assertThat(sequence).isEqualTo(2);
-        sequence = adapter.generateUniqueProductId();
-        assertThat(sequence).isEqualTo(3);
+            assertThat(sequence).isEqualTo(1);
+            sequence = adapter.generateUniqueProductId();
+            assertThat(sequence).isEqualTo(2);
+            sequence = adapter.generateUniqueProductId();
+            assertThat(sequence).isEqualTo(3);
 
-        profiler.verify(SqlQueries.maxQueries(3));
-    }
+            profiler.verify(SqlQueries.maxQueries(3));
+        }
 
-    @Test
-    @Sql("/test.sql")
-    public void generatePriceIdTest()
-    {
-        long sequence = adapter.generateUniquePriceId();
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: a sequence for priceId can be retrieved")
+        public void generatePriceIdTest()
+        {
+            long sequence = adapter.generateUniquePriceId();
 
-        assertThat(sequence).isEqualTo(1);
-        sequence = adapter.generateUniquePriceId();
-        assertThat(sequence).isEqualTo(2);
-        sequence = adapter.generateUniquePriceId();
-        assertThat(sequence).isEqualTo(3);
+            assertThat(sequence).isEqualTo(1);
+            sequence = adapter.generateUniquePriceId();
+            assertThat(sequence).isEqualTo(2);
+            sequence = adapter.generateUniquePriceId();
+            assertThat(sequence).isEqualTo(3);
 
-        profiler.verify(SqlQueries.maxQueries(3));
-    }
+            profiler.verify(SqlQueries.maxQueries(3));
+        }
 
-    @Test
-    @Sql("/test.sql")
-    public void loadProductTest()
-    {
-        Product product = adapter.loadProduct(new ProductId(354550L));
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: all the products can be retreived")
+        public void loadProductsTest()
+        {
+            Collection<Product> products = adapter.loadProducts(0, 10);
 
-        assertThat(product.getProductId().getId()).isEqualTo(354550L);
-        assertThat(product.getProductName().getShortName()).isEqualTo("Black TShirt");
-        assertThat(product.getProductName().getLongName()).isEqualTo("Black TShirt from hell");
-        assertThat(product.getPrices().getPriceList()).hasSize(5);
-        assertThat(product.getPrices().getPriceList()).isUnmodifiable();
+            assertThat(products).hasSize(2);
 
-        profiler.verify(SqlQueries.atMostOneQuery());
-    }
+            profiler.verify(SqlQueries.atMostOneQuery());
+        }
 
-    @Test
-    @Sql("/test.sql")
-    public void loadProductsTest()
-    {
-        Collection<Product> products = adapter.loadProducts(0, 10);
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: a single p roduct can be retrieved")
+        public void loadProductTest()
+        {
+            Product product = adapter.loadProduct(new ProductId(354550L));
 
-        assertThat(products).hasSize(2);
+            assertThat(product.getProductId().getId()).isEqualTo(354550L);
+            assertThat(product.getProductName().getShortName()).isEqualTo("Black TShirt");
+            assertThat(product.getProductName().getLongName()).isEqualTo("Black TShirt from hell");
+            assertThat(product.getPrices().getPriceList()).hasSize(5);
+            assertThat(product.getPrices().getPriceList()).isUnmodifiable();
 
-        profiler.verify(SqlQueries.atMostOneQuery());
-    }
+            profiler.verify(SqlQueries.atMostOneQuery());
+        }
 
-    @Test
-    @Sql("/test.sql")
-    public void loadPriceTest()
-    {
-        Price price = adapter.loadPrice(new PriceId(100L));
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: a single price can be retrieved")
+        public void loadPriceTest()
+        {
+            Price price = adapter.loadPrice(new PriceId(100L));
 
-        assertThat(price.getPriceId().getId()).isEqualTo(100L);
-        assertThat(price.getProductId().getId()).isEqualTo(354550L);
-        assertThat(price.getBrandId().getId()).isEqualTo(1L);
-        assertThat(price.getPriceListId().getId()).isEqualTo(1);
-        assertThat(price.getDateInterval().getStartDate()).isEqualTo(LocalDateTime.parse("2020-06-14T00:00:00"));
-        assertThat(price.getDateInterval().getEndDate()).isEqualTo(LocalDateTime.parse("2020-12-31T23:59:59"));
-        assertThat(price.getPriority()).isEqualTo(1);
-        assertThat(price.getMoney().getCuantity()).isEqualTo(new BigDecimal("35.50"));
-        assertThat(price.getMoney().getCurrency().toString()).isEqualTo("EUR");
+            assertThat(price.getPriceId().getId()).isEqualTo(100L);
+            assertThat(price.getProductId().getId()).isEqualTo(354550L);
+            assertThat(price.getBrandId().getId()).isEqualTo(1L);
+            assertThat(price.getPriceListId().getId()).isEqualTo(1);
+            assertThat(price.getDateInterval().getStartDate()).isEqualTo(LocalDateTime.parse("2020-06-14T00:00:00"));
+            assertThat(price.getDateInterval().getEndDate()).isEqualTo(LocalDateTime.parse("2020-12-31T23:59:59"));
+            assertThat(price.getPriority()).isEqualTo(1);
+            assertThat(price.getMoney().getCuantity()).isEqualTo(new BigDecimal("35.50"));
+            assertThat(price.getMoney().getCurrency().toString()).isEqualTo("EUR");
 
-        profiler.verify(SqlQueries.atMostOneQuery());
+            profiler.verify(SqlQueries.atMostOneQuery());
+        }
     }
 }
