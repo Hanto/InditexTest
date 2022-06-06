@@ -12,7 +12,6 @@ class PriceDTO extends RepresentationModel<PriceDTO>
     private long priceId;
     private long productId;
     private long brandId;
-    private long priceListId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private int priority;

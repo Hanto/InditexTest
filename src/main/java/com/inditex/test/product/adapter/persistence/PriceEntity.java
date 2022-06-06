@@ -38,10 +38,6 @@ class PriceEntity implements Persistable<Long>
     @NotNull
     private long brandId;
 
-    @Column(name = "PRICE_LIST_ID", nullable = false)
-    @NotNull
-    private long priceListId;
-
     @Column(name = "START_DATE", nullable = false)
     @NotNull
     private LocalDateTime startDate;

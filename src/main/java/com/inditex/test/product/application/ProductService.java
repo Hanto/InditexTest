@@ -47,10 +47,10 @@ public class ProductService implements ProductServiceI
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time)
+    public Price assignedPriceFor(long productId, long brandId, LocalDateTime time)
     {
         Product product = persistenceDAO.loadProduct(new ProductId(productId));
-        return product.getPrices().getPriceAt(time, new BrandId(brandId), new PriceListId(priceListId));
+        return product.getPrices().getPriceAt(time, new BrandId(brandId));
     }
 
     @Override

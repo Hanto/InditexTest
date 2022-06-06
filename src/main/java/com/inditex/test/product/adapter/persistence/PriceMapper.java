@@ -17,12 +17,11 @@ class PriceMapper
         PriceId priceId             = new PriceId(entity.getPriceId());
         ProductId productId         = new ProductId(entity.getProductId());
         BrandId branId              = new BrandId(entity.getBrandId());
-        PriceListId priceListId     = new PriceListId(entity.getPriceListId());
         DateInterval dateInterval   = new DateInterval(entity.getStartDate(), entity.getEndDate());
         int priority                = entity.getPriority();
         Money money                 = new Money(entity.getMoney(), entity.getCurrency());
 
-        return new Price(priceId, productId, branId, priceListId, dateInterval, priority, money);
+        return new Price(priceId, productId, branId, dateInterval, priority, money);
     }
 
     PriceEntity fromDomain(Price price)
@@ -31,7 +30,6 @@ class PriceMapper
             .priceId(price.getPriceId().getId())
             .productId(price.getProductId().getId())
             .brandId(price.getBrandId().getId())
-            .priceListId(price.getPriceListId().getId())
             .startDate(price.getDateInterval().getStartDate())
             .endDate(price.getDateInterval().getEndDate())
             .priority(price.getPriority())

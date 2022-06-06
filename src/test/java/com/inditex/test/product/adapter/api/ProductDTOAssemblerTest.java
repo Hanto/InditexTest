@@ -39,7 +39,6 @@ public class ProductDTOAssemblerTest
                 assertThat(priceDTO.getPriceId()).isEqualTo(price.getPriceId().getId());
                 assertThat(priceDTO.getProductId()).isEqualTo(price.getProductId().getId());
                 assertThat(priceDTO.getBrandId()).isEqualTo(price.getBrandId().getId());
-                assertThat(priceDTO.getPriceListId()).isEqualTo(price.getPriceListId().getId());
                 assertThat(priceDTO.getStartDate()).isEqualTo(price.getDateInterval().getStartDate());
                 assertThat(priceDTO.getEndDate()).isEqualTo(price.getDateInterval().getEndDate());
                 assertThat(priceDTO.getPriority()).isEqualTo(price.getPriority());
@@ -64,7 +63,6 @@ public class ProductDTOAssemblerTest
                 assertThat(priceDTO.getLink("self")).isPresent();
                 assertThat(priceDTO.getLink("product")).isPresent();
                 assertThat(priceDTO.getLink("brand")).isPresent();
-                assertThat(priceDTO.getLink("priceList")).isPresent();
             }
         }
     }
@@ -104,11 +102,10 @@ public class ProductDTOAssemblerTest
         ProductId productId = new ProductId(productIdLong);
         PriceId priceId     = new PriceId(1L);
         BrandId brandId     = new BrandId(1L);
-        PriceListId priceLId= new PriceListId(1L);
         DateInterval dates  = new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
 
-        return new Price(priceId, productId, brandId, priceLId, dates, priority, money);
+        return new Price(priceId, productId, brandId, dates, priority, money);
     }
 }

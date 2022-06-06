@@ -13,7 +13,7 @@ public interface ProductServiceI
     Collection<Product>getProducts(int page, int pageSize);
     Product getProduct(long productId);
     Price getPrice(long priceId);
-    Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time);
+    Price assignedPriceFor(long productId, long brandId, LocalDateTime time);
 
     void modifyShortName(long priceId, String shortName);
 }

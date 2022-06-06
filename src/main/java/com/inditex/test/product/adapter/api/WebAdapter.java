@@ -42,7 +42,7 @@ class WebAdapter
         api.add(linkTo(methodOn(WebAdapter.class).getIndex()).withSelfRel());
         api.add(linkTo(methodOn(WebAdapter.class).getProducts(null, null)).withRel("All products"));
         api.add(linkTo(methodOn(WebAdapter.class).getProduct(null)).withRel("Product"));
-        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null, null, null, null)).withRel("Price for product"));
+        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null, null,null)).withRel("Price for product"));
         api.add(linkTo(methodOn(WebAdapter.class).getPrice(null)).withRel("Price"));
 
         return api;
@@ -67,14 +67,13 @@ class WebAdapter
         return productAssembler.toModel(product);
     }
 
-    @GetMapping("/price/{productId}/{brandId}/{priceListId}/{dateTime}")
+    @GetMapping("/price/{productId}/{brandId}/{dateTime}")
     public PriceDTO getPrice(
         @NotNull @PathVariable Long productId,
         @NotNull @PathVariable Long brandId,
-        @NotNull @PathVariable Long priceListId,
         @NotNull @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)LocalDateTime dateTime)
     {
-        Price price = productService.assignedPriceFor(productId, brandId, priceListId, dateTime);
+        Price price = productService.assignedPriceFor(productId, brandId, dateTime);
         return priceAssembler.toModel(price);
     }
 
@@ -88,13 +87,6 @@ class WebAdapter
     //TODO:
     @GetMapping("/brand/{brandId}")
     public ApiDTO getBrand( @NotNull @PathVariable Long brandId)
-    {
-        return new ApiDTO();
-    }
-
-    //TODO:
-    @GetMapping("/priceList/{priceListId}")
-    public ApiDTO getPriceList( @NotNull @PathVariable Long priceListId)
     {
         return new ApiDTO();
     }

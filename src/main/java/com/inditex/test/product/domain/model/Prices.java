@@ -25,18 +25,17 @@ public class Prices
     public Collection<Price> getPriceList()
     {   return Collections.unmodifiableSet(prices); }
 
-    public Price getPriceNow(BrandId brand, PriceListId priceList)
-    {   return getPriceAt(LocalDateTime.now(), brand, priceList); }
+    public Price getPriceNow(BrandId brand)
+    {   return getPriceAt(LocalDateTime.now(), brand); }
 
-    public Price getPriceAt(LocalDateTime dateTime, BrandId brand, PriceListId priceList)
+    public Price getPriceAt(LocalDateTime dateTime, BrandId brand)
     {
         return prices.stream()
             .filter(price -> price.getBrandId().equals(brand))
-            .filter(price -> price.getPriceListId().equals(priceList))
             .filter(price -> price.getDateInterval().isInDateInTheInterval(dateTime))
             .max(Comparator.comparing(Price::getPriority))
             .orElseThrow(() -> new IllegalArgumentException(
-                format("There are no prices for the requested parameters, date: %s brand: %s priceList: %s",
-                    dateTime, brand.getId(), priceList.getId())));
+                format("There are no prices for the requested parameters, date: %s brand: %s",
+                    dateTime, brand.getId())));
     }
 }

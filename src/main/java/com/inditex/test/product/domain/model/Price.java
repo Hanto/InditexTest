@@ -12,7 +12,6 @@ public class Price
     @Getter private PriceId priceId;
     @Getter private ProductId productId;
     @Getter private BrandId brandId;
-    @Getter private PriceListId priceListId;
 
     @Getter private DateInterval dateInterval;
     @Getter int priority;

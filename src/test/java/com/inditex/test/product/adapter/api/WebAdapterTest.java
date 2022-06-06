@@ -74,14 +74,14 @@ class WebAdapterTest
         {
             LocalDateTime dateTime = LocalDateTime.now();
 
-            MockHttpServletRequestBuilder get = get("/api/price/{productId}/{brandId}/{priceListId}/{dateTime}",
-                3945, 1, 1, dateTime);
+            MockHttpServletRequestBuilder get = get("/api/price/{productId}/{brandId}/{dateTime}",
+                3945, 1, dateTime);
 
             mockMvc.perform(get)
                 .andExpect(status().isOk());
 
             BDDMockito.then(productService)
-                .should().assignedPriceFor(3945, 1, 1, dateTime);
+                .should().assignedPriceFor(3945,1, dateTime);
         }
 
         @Test @DisplayName("THEN: price api works")

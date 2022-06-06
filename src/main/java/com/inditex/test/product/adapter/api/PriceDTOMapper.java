@@ -12,7 +12,6 @@ class PriceDTOMapper
             .productId(model.getProductId().getId())
             .priceId(model.getPriceId().getId())
             .brandId(model.getBrandId().getId())
-            .priceListId(model.getPriceListId().getId())
             .startDate(model.getDateInterval().getStartDate())
             .endDate(model.getDateInterval().getEndDate())
             .priority(model.getPriority())

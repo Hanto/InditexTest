@@ -88,11 +88,10 @@ public class ProductTest
         ProductId productId = new ProductId(productIdLong);
         PriceId priceId     = new PriceId(1L);
         BrandId brandId     = new BrandId(1L);
-        PriceListId priceLId= new PriceListId(1L);
         DateInterval dates  = new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
 
-        return new Price(priceId, productId, brandId, priceLId, dates, priority, money);
+        return new Price(priceId, productId, brandId, dates, priority, money);
     }
 }
