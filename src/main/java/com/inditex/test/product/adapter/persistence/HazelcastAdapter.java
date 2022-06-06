@@ -16,19 +16,24 @@ class HazelcastAdapter implements MemoryDAO
     @Autowired private final ProductRepository productRepository;
     @Autowired private final PriceRepository priceRepository;
 
+    private static final String PRODUCT_ID_SEQUENCE = "ProductId_Sequence";
+    private static final String PRICE_ID_SEQUENCE = "PriceId_Sequence";
+    private static final int PRODUCT_ID_INTERVAL = 100;
+    private static final int PRICE_ID_INTERVAL = 100;
+
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
     @Override public long generateUniqueProductId()
-    {   return generateUniqueId(productRepository::getNextId, "ProductId_Sequence", 100); }
+    {   return generateUniqueId(productRepository::getNextId, PRODUCT_ID_SEQUENCE, PRODUCT_ID_INTERVAL); }
 
     @Override public long generateUniquePriceId()
-    {   return generateUniqueId(priceRepository::getNextId, "PriceId_Sequence", 100); }
+    {   return generateUniqueId(priceRepository::getNextId, PRICE_ID_SEQUENCE, PRICE_ID_INTERVAL); }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private long generateUniqueId(Supplier<Long>sequenceSupplier, String sequenceName, int sequenceLength)
+    private long generateUniqueId(Supplier<Long>sequenceSupplier, String sequenceName, int sequenceInterval)
     {
         Optional<SequenceEntity> optional = sequenceRepository.findById(sequenceName);
 
@@ -36,16 +41,11 @@ class HazelcastAdapter implements MemoryDAO
             SequenceEntity.builder()
                 .sequenceId(sequenceName)
                 .nextValue(sequenceSupplier.get())
-                .remainingValues(sequenceLength)
+                .remainingValues(sequenceInterval)
+                .supplierInterval(sequenceInterval)
                 .build());
 
-        if (sequence.getRemainingValues() <= 0)
-        {
-            sequence.setNextValue(sequenceSupplier.get());
-            sequence.setRemainingValues(sequenceLength);
-        }
-
-        long nextValue = sequence.getNextValue();
+        long nextValue = sequence.getNextValue(sequenceSupplier);
 
         sequenceRepository.save(sequence);
 

@@ -1,5 +1,6 @@
 package com.inditex.test.product.application;// Created by jhant on 05/06/2022.
 
+import com.inditex.test.configuration.SpringBeans;
 import com.inditex.test.product.domain.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -19,7 +20,7 @@ public class ProductServiceTest extends BDDMockito
 {
     private final PersistenceDAO dao = mock(PersistenceDAO.class);
     private final MemoryDAO memDao = mock(MemoryDAO.class);
-    private final ProductService service = new ProductService(dao, memDao);
+    private final ProductServiceI service = new SpringBeans().getProductService(dao, memDao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
