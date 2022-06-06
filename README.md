@@ -35,6 +35,10 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 - `Test 4: petición a las 10:00 del día 15 del producto 35455 para la brand 1 (ZARA)`
 - `Test 5: petición a las 21:00 del día 16 del producto 35455 para la brand 1 (ZARA)`
 
+# Assumptions:
+- The price calculator api will only return the price (id, brand, start, end, priority, price, currency) there is no need to 
+- return the productid, having root IDs on the surrogate entities goes agaisnt proper DDD.
+
 # Required Software
 - **Spring Boot Web App** -> [JDK 8 or higher](https://www.azul.com/downloads/zulu/) and [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/)
 
