@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.datagrid;// Created by jhant on 03/06/2022.
+package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.YamlConfigBuilder;
@@ -10,12 +10,13 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.data.hazelcast.repository.config.EnableHazelcastRepositories;
 
 import java.io.IOException;
 import java.net.URL;
 
 @Configuration
-@EnableCaching
+@EnableCaching @EnableHazelcastRepositories
 @RequiredArgsConstructor
 class HazelcastConfig
 {

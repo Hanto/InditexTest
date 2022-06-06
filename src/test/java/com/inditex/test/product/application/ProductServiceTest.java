@@ -17,8 +17,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings("SameParameterValue")
 public class ProductServiceTest extends BDDMockito
 {
-    private final ProductDAO dao = mock(ProductDAO.class);
-    private final ProductService service = new ProductService(dao);
+    private final PersistenceDAO dao = mock(PersistenceDAO.class);
+    private final MemoryDAO memDao = mock(MemoryDAO.class);
+    private final ProductService service = new ProductService(dao, memDao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
@@ -92,7 +93,7 @@ public class ProductServiceTest extends BDDMockito
 
     void givenAProductIdSequenceAt(long nextSequence)
     {
-        given(dao.generateUniqueProductId())
+        given(memDao.generateUniqueProductId())
             .willReturn(nextSequence);
     }
 

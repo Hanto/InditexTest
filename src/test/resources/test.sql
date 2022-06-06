@@ -1,8 +1,8 @@
 create sequence if not exists PRODUCT_ID_SEQUENCE
-  start WITH 1 increment BY 1 minvalue 1;
+  start WITH 1 increment BY 100 minvalue 1;
 
 create sequence if not exists PRICE_ID_SEQUENCE
-  start WITH 1 increment BY 1 minvalue 1;
+  start WITH 1 increment BY 100 minvalue 1;
 
 insert into PRODUCTS
 (product_Id, short_name, long_name, version) values

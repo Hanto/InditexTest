@@ -48,6 +48,12 @@ class WebAdapter
         return api;
     }
 
+    @GetMapping("/test/{name}")
+    public void test(@PathVariable String name)
+    {
+        productService.createProduct(name, name + "_long");
+    }
+
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 

@@ -7,10 +7,8 @@ import com.inditex.test.product.domain.model.ProductId;
 
 import java.util.Collection;
 
-public interface ProductDAO
+public interface PersistenceDAO
 {
-    long generateUniqueProductId();
-    long generateUniquePriceId();
     Collection<Product> loadProducts(int page, int pageSize);
     Product loadProduct(ProductId productId);
     Price loadPrice(PriceId priceId);

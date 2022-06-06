@@ -1,7 +1,7 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
 import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
-import com.inditex.test.product.application.ProductDAO;
+import com.inditex.test.product.application.PersistenceDAO;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;
 import com.inditex.test.product.domain.model.Product;
@@ -22,23 +22,12 @@ import static java.lang.String.format;
 @Component
 @EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @RequiredArgsConstructor
-class JpaPersistenceAdapter implements ProductDAO
+class JpaH2Adapter implements PersistenceDAO
 {
     @Autowired private final PriceRepository priceRepo;
     @Autowired private final ProductRepository productRepo;
     @Autowired private final ProductMapper productMapper;
     @Autowired private final PriceMapper priceMapper;
-
-    // ID GENERATION:
-    //--------------------------------------------------------------------------------------------------------
-
-    @Override
-    public long generateUniqueProductId()
-    {   return productRepo.getNextId(); }
-
-    @Override
-    public long generateUniquePriceId()
-    {   return priceRepo.getNextId(); }
 
     // PRODUCTS:
     //--------------------------------------------------------------------------------------------------------

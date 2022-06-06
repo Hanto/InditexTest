@@ -15,7 +15,8 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRES_NE
 @RequiredArgsConstructor
 public class ProductService implements ProductServiceI
 {
-    private final ProductDAO productDAO;
+    private final PersistenceDAO persistenceDAO;
+    private final MemoryDAO memoryDAO;
 
     // CREATION:
     //--------------------------------------------------------------------------------------------------------
@@ -24,11 +25,11 @@ public class ProductService implements ProductServiceI
     @Transactional(rollbackFor = Exception.class)
     public void createProduct(String shortName, String longName)
     {
-        ProductId id    = new ProductId(productDAO.generateUniqueProductId());
+        ProductId id    = new ProductId(memoryDAO.generateUniqueProductId());
         ProductName name= new ProductName(shortName, longName);
         Product product = new Product(id, name);
 
-        productDAO.saveProduct(product);
+        persistenceDAO.saveProduct(product);
     }
 
     // SELECT:
@@ -37,25 +38,25 @@ public class ProductService implements ProductServiceI
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Collection<Product>getProducts(int page, int pageSize)
-    {   return productDAO.loadProducts(page, pageSize); }
+    {   return persistenceDAO.loadProducts(page, pageSize); }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Product getProduct(long productId)
-    {   return productDAO.loadProduct(new ProductId(productId)); }
+    {   return persistenceDAO.loadProduct(new ProductId(productId)); }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Price assignedPriceFor(long productId, long brandId, long priceListId, LocalDateTime time)
     {
-        Product product = productDAO.loadProduct(new ProductId(productId));
+        Product product = persistenceDAO.loadProduct(new ProductId(productId));
         return product.getPrices().getPriceAt(time, new BrandId(brandId), new PriceListId(priceListId));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Price getPrice(long priceId)
-    {   return productDAO.loadPrice(new PriceId(priceId)); }
+    {   return persistenceDAO.loadPrice(new PriceId(priceId)); }
 
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
@@ -70,8 +71,8 @@ public class ProductService implements ProductServiceI
         rollbackFor = Exception.class)
     public void modifyShortName(long priceId, String shortName)
     {
-        Product product = productDAO.loadProduct(new ProductId(priceId));
+        Product product = persistenceDAO.loadProduct(new ProductId(priceId));
         product.changeShortName(shortName);
-        productDAO.saveProduct(product);
+        persistenceDAO.saveProduct(product);
     }
 }

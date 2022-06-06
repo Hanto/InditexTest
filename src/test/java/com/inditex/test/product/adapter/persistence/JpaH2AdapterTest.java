@@ -26,11 +26,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 @DataJpaTest @ActiveProfiles("JpaH2") @EnableSniffy
-@Import({JpaPersistenceAdapter.class, ProductMapper.class, PriceMapper.class})
-class JpaPersistenceAdapterTest
+@Import({JpaH2Adapter.class, ProductMapper.class, PriceMapper.class})
+class JpaH2AdapterTest
 {
-    @Autowired private JpaPersistenceAdapter adapter;
+    @Autowired private JpaH2Adapter adapter;
     private final Spy<?> profiler = Sniffy.spy();
+
+    // INIT:
+    //--------------------------------------------------------------------------------------------------------
 
     @BeforeEach
     public void resetProfiler()
@@ -42,36 +45,6 @@ class JpaPersistenceAdapterTest
     @Nested @DisplayName("WHEN: the database is initialized and queried")
     class Database
     {
-        @Test
-        @Sql("/test.sql") @DisplayName("THEN: a sequence for productId can be retrieved")
-        public void generateProductIdTest()
-        {
-            long sequence = adapter.generateUniqueProductId();
-
-            assertThat(sequence).isEqualTo(1);
-            sequence = adapter.generateUniqueProductId();
-            assertThat(sequence).isEqualTo(2);
-            sequence = adapter.generateUniqueProductId();
-            assertThat(sequence).isEqualTo(3);
-
-            profiler.verify(SqlQueries.maxQueries(3));
-        }
-
-        @Test
-        @Sql("/test.sql") @DisplayName("THEN: a sequence for priceId can be retrieved")
-        public void generatePriceIdTest()
-        {
-            long sequence = adapter.generateUniquePriceId();
-
-            assertThat(sequence).isEqualTo(1);
-            sequence = adapter.generateUniquePriceId();
-            assertThat(sequence).isEqualTo(2);
-            sequence = adapter.generateUniquePriceId();
-            assertThat(sequence).isEqualTo(3);
-
-            profiler.verify(SqlQueries.maxQueries(3));
-        }
-
         @Test
         @Sql("/test.sql") @DisplayName("THEN: all the products can be retreived")
         public void loadProductsTest()
