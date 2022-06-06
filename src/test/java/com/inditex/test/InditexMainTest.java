@@ -24,7 +24,7 @@ public class InditexMainTest
     @Nested @DisplayName("WHEN: performing end to end tests")
     class EndToEnd
     {
-        @Test @DisplayName("THEN: returned price between the time interval with the highest priority")
+        @Test @DisplayName("THEN: return price between the time interval with the highest priority")
         public void endToEnd()
         {
             PriceDTO dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T10:00:00"));
