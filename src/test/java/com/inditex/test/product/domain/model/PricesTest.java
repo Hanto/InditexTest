@@ -18,10 +18,10 @@ public class PricesTest
 {
     private Prices prices;
 
-    Price price1 = buildPrice(1L, 1L, 1, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 10.50f);
-    Price price2 = buildPrice(2L, 1L, 1, "2020-06-14T00:00:00", "2021-12-31T23:59:59", 0, EUR, 20.50f);
-    Price price3 = buildPrice(3L, 1L, 1, "2020-06-14T15:00:00", "2020-06-14T18:30:00", 1, EUR, 30.50f);
-    Price price4 = buildPrice(4L, 1L, 1, "2020-06-15T00:00:00", "2020-06-15T11:00:00", 1, EUR, 50.50f);
+    Price price1 = buildPrice(1L, 1L, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 10.50f);
+    Price price2 = buildPrice(2L, 1L, "2020-06-14T00:00:00", "2021-12-31T23:59:59", 0, EUR, 20.50f);
+    Price price3 = buildPrice(3L, 1L, "2020-06-14T15:00:00", "2020-06-14T18:30:00", 1, EUR, 30.50f);
+    Price price4 = buildPrice(4L, 1L, "2020-06-15T00:00:00", "2020-06-15T11:00:00", 1, EUR, 50.50f);
     List<Price>priceList = Arrays.asList(price1, price2, price3, price4);
 
     @BeforeEach
@@ -56,8 +56,8 @@ public class PricesTest
             @Test @DisplayName("THEN: prices are added")
             public void addNewPrice()
             {
-                Price newPrice1 = buildPrice(10L, 2L, 2, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
-                Price newPrice2 = buildPrice(11L, 2L, 2, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
+                Price newPrice1 = buildPrice(10L, 2L, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
+                Price newPrice2 = buildPrice(11L, 2L, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, Currency.USD, 50.50f);
 
                 assertThat(prices.getPriceList()).hasSize(priceList.size());
                 prices.addPrices(List.of(newPrice1));
@@ -91,7 +91,7 @@ public class PricesTest
             @Test @DisplayName("THEN: nothing is removed")
             public void removePriceTest()
             {
-                Price newPrice1 = buildPrice(30L, 2L, 2, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
+                Price newPrice1 = buildPrice(30L, 2L, "2020-06-14T00:00:00", "2020-12-31T23:59:59", 1, EUR, 50.50f);
 
 
                 assertThat(prices.getPriceList()).hasSize(priceList.size());
@@ -128,7 +128,7 @@ public class PricesTest
             @Test @DisplayName("THEN: a price in that time interval with the highest priority is returned")
             public void getPriceNowTest()
             {
-                Price priceNow = buildPrice(5L, 1L, 1, LocalDateTime.now().minusSeconds(1).toString(), LocalDateTime.now().plusMinutes(1).toString(), 2, EUR, 50.50f);
+                Price priceNow = buildPrice(5L, 1L, LocalDateTime.now().minusSeconds(1).toString(), LocalDateTime.now().plusMinutes(1).toString(), 2, EUR, 50.50f);
                 prices.addPrices(List.of(priceNow));
                 assertThat(prices.getPriceList()).hasSize(priceList.size() +1);
 
@@ -188,17 +188,15 @@ public class PricesTest
     // HELPER:
     //--------------------------------------------------------------------------------------------------------------------
 
-    private Price buildPrice(Long priceL, Long productL, long brandL,
-        String startString, String endString, int priority, Currency currency, float quantity)
+    private Price buildPrice(Long priceL, long brandL, String startString, String endString, int priority, Currency currency, float quantity)
     {
         PriceId priceId             = new PriceId(priceL);
-        ProductId productId         = new ProductId(productL);
         BrandId branId              = new BrandId(brandL);
         LocalDateTime start         = LocalDateTime.parse(startString);
         LocalDateTime end           = LocalDateTime.parse(endString);
         DateInterval dateInterval   = new DateInterval(start, end);
         Money money                 = new Money(quantity, currency);
 
-        return new Price(priceId, productId, branId, dateInterval, priority, money);
+        return new Price(priceId, branId, dateInterval, priority, money);
     }
 }

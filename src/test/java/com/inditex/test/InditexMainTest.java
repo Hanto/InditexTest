@@ -29,31 +29,26 @@ public class InditexMainTest
         {
             PriceDTO dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T10:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(1L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T16:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(2L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T21:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(1L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-15T10:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(3L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-16T21:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(4L);
         }

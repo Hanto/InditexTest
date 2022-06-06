@@ -33,12 +33,7 @@ public class Product
     {   addPrices(List.of(price)); }
 
     public void addPrices(Collection<Price> collection)
-    {
-        if  (collection.stream().anyMatch(price -> !price.getProductId().equals(productId)))
-            throw new IllegalArgumentException("Cannot add prices from a different productId");
-
-        prices.addPrices(collection);
-    }
+    {   prices.addPrices(collection); }
 
     public void removePrice(Price price)
     {   this.prices.removePrice(price); }

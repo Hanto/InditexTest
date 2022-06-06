@@ -24,7 +24,7 @@ public class ProductDTOAssemblerTest
         void test()
         {
             Product product = generateProduct(1L, "short", "long");
-            Price price     = generatePrice(1L);
+            Price price     = generatePrice();
             product.addPrice(price);
 
             ProductDTO productDTO = assembler.toModel(product);
@@ -37,7 +37,6 @@ public class ProductDTOAssemblerTest
             for (PriceDTO priceDTO: productDTO.getPrices())
             {
                 assertThat(priceDTO.getPriceId()).isEqualTo(price.getPriceId().getId());
-                assertThat(priceDTO.getProductId()).isEqualTo(price.getProductId().getId());
                 assertThat(priceDTO.getBrandId()).isEqualTo(price.getBrandId().getId());
                 assertThat(priceDTO.getStartDate()).isEqualTo(price.getDateInterval().getStartDate());
                 assertThat(priceDTO.getEndDate()).isEqualTo(price.getDateInterval().getEndDate());
@@ -51,7 +50,7 @@ public class ProductDTOAssemblerTest
         void test2()
         {
             Product product = generateProduct(1L, "short", "long");
-            Price price     = generatePrice(1L);
+            Price price     = generatePrice();
             product.addPrice(price);
 
             ProductDTO productDTO = assembler.toModel(product);
@@ -61,7 +60,6 @@ public class ProductDTOAssemblerTest
             for (PriceDTO priceDTO: productDTO.getPrices())
             {
                 assertThat(priceDTO.getLink("self")).isPresent();
-                assertThat(priceDTO.getLink("product")).isPresent();
                 assertThat(priceDTO.getLink("brand")).isPresent();
             }
         }
@@ -74,11 +72,11 @@ public class ProductDTOAssemblerTest
         void test2()
         {
             Product product1 = generateProduct(1L, "short", "long");
-            Price price1     = generatePrice(1L);
+            Price price1     = generatePrice();
             product1.addPrice(price1);
 
             Product product2= generateProduct(2L, "short", "long");
-            Price price2    = generatePrice(2L);
+            Price price2    = generatePrice();
             product2.addPrice(price2);
 
             CollectionModel<ProductDTO> result = assembler.toCollectionModel(List.of(product1, product2));
@@ -97,15 +95,14 @@ public class ProductDTOAssemblerTest
         return new Product(productId, name);
     }
 
-    private Price generatePrice(long productIdLong)
+    private Price generatePrice()
     {
-        ProductId productId = new ProductId(productIdLong);
         PriceId priceId     = new PriceId(1L);
         BrandId brandId     = new BrandId(1L);
         DateInterval dates  = new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
 
-        return new Price(priceId, productId, brandId, dates, priority, money);
+        return new Price(priceId, brandId, dates, priority, money);
     }
 }

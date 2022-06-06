@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 import static com.inditex.test.product.domain.model.Currency.EUR;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ProductTest
 {
@@ -40,7 +39,7 @@ public class ProductTest
         public void test3()
         {
             Product product = generateProduct(3L, "short", "long");
-            Price price     = generatePrice(3L);
+            Price price     = generatePrice();
 
             product.addPrice(price);
 
@@ -51,25 +50,13 @@ public class ProductTest
         public void test4()
         {
             Product product = generateProduct(3L, "short", "long");
-            Price price     = generatePrice(3L);
+            Price price     = generatePrice();
 
             product.addPrice(price);
             assertThat(product.getPrices().getPriceList()).hasSize(1);
             product.removePrice(price);
             assertThat(product.getPrices().getPriceList()).hasSize(0);
 
-        }
-
-        @Test @DisplayName("THEN: adding a price of another product gives an error")
-        public void test5()
-        {
-            Product product = generateProduct(3L, "short", "long");
-            Price price     = generatePrice(1L);
-
-
-            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
-                product.addPrice(price))
-                .withMessageContaining("Cannot add prices from a different product");
         }
     }
 
@@ -83,15 +70,14 @@ public class ProductTest
         return new Product(productId, name);
     }
 
-    private Price generatePrice(long productIdLong)
+    private Price generatePrice()
     {
-        ProductId productId = new ProductId(productIdLong);
         PriceId priceId     = new PriceId(1L);
         BrandId brandId     = new BrandId(1L);
         DateInterval dates  = new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
 
-        return new Price(priceId, productId, brandId, dates, priority, money);
+        return new Price(priceId, brandId, dates, priority, money);
     }
 }

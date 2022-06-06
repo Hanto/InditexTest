@@ -10,7 +10,6 @@ public class Price
 {
     @EqualsAndHashCode.Include
     @Getter private PriceId priceId;
-    @Getter private ProductId productId;
     @Getter private BrandId brandId;
 
     @Getter private DateInterval dateInterval;

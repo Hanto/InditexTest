@@ -124,12 +124,11 @@ public class ProductServiceTest extends BDDMockito
     void givenAPriceeWithId(long id)
     {
         PriceId priceId     = new PriceId(id);
-        ProductId productId = new ProductId(1L);
         BrandId brandId     = new BrandId(1L);
         DateInterval dates  = new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
-        Price price         = new Price(priceId, productId, brandId, dates, priority, money);
+        Price price         = new Price(priceId, brandId, dates, priority, money);
 
 
         given(dao.loadPrice(priceId))
