@@ -95,9 +95,8 @@ public class InditexMainTest
         private String currency;
         private BigDecimal price;
 
-        @JsonProperty("_links")
-        public void setLinks(final Map<String, Link> links) {
-            links.forEach((label, link) ->  add(link.withRel(label)) );
-        }
+        @JsonProperty("_links") @SuppressWarnings("unused")
+        public void setLinks(final Map<String, Link> links)
+        {   links.forEach((label, link) ->  add(link.withRel(label)) ); }
     }
 }
