@@ -38,12 +38,12 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 # Required Software
 - **Spring Boot Web App** -> [JDK 8 or higher](https://www.azul.com/downloads/zulu/) and [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/)
 
-# How to start the application (Execute in order)
+# How to start the application / verify the task:
 - **Maven install:** Do a Maven install `mvn install`
+- **Run asked test:** Execute the following maven command `mvn test -Dtest=com.inditex.test.InditexMainTest*`
 - **Web App:** To start the embedded server from the command line use `mvn spring-boot:run`, or just run it from your IDE (run or debug InditexMain class).
 - **API Endpoints:** Open a browser and go to `localhost:8080/api`, from there discover all the endpoints.
 - **Swagger Documentation:** available at  `localhost:8080/swagger-ui.html`
-- **InditexMainTest:** contains the asked tests
 
 # Project Features
 - **Architecture:** Hexagonal architecture with DDD (Domain Driven Development) for a rich domain model
