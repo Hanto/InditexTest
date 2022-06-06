@@ -3,12 +3,12 @@
 En la base de datos de comercio electrónico de la compañía disponemos de la tabla PRICES que refleja el precio final (pvp) y la tarifa que aplica a un producto de una cadena entre unas fechas determinadas. A continuación se muestra un ejemplo de la tabla con los campos relevantes:
 
 ## Prices table:
-
-- `BRAND_ID         START_DATE                                    END_DATE                        PRICE_LIST                   PRODUCT_ID  PRIORITY            PRICE           CURR`
-- `1         2020-06-14-00.00.00                        2020-12-31-23.59.59                        1                        35455                0                        35.50            EUR`
-- `1         2020-06-14-15.00.00                        2020-06-14-18.30.00                        2                        35455                1                        25.45            EUR`
-- `1         2020-06-15-00.00.00                        2020-06-15-11.00.00                        3                        35455                1                        30.50            EUR`
-- `1         2020-06-15-16.00.00                        2020-12-31-23.59.59                        4                        35455                1                        38.95            EUR`
+| **BRAND_ID** | **START_DATE**      | **END_DATE**        | **PRICE_LIST** | **PRODUCT_ID** | **PRIORITY** | **PRICE** | **CURR** |
+|--------------|---------------------|---------------------|----------------|----------------|--------------|-----------|----------|
+| 1            | 2020-06-14 00.00.00 | 2020-12-31 23.59.59 | 1              | 35455          | 0            | 35.50     | EUR      |
+| 1            | 2020-06-14 15.00.00 | 2020-06-14 8.30.00  | 2              | 35455          | 1            | 25.45     | EUR      |
+| 1            | 2020-06-15 00.00.00 | 2020-06-15 11.00.00 | 3              | 35455          | 1            | 30.50     | EUR      |
+| 1            | 2020-06-15 16.00.00 | 2020-12-31 23.59.59 | 4              | 35455          | 1            | 38.95     | EUR      |
 
 ### Campos:
 
@@ -22,7 +22,7 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 
 ### Se pide:
 
-- Construir una aplicación/servicio en SpringBoot que provea una end point rest de consulta  tal que:
+- Construir una aplicación/servicio en SpringBoot que provea una end point rest de consulta tal que:
 
 - Acepte como parámetros de entrada: fecha de aplicación, identificador de producto, identificador de cadena.
 - Devuelva como datos de salida: identificador de producto, identificador de cadena, tarifa a aplicar, fechas de aplicación y precio final a aplicar.
@@ -38,11 +38,12 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 # Required Software
 - **Spring Boot Web App** -> [JDK 8 or higher](https://www.azul.com/downloads/zulu/) and [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/)
 
-# How to start the applications (Execute in order)
+# How to start the application (Execute in order)
 - **Maven install:** Do a Maven install `mvn install`
 - **Web App:** To start the embedded server from the command line use `mvn spring-boot:run`, or just run it from your IDE (run or debug InditexMain class).
 - **API Endpoints:** Open a browser and go to `localhost:8080/api`, from there discover all the endpoints.
 - **Swagger Documentation:** available at  `localhost:8080/swagger-ui.html`
+- **InditexMainTest:** contains the asked tests
 
 # Project Features
 - **Architecture:** Hexagonal architecture with DDD (Domain Driven Development) for a rich domain model
