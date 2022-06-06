@@ -64,7 +64,7 @@ public class ProductService implements ProductServiceI
     @Override
     @Retryable(
         value = {StaleStateException.class},
-        maxAttempts = 3,
+        maxAttempts = 4,
         backoff = @Backoff(delay = 50, multiplier = 2, maxDelay = 1000))
     @Transactional(
         propagation = REQUIRES_NEW,
