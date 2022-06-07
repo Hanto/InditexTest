@@ -95,7 +95,5 @@ class TestControllerAdapter
     //TODO:
     @GetMapping("/brand/{brandId}")
     public ApiDTO getBrand( @NotNull @PathVariable Long brandId)
-    {
-        return new ApiDTO();
-    }
+    {   return new ApiDTO(); }
 }

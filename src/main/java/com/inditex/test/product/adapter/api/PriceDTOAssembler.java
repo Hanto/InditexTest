@@ -1,6 +1,7 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.domain.model.Price;
+import com.inditex.test.product.domain.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -20,22 +21,30 @@ class PriceDTOAssembler implements RepresentationModelAssembler<Price, PriceDTO>
     //--------------------------------------------------------------------------------------------------------
 
     @Override
-    public PriceDTO toModel(Price entity)
+    public PriceDTO toModel(Price price)
     {
-        PriceDTO dto = mapper.fromModel(entity);
+        PriceDTO dto = mapper.fromModel(price);
 
         Link selfLink = linkTo(methodOn(TestControllerAdapter.class)
-            .getPrice(entity.getPriceId().getId()))
+            .getPrice(price.getPriceId().getId()))
             .withSelfRel();
 
         Link brandLink = linkTo(methodOn(TestControllerAdapter.class)
-            .getBrand(entity.getBrandId().getId()))
+            .getBrand(price.getBrandId().getId()))
             .withRel("brand");
-
-        Link pricechange = getPricechange();
 
         dto.add(selfLink);
         dto.add(brandLink);
+
+        return dto;
+    }
+
+    public PriceDTO toModel(Price price, Product product)
+    {
+        PriceDTO dto = toModel(price);
+
+        Link pricechange = getPricechange(product.getProductId().getId(), price.getPriceId().getId());
+
         dto.add(pricechange);
 
         return dto;
@@ -48,12 +57,13 @@ class PriceDTOAssembler implements RepresentationModelAssembler<Price, PriceDTO>
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    private Link getPricechange()
+    private Link getPricechange(Long productId, Long priceId)
     {
         try
         {
             return linkTo(TestControllerAdapter.class
-                .getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class))
+                .getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class),
+                productId, priceId, null, null)
                 .withRel("Modify price");
         }
         catch (Exception e)

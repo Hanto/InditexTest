@@ -32,7 +32,7 @@ public class PricesTest
     }
 
     // ADDING:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @Nested @DisplayName("WHEN: Adding prices")
     class AddPrice
@@ -68,7 +68,7 @@ public class PricesTest
     }
 
     // REMOVING:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @Nested @DisplayName("WHEN: Removing prices")
     class RemovePrice
@@ -102,9 +102,9 @@ public class PricesTest
     }
 
     // PRICELIST:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
-    @Nested @DisplayName("WHEN: Directly modifying price list")
+    @Nested @DisplayName("WHEN: Directly modifying the list of prices")
     class PriceListUnmodifiable
     {
         @Test @DisplayName("THEN: An Exception is thrown")
@@ -117,7 +117,7 @@ public class PricesTest
     }
 
     // GETPRICE:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @Nested @DisplayName("WHEN: Retrieving a price for now")
     class PriceFor
@@ -184,9 +184,35 @@ public class PricesTest
         }
     }
 
+    @Nested @DisplayName("WHEN: Retrieving a price based on its Id")
+    class PriceForId
+    {
+        @Nested @DisplayName("WHEN: the product has the price")
+        class PriceExists
+        {
+            @Test @DisplayName("THEN: price is retrieved")
+            public void getPriceTest()
+            {
+                Price price = prices.getPrice(price1.getPriceId());
+
+                assertThat(price).isEqualTo(price1);
+            }
+        }
+
+        @Nested @DisplayName("WHEN: the product doesn't have the price")
+        class PriceDoesntExist
+        {
+            @Test @DisplayName("THEN: an exception is thrown")
+            public void getPriceTest()
+            {
+                assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy( () ->
+                    prices.getPrice(new PriceId(999999999L)));
+            }
+        }
+    }
 
     // HELPER:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     private Price buildPrice(Long priceL, long brandL, String startString, String endString, int priority, Currency currency, float quantity)
     {

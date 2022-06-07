@@ -8,6 +8,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -24,8 +26,11 @@ class ProductDTOAssembler implements RepresentationModelAssembler<Product, Produ
     public ProductDTO toModel(Product entity)
     {
         ProductDTO productDTO = mapper.fromModel(entity);
-        CollectionModel<PriceDTO>priceDTOs = priceDTOAssembler.toCollectionModel(entity.getPrices().getPriceList());
-        productDTO.setPrices(priceDTOs.getContent());
+        List<PriceDTO> priceDTOs = entity.getPrices().getPriceList().stream()
+            .map(price -> priceDTOAssembler.toModel(price, entity))
+            .toList();
+
+        productDTO.setPrices(priceDTOs);
 
         Link selfLink = linkTo(methodOn(TestControllerAdapter.class)
             .getProduct(productDTO.getProductId()))
@@ -38,7 +43,5 @@ class ProductDTOAssembler implements RepresentationModelAssembler<Product, Produ
 
     @Override
     public CollectionModel<ProductDTO> toCollectionModel(Iterable<? extends Product> entities)
-    {
-        return RepresentationModelAssembler.super.toCollectionModel(entities);
-    }
+    {   return RepresentationModelAssembler.super.toCollectionModel(entities); }
 }
