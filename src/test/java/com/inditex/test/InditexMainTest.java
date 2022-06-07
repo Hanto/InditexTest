@@ -113,7 +113,7 @@ public class InditexMainTest
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
 
-    @Data @EqualsAndHashCode(callSuper = false) @NoArgsConstructor @AllArgsConstructor @Builder
+    @Setter @Getter @EqualsAndHashCode(callSuper = false) @NoArgsConstructor @AllArgsConstructor @Builder
     static class PriceDTO extends RepresentationModel<PriceDTO>
     {
         private long priceId;
