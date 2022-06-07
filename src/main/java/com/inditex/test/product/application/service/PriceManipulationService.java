@@ -2,16 +2,16 @@ package com.inditex.test.product.application.service;// Created by jhant on 04/0
 
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
 import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
-import com.inditex.test.product.application.port.out.MemoryRepository;
+import com.inditex.test.product.application.port.in.QueryPriceCommand;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
-import com.inditex.test.product.domain.model.*;
+import com.inditex.test.product.domain.model.Price;
+import com.inditex.test.product.domain.model.PriceId;
+import com.inditex.test.product.domain.model.Product;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.StaleStateException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
@@ -19,22 +19,21 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRES_NE
 public class PriceManipulationService implements PriceManipulationUseCase
 {
     private final PersistenceRepository persistenceRepository;
-    private final MemoryRepository memoryRepository;
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Price getPrice(long priceId)
-    {   return persistenceRepository.loadPrice(new PriceId(priceId)); }
+    public Price getPrice(PriceId priceId)
+    {   return persistenceRepository.loadPrice(priceId); }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Price assignedPriceFor(long productId, long brandId, LocalDateTime time)
+    public Price assignedPriceFor(QueryPriceCommand command)
     {
-        Product product = persistenceRepository.loadProduct(new ProductId(productId));
-        return product.getPrices().getPriceAt(time, new BrandId(brandId));
+        Product product = persistenceRepository.loadProduct(command.getProductId());
+        return product.getPrices().getPriceAt(command.getLocalDateTime(), command.getBrandId());
     }
 
     // UPDATE:

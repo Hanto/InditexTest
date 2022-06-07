@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class SpringBeans
 {
     @Bean
-    public PriceManipulationUseCase getPriceManipulationService(PersistenceRepository persistenceRepository, MemoryRepository memoryRepository)
-    {   return new PriceManipulationService(persistenceRepository, memoryRepository); }
+    public PriceManipulationUseCase getPriceManipulationService(PersistenceRepository persistenceRepository)
+    {   return new PriceManipulationService(persistenceRepository); }
 
     @Bean
     public ProductInfoUseCase getProductInfoService(PersistenceRepository persistenceRepository, MemoryRepository memoryRepository)

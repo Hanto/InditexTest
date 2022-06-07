@@ -2,7 +2,6 @@ package com.inditex.test.product.application.service;// Created by jhant on 05/0
 
 import com.inditex.test.configuration.SpringBeans;
 import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
-import com.inditex.test.product.application.port.out.MemoryRepository;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
 import com.inditex.test.product.domain.model.*;
 import org.junit.jupiter.api.DisplayName;
@@ -20,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PriceManipulationServiceTest extends BDDMockito
 {
     private final PersistenceRepository dao = Mockito.mock(PersistenceRepository.class);
-    private final MemoryRepository memDao = Mockito.mock(MemoryRepository.class);
-    private final PriceManipulationUseCase service = new SpringBeans().getPriceManipulationService(dao, memDao);
+    private final PriceManipulationUseCase service = new SpringBeans().getPriceManipulationService(dao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
@@ -34,7 +32,7 @@ public class PriceManipulationServiceTest extends BDDMockito
         {
             givenAPriceeWithId(1L);
 
-            Price price = service.getPrice(1L);
+            Price price = service.getPrice(new PriceId(1L));
 
             assertThat(price.getPriceId().getId()).isEqualTo(1L);
             assertThat(price.getBrandId().getId()).isEqualTo(1L);
@@ -52,7 +50,6 @@ public class PriceManipulationServiceTest extends BDDMockito
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
         Price price         = new Price(priceId, brandId, dates, priority, money);
-
 
         given(dao.loadPrice(priceId))
             .willReturn(price);

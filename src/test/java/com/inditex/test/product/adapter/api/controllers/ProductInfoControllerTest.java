@@ -1,7 +1,9 @@
 package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 07/06/2022.
 
 import com.inditex.test.product.adapter.api.mappers.ProductDTOAssembler;
+import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductInfoUseCase;
+import com.inditex.test.product.domain.model.ProductId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,7 +41,7 @@ public class ProductInfoControllerTest
                 .andExpect(status().isOk());
 
             BDDMockito.then(service)
-                .should().getProducts(1, 10);
+                .should().getProducts(eq(new PaginationCommand(1, 10)));
         }
 
         @Test @DisplayName("THEN: product api works")
@@ -50,7 +53,7 @@ public class ProductInfoControllerTest
                 .andExpect(status().isOk());
 
             BDDMockito.then(service)
-                .should().getProduct(38455L);
+                .should().getProduct(eq(new ProductId(38455L)));
         }
     }
 }

@@ -3,6 +3,8 @@ package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 
 import com.inditex.test.product.adapter.api.mappers.PriceDTOAssembler;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
 import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
+import com.inditex.test.product.application.port.in.QueryPriceCommand;
+import com.inditex.test.product.domain.model.BrandId;
 import com.inditex.test.product.domain.model.Money;
 import com.inditex.test.product.domain.model.PriceId;
 import com.inditex.test.product.domain.model.ProductId;
@@ -48,7 +50,8 @@ public class PriceManipulationControllerTest
                 .andExpect(status().isOk());
 
             BDDMockito.then(service)
-                .should().assignedPriceFor(3945,1, dateTime);
+                .should().assignedPriceFor(eq(
+                    new QueryPriceCommand(new ProductId(3945L), new BrandId(1L), dateTime)));
         }
 
         @Test @DisplayName("THEN: modify price api works")
@@ -61,7 +64,8 @@ public class PriceManipulationControllerTest
                 .andExpect(status().isOk());
 
             BDDMockito.then(service)
-                .should().modifyPrice(eq(new ModifyPriceCommand(new ProductId(3945L), new PriceId(1L), new Money(10f, "EUR"))));
+                .should().modifyPrice(eq(
+                    new ModifyPriceCommand(new ProductId(3945L), new PriceId(1L), new Money(10f, "EUR"))));
         }
 
         @Test @DisplayName("THEN: price api works")
@@ -73,7 +77,7 @@ public class PriceManipulationControllerTest
                 .andExpect(status().isOk());
 
             BDDMockito.then(service)
-                .should().getPrice(1);
+                .should().getPrice(new PriceId(1L));
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.inditex.test.product.application.service;// Created by jhant on 07/06/2022.
 
+import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductInfoUseCase;
 import com.inditex.test.product.application.port.out.MemoryRepository;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
@@ -22,10 +23,9 @@ public class ProductInfoService implements ProductInfoUseCase
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void createProduct(String shortName, String longName)
+    public void createProduct(ProductName name)
     {
         ProductId id    = new ProductId(memoryRepository.generateUniqueProductId());
-        ProductName name= new ProductName(shortName, longName);
         Product product = new Product(id, name);
 
         persistenceRepository.saveProduct(product);
@@ -33,11 +33,11 @@ public class ProductInfoService implements ProductInfoUseCase
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Collection<Product> getProducts(int page, int pageSize)
-    {   return persistenceRepository.loadProducts(page, pageSize); }
+    public Collection<Product> getProducts(PaginationCommand command)
+    {   return persistenceRepository.loadProducts(command.getPage(), command.getPageSize()); }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Product getProduct(long productId)
-    {   return persistenceRepository.loadProduct(new ProductId(productId)); }
+    public Product getProduct(ProductId productId)
+    {   return persistenceRepository.loadProduct(productId); }
 }

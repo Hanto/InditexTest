@@ -4,10 +4,8 @@ import com.inditex.test.product.adapter.api.dtos.PriceDTO;
 import com.inditex.test.product.adapter.api.mappers.PriceDTOAssembler;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
 import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
-import com.inditex.test.product.domain.model.Money;
-import com.inditex.test.product.domain.model.Price;
-import com.inditex.test.product.domain.model.PriceId;
-import com.inditex.test.product.domain.model.ProductId;
+import com.inditex.test.product.application.port.in.QueryPriceCommand;
+import com.inditex.test.product.domain.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,10 @@ public class PriceManipulationController
         @NotNull @PathVariable Long brandId,
         @NotNull @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME)LocalDateTime dateTime)
     {
-        Price price = service.assignedPriceFor(productId, brandId, dateTime);
+        QueryPriceCommand command = new QueryPriceCommand(
+            new ProductId(productId), new BrandId(brandId), dateTime);
+
+        Price price = service.assignedPriceFor(command);
         return priceAssembler.toModel(price);
     }
 
@@ -57,7 +58,7 @@ public class PriceManipulationController
     @GetMapping("/price/{priceId}")
     public PriceDTO getPrice( @NotNull @PathVariable Long priceId)
     {
-        Price price = service.getPrice(priceId);
+        Price price = service.getPrice(new PriceId(priceId));
         return priceAssembler.toModel(price);
     }
 }

@@ -1,6 +1,7 @@
 package com.inditex.test.product.application.service;// Created by jhant on 07/06/2022.
 
 import com.inditex.test.configuration.SpringBeans;
+import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductInfoUseCase;
 import com.inditex.test.product.application.port.out.MemoryRepository;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
@@ -39,7 +40,7 @@ public class ProductInfoServiceTest extends BDDMockito
         {
             givenAProductIdSequenceAt(1L);
 
-            service.createProduct("short", "long");
+            service.createProduct(new ProductName("short", "long"));
 
             Product product = thenProductSaved(1).get(0);
 
@@ -54,7 +55,7 @@ public class ProductInfoServiceTest extends BDDMockito
         {
             givenAProductWithId(1L, "shortName", "longName");
 
-            Product product = service.getProduct(1L);
+            Product product = service.getProduct(new ProductId(1L));
 
             assertThat(product.getProductId().getId()).isEqualTo(1L);
             assertThat(product.getProductName().getShortName()).isEqualTo("shortName");
@@ -66,7 +67,7 @@ public class ProductInfoServiceTest extends BDDMockito
         {
             givenAProductWithId(1L, "shortName", "longName");
 
-            Collection<Product> products = service.getProducts(1, 10);
+            Collection<Product> products = service.getProducts(new PaginationCommand(1, 10));
 
             assertThat(products).hasSize(1);
         }

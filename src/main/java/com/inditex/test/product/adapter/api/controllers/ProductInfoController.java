@@ -2,8 +2,10 @@ package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 
 
 import com.inditex.test.product.adapter.api.dtos.ProductDTO;
 import com.inditex.test.product.adapter.api.mappers.ProductDTOAssembler;
+import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductInfoUseCase;
 import com.inditex.test.product.domain.model.Product;
+import com.inditex.test.product.domain.model.ProductId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +36,16 @@ public class ProductInfoController
         @NotNull @PathVariable Integer page,
         @NotNull @PathVariable Integer pageSize)
     {
-        Collection<Product> products = service.getProducts(page , pageSize);
+        PaginationCommand command = new PaginationCommand(page, pageSize);
+
+        Collection<Product> products = service.getProducts(command);
         return productAssembler.toCollectionModel(products);
     }
 
     @GetMapping("/product/{productId}")
     public ProductDTO getProduct(@NotNull @PathVariable Long productId)
     {
-        Product product = service.getProduct(productId);
+        Product product = service.getProduct(new ProductId(productId));
         return productAssembler.toModel(product);
     }
 }
