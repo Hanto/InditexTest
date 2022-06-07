@@ -3,6 +3,7 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 06/0
 import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.inditex.test.common.Try;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,14 +11,19 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.LongStream;
+import java.util.Collection;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest @ActiveProfiles("H2Hazel")
-@Import({JpaH2Adapter.class, ProductMapper.class, PriceMapper.class, HazelcastAdapter.class, HazelcastConfig.class})
+@Import({JpaH2Adapter.class, ProductMapper.class, HazelcastAdapter.class, HazelcastConfig.class})
 class HazelcastAdapterTest
 {
     @Autowired private HazelcastAdapter adapter;
@@ -40,33 +46,52 @@ class HazelcastAdapterTest
     // TESTS:
     //--------------------------------------------------------------------------------------------------------
 
-    @Nested @DisplayName("WHEN: generating uniqueIDs")
-    class IdGeneration
+    @Nested @DisplayName("WHEN: generating uniqueIDs concurrently")
+    class ConcurrentIdGeneration
     {
-        @Test @Sql("/test.sql") @DisplayName("THEN: productIds are generated consecutively")
+        @Test @Sql("/test.sql") @DisplayName("THEN: productIds are unique")
         public void productIdSequenceTest()
         {
-            List<Long>expectedResult = LongStream.iterate(1, i -> i +1).limit(1000).boxed().toList();
-            List<Long> results = new ArrayList<>();
+            ExecutorService executor = Executors.newCachedThreadPool();
+            Queue<Future<Long>> generated = new ConcurrentLinkedDeque<>();
 
-            for (int i=0; i<1000; i++)
-                results.add(adapter.generateUniqueProductId());
+            for (int i=0; i<100; i++)
+            {
+                generated.add(executor.submit(() -> adapter.generateUniqueProductId()));
+                generated.add(executor.submit(() -> adapter.generateUniqueProductId()));
+            }
 
-            assertThat(results).hasSize(1000);
-            assertThat(results).isEqualTo(expectedResult);
+            Set<Long> notDuplicated = toNotDuplicatedSet(generated);
+
+            assertThat(generated).hasSameSizeAs(notDuplicated);
         }
 
-        @Test @Sql("/test.sql") @DisplayName("THEN: priceIds are generated consecutively")
+        @Test @Sql("/test.sql") @DisplayName("THEN: priceIds are unique")
         public void priceIdSequenceTest()
         {
-            List<Long>expectedResult = LongStream.iterate(1, i -> i +1).limit(1000).boxed().toList();
-            List<Long> results = new ArrayList<>();
+            ExecutorService executor = Executors.newCachedThreadPool();
+            Queue<Future<Long>> generated = new ConcurrentLinkedDeque<>();
 
-            for (int i=0; i<1000; i++)
-                results.add(adapter.generateUniquePriceId());
+            for (int i=0; i<100; i++)
+            {
+                generated.add(executor.submit(() -> adapter.generateUniquePriceId()));
+                generated.add(executor.submit(() -> adapter.generateUniquePriceId()));
+            }
 
-            assertThat(results).hasSize(1000);
-            assertThat(results).isEqualTo(expectedResult);
+            Set<Long> notDuplicated = toNotDuplicatedSet(generated);
+
+            assertThat(generated).hasSameSizeAs(notDuplicated);
         }
+    }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private <T>Set<T> toNotDuplicatedSet(Collection<Future<T>>collection)
+    {
+        return collection.stream()
+            .map(Try.function(Future::get))
+            .map(Try::getSuccess)
+            .collect(Collectors.toSet());
     }
 }

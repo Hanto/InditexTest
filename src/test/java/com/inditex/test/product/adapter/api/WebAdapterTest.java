@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 05/06/2022.
 
-import com.inditex.test.product.application.ProductServiceI;
+import com.inditex.test.product.application.TestUseCaseI;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class WebAdapterTest
 {
     @Autowired private MockMvc mockMvc;
-    @MockBean private ProductServiceI productService;
+    @MockBean private TestUseCaseI productService;
     @MockBean private PriceDTOAssembler priceAssembler;
     @MockBean private ProductDTOAssembler productAssembler;
 
@@ -82,6 +83,19 @@ class WebAdapterTest
 
             BDDMockito.then(productService)
                 .should().assignedPriceFor(3945,1, dateTime);
+        }
+
+        @Test @DisplayName("THEN: modify price api works")
+        void modifyPriceTest() throws Exception
+        {
+            MockHttpServletRequestBuilder get = patch("/api/product/{productId}/{priceId}/{price}/{currency}",
+                3945, 1, 10f, "EUR");
+
+            mockMvc.perform(get)
+                .andExpect(status().isOk());
+
+            BDDMockito.then(productService)
+                .should().modifyPrice(3945,1, 10f, "EUR");
         }
 
         @Test @DisplayName("THEN: price api works")

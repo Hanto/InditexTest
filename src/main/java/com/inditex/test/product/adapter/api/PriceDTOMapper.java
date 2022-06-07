@@ -9,7 +9,6 @@ class PriceDTOMapper
     PriceDTO fromModel(Price model)
     {
         return PriceDTO.builder()
-            .productId(model.getProductId().getId())
             .priceId(model.getPriceId().getId())
             .brandId(model.getBrandId().getId())
             .startDate(model.getDateInterval().getStartDate())

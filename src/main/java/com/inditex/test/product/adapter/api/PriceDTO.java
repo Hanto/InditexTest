@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 class PriceDTO extends RepresentationModel<PriceDTO>
 {
     private long priceId;
-    private long productId;
     private long brandId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

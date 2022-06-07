@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.application.ProductServiceI;
+import com.inditex.test.product.application.TestUseCaseI;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.Product;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -27,7 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Log4j2
 class WebAdapter
 {
-    @Autowired private final ProductServiceI productService;
+    @Autowired private final TestUseCaseI productService;
     @Autowired private final PriceDTOAssembler priceAssembler;
     @Autowired private final ProductDTOAssembler productAssembler;
 
@@ -42,8 +39,8 @@ class WebAdapter
         api.add(linkTo(methodOn(WebAdapter.class).getIndex()).withSelfRel());
         api.add(linkTo(methodOn(WebAdapter.class).getProducts(null, null)).withRel("All products"));
         api.add(linkTo(methodOn(WebAdapter.class).getProduct(null)).withRel("Product"));
-        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null, null,null)).withRel("Price for product"));
         api.add(linkTo(methodOn(WebAdapter.class).getPrice(null)).withRel("Price"));
+        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null, null,null)).withRel("Price for product"));
 
         return api;
     }
@@ -65,6 +62,16 @@ class WebAdapter
     {
         Product product = productService.getProduct(productId);
         return productAssembler.toModel(product);
+    }
+
+    @PatchMapping("/product/{productId}/{priceId}/{price}/{currency}")
+    public void modifyPrice(
+        @PathVariable Long productId,
+        @PathVariable Long priceId,
+        @PathVariable Float price,
+        @PathVariable String currency)
+    {
+        productService.modifyPrice(productId, priceId, price, currency);
     }
 
     @GetMapping("/price/{productId}/{brandId}/{dateTime}")

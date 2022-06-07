@@ -1,11 +1,11 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
 import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
-import com.inditex.test.product.application.PersistenceDAO;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;
 import com.inditex.test.product.domain.model.Product;
 import com.inditex.test.product.domain.model.ProductId;
+import com.inditex.test.product.domain.services.PersistenceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,12 +22,11 @@ import static java.lang.String.format;
 @Component
 @EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @RequiredArgsConstructor
-class JpaH2Adapter implements PersistenceDAO
+class JpaH2Adapter implements PersistenceRepository
 {
     @Autowired private final PriceRepository priceRepo;
     @Autowired private final ProductRepository productRepo;
     @Autowired private final ProductMapper productMapper;
-    @Autowired private final PriceMapper priceMapper;
 
     // PRODUCTS:
     //--------------------------------------------------------------------------------------------------------
@@ -66,6 +65,6 @@ class JpaH2Adapter implements PersistenceDAO
         PriceEntity priceEntity = priceRepo.findById(priceId.getId())
             .orElseThrow(() -> new IllegalArgumentException(format("No product exists with the id: %s", priceId.getId())));
 
-        return priceMapper.fromEntity(priceEntity);
+        return productMapper.fromEntity(priceEntity);
     }
 }

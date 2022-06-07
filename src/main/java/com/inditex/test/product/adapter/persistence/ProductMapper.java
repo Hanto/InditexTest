@@ -2,7 +2,6 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/0
 
 import com.inditex.test.product.domain.model.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,16 +14,14 @@ import static org.springframework.beans.factory.config.ConfigurableBeanFactory.S
 @RequiredArgsConstructor
 class ProductMapper
 {
-    @Autowired private final PriceMapper priceMapper;
-
-    // MAPPERS:
+    // FROM ENTITY:
     //--------------------------------------------------------------------------------------------------------
 
     Product fromFullEntity(ProductEntity productEntity)
     {
         ProductId productId         = new ProductId(productEntity.getProductId());
         ProductName name            = new ProductName(productEntity.getShortName(), productEntity.getLongName());
-        Collection<Price> priceList = productEntity.getPrices().stream().map(priceMapper::fromEntity).toList();
+        Collection<Price> priceList = productEntity.getPrices().stream().map(this::fromEntity).toList();
 
         Product product = new Product(productId, name, new Prices(), productEntity.getVersion());
         product.addPrices(priceList);
@@ -40,10 +37,25 @@ class ProductMapper
         return new Product(productId, name, new Prices(), productEntity.getVersion());
     }
 
+    Price fromEntity(PriceEntity entity)
+    {
+        PriceId priceId             = new PriceId(entity.getPriceId());
+        BrandId branId              = new BrandId(entity.getBrandId());
+        DateInterval dateInterval   = new DateInterval(entity.getStartDate(), entity.getEndDate());
+        int priority                = entity.getPriority();
+        Money money                 = new Money(entity.getMoney(), entity.getCurrency());
+
+        return new Price(priceId, branId, dateInterval, priority, money, entity.getVersion());
+    }
+
+    // FROM DOMAIN:
+    //--------------------------------------------------------------------------------------------------------
+
     ProductEntity fromDomain(Product product)
     {
         List<PriceEntity>priceEntities = product.getPrices().getPriceList().stream()
-            .map(priceMapper::fromDomain).toList();
+            .map(this::fromDomain).toList();
+        priceEntities.forEach(price -> price.setProductId(product.getProductId().getId()));
 
         return ProductEntity.builder()
             .productId(product.getProductId().getId())
@@ -51,6 +63,20 @@ class ProductMapper
             .longName(product.getProductName().getLongName())
             .prices(priceEntities)
             .version(product.getVersion())
+            .build();
+    }
+
+    PriceEntity fromDomain(Price price)
+    {
+        return PriceEntity.builder()
+            .priceId(price.getPriceId().getId())
+            .brandId(price.getBrandId().getId())
+            .startDate(price.getDateInterval().getStartDate())
+            .endDate(price.getDateInterval().getEndDate())
+            .priority(price.getPriority())
+            .money(price.getMoney().getCuantity())
+            .currency(price.getMoney().getCurrency().name())
+            .version(price.getVersion())
             .build();
     }
 }

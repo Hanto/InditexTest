@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 @DataJpaTest @ActiveProfiles("H2") @EnableSniffy
-@Import({JpaH2Adapter.class, ProductMapper.class, PriceMapper.class})
+@Import({JpaH2Adapter.class, ProductMapper.class})
 class JpaH2AdapterTest
 {
     @Autowired private JpaH2Adapter adapter;
@@ -78,7 +78,6 @@ class JpaH2AdapterTest
             Price price = adapter.loadPrice(new PriceId(100L));
 
             assertThat(price.getPriceId().getId()).isEqualTo(100L);
-            assertThat(price.getProductId().getId()).isEqualTo(354550L);
             assertThat(price.getBrandId().getId()).isEqualTo(1L);
             assertThat(price.getDateInterval().getStartDate()).isEqualTo(LocalDateTime.parse("2020-06-14T00:00:00"));
             assertThat(price.getDateInterval().getEndDate()).isEqualTo(LocalDateTime.parse("2020-12-31T23:59:59"));

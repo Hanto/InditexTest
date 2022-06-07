@@ -6,7 +6,7 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 | **BRAND_ID** | **START_DATE**      | **END_DATE**        | **PRICE_LIST** | **PRODUCT_ID** | **PRIORITY** | **PRICE** | **CURR** |
 |--------------|---------------------|---------------------|----------------|----------------|--------------|-----------|----------|
 | 1            | 2020-06-14 00.00.00 | 2020-12-31 23.59.59 | 1              | 35455          | 0            | 35.50     | EUR      |
-| 1            | 2020-06-14 15.00.00 | 2020-06-14 8.30.00  | 2              | 35455          | 1            | 25.45     | EUR      |
+| 1            | 2020-06-14 15.00.00 | 2020-06-14  8.30.00 | 2              | 35455          | 1            | 25.45     | EUR      |
 | 1            | 2020-06-15 00.00.00 | 2020-06-15 11.00.00 | 3              | 35455          | 1            | 30.50     | EUR      |
 | 1            | 2020-06-15 16.00.00 | 2020-12-31 23.59.59 | 4              | 35455          | 1            | 38.95     | EUR      |
 
@@ -34,6 +34,10 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 - `Test 3: petición a las 21:00 del día 14 del producto 35455 para la brand 1 (ZARA)`
 - `Test 4: petición a las 10:00 del día 15 del producto 35455 para la brand 1 (ZARA)`
 - `Test 5: petición a las 21:00 del día 16 del producto 35455 para la brand 1 (ZARA)`
+
+# Assumptions:
+- The price calculator api will only return the price (id, brand, start, end, priority, price, currency) there is no need to 
+- return the productid, having root IDs on the surrogate entities goes agaisnt proper DDD.
 
 # Required Software
 - **Spring Boot Web App** -> [JDK 8 or higher](https://www.azul.com/downloads/zulu/) and [Maven](https://maven.apache.org/download.cgi?Preferred=ftp://ftp.osuosl.org/pub/apache/)

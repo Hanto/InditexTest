@@ -26,7 +26,6 @@ public class PriceDTOAssemblerTest
             PriceDTO priceDTO = assembler.toModel(price);
 
             assertThat(priceDTO.getPriceId()).isEqualTo(price.getPriceId().getId());
-            assertThat(priceDTO.getProductId()).isEqualTo(price.getProductId().getId());
             assertThat(priceDTO.getBrandId()).isEqualTo(price.getBrandId().getId());
             assertThat(priceDTO.getStartDate()).isEqualTo(price.getDateInterval().getStartDate());
             assertThat(priceDTO.getEndDate()).isEqualTo(price.getDateInterval().getEndDate());
@@ -43,10 +42,8 @@ public class PriceDTOAssemblerTest
             PriceDTO priceDTO = assembler.toModel(price);
 
             assertThat(priceDTO.getLink("self")).isPresent();
-            assertThat(priceDTO.getLink("product")).isPresent();
             assertThat(priceDTO.getLink("brand")).isPresent();
         }
-
     }
 
     // HELPER:
@@ -54,13 +51,12 @@ public class PriceDTOAssemblerTest
 
     private Price generatePrice(long productIdLong)
     {
-        ProductId productId = new ProductId(productIdLong);
         PriceId priceId     = new PriceId(1L);
         BrandId brandId     = new BrandId(1L);
         DateInterval dates  = new DateInterval(LocalDateTime.now(), LocalDateTime.now().plusDays(2));
         int priority        = 0;
         Money money         = new Money(100.0f, EUR);
 
-        return new Price(priceId, productId, brandId, dates, priority, money);
+        return new Price(priceId, brandId, dates, priority, money);
     }
 }

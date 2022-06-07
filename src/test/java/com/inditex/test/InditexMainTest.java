@@ -14,6 +14,8 @@ import org.springframework.hateoas.RepresentationModel;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,38 +31,66 @@ public class InditexMainTest
         {
             PriceDTO dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T10:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(1L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T16:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(2L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T21:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(1L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-15T10:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(3L);
 
             dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-16T21:00:00"));
 
-            assertThat(dto.getProductId()).isEqualTo(35455L);
             assertThat(dto.getBrandId()).isEqualTo(1L);
             assertThat(dto.getPriceId()).isEqualTo(4L);
+        }
+
+        @Test @DisplayName("THEN: prices can be modified concurrently")
+        public void concurrentTest() throws InterruptedException
+        {
+            ExecutorService executor = Executors.newCachedThreadPool();
+
+            for (int i=0; i<10; i++)
+                executor.submit(InditexMainTest.this::modifyPrice);
+
+            Thread.sleep(2000); //give it some time to process all the requests
+
+            PriceDTO dto = retrievePriceFor(35455L, 1L, LocalDateTime.parse("2020-06-14T10:00:00"));
+
+            assertThat(dto.getPrice()).isEqualByComparingTo("135.50");
         }
     }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
+
+    private void modifyPrice()
+    {
+        RestAssured
+            .given()
+                .contentType("application/json")
+            .when()
+                .basePath("/api/product/{productId}/{priceId}/{price}/{currency}")
+                .pathParam("productId", 35455L)
+                .pathParam("priceId", 1L)
+                .pathParam("price", 10f)
+                .pathParam("currency", "EUR")
+                .log().all()
+            .patch()
+            .then()
+                .log().all()
+                .assertThat().statusCode(HttpStatus.SC_OK);
+    }
 
     private PriceDTO retrievePriceFor(Long productId, Long brandId, LocalDateTime date)
     {
