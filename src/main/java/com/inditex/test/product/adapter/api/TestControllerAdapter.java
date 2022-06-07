@@ -22,7 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController @RequestMapping(value ="/api", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE})
 @RequiredArgsConstructor @SuppressWarnings("all")
 @Log4j2
-class WebAdapter
+class TestControllerAdapter
 {
     @Autowired private final TestUseCaseI productService;
     @Autowired private final PriceDTOAssembler priceAssembler;
@@ -36,11 +36,11 @@ class WebAdapter
     {
         ApiDTO api = new ApiDTO();
 
-        api.add(linkTo(methodOn(WebAdapter.class).getIndex()).withSelfRel());
-        api.add(linkTo(methodOn(WebAdapter.class).getProducts(null, null)).withRel("All products"));
-        api.add(linkTo(methodOn(WebAdapter.class).getProduct(null)).withRel("Product"));
-        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null)).withRel("Price"));
-        api.add(linkTo(methodOn(WebAdapter.class).getPrice(null, null,null)).withRel("Price for product"));
+        api.add(linkTo(methodOn(TestControllerAdapter.class).getIndex()).withSelfRel());
+        api.add(linkTo(methodOn(TestControllerAdapter.class).getProducts(null, null)).withRel("All products"));
+        api.add(linkTo(methodOn(TestControllerAdapter.class).getProduct(null)).withRel("Product"));
+        api.add(linkTo(methodOn(TestControllerAdapter.class).getPrice(null)).withRel("Price"));
+        api.add(linkTo(methodOn(TestControllerAdapter.class).getPrice(null, null,null)).withRel("Price for product"));
 
         return api;
     }

@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = WebAdapter.class)
-class WebAdapterTest
+@WebMvcTest(controllers = TestControllerAdapter.class)
+class TestControllerAdapterTest
 {
     @Autowired private MockMvc mockMvc;
     @MockBean private TestUseCaseI productService;

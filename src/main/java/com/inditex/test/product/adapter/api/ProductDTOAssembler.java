@@ -27,7 +27,7 @@ class ProductDTOAssembler implements RepresentationModelAssembler<Product, Produ
         CollectionModel<PriceDTO>priceDTOs = priceDTOAssembler.toCollectionModel(entity.getPrices().getPriceList());
         productDTO.setPrices(priceDTOs.getContent());
 
-        Link selfLink = linkTo(methodOn(WebAdapter.class)
+        Link selfLink = linkTo(methodOn(TestControllerAdapter.class)
             .getProduct(productDTO.getProductId()))
             .withSelfRel();
 

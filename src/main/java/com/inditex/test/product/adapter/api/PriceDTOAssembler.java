@@ -24,11 +24,11 @@ class PriceDTOAssembler implements RepresentationModelAssembler<Price, PriceDTO>
     {
         PriceDTO dto = mapper.fromModel(entity);
 
-        Link selfLink = linkTo(methodOn(WebAdapter.class)
+        Link selfLink = linkTo(methodOn(TestControllerAdapter.class)
             .getPrice(entity.getPriceId().getId()))
             .withSelfRel();
 
-        Link brandLink = linkTo(methodOn(WebAdapter.class)
+        Link brandLink = linkTo(methodOn(TestControllerAdapter.class)
             .getBrand(entity.getBrandId().getId()))
             .withRel("brand");
 
