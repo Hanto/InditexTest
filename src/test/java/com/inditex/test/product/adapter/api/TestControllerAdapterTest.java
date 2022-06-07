@@ -88,7 +88,7 @@ class TestControllerAdapterTest
         @Test @DisplayName("THEN: modify price api works")
         void modifyPriceTest() throws Exception
         {
-            MockHttpServletRequestBuilder get = patch("/api/product/{productId}/{priceId}/{price}/{currency}",
+            MockHttpServletRequestBuilder get = patch("/api/price/{productId}/{priceId}/{price}/{currency}",
                 3945, 1, 10f, "EUR");
 
             mockMvc.perform(get)

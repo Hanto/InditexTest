@@ -9,8 +9,8 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
-@AnalyzeClasses(packages = DepedencyTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
-public class DepedencyTest
+@AnalyzeClasses(packages = DependencyTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
+public class DependencyTest
 {
     static final String CORE_PACKAGE = "com.inditex.test";
     private static final String DOMAIN = "..domain..";
