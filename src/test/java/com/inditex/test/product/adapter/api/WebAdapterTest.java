@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 05/06/2022.
 
-import com.inditex.test.product.application.ProductUseCaseI;
+import com.inditex.test.product.application.TestUseCaseI;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class WebAdapterTest
 {
     @Autowired private MockMvc mockMvc;
-    @MockBean private ProductUseCaseI productService;
+    @MockBean private TestUseCaseI productService;
     @MockBean private PriceDTOAssembler priceAssembler;
     @MockBean private ProductDTOAssembler productAssembler;
 

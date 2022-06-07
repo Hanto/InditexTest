@@ -15,7 +15,7 @@ import java.util.Collection;
 import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 
 @RequiredArgsConstructor
-public class ProductUseCase implements ProductUseCaseI
+public class TestUseCase implements TestUseCaseI
 {
     private final PersistenceRepository persistenceRepository;
     private final MemoryRepository memoryRepository;

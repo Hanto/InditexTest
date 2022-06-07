@@ -6,14 +6,13 @@ import com.inditex.test.product.domain.model.Product;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public interface ProductUseCaseI
+public interface TestUseCaseI
 {
-    void createProduct(String shortName, String longName);
-
     Collection<Product>getProducts(int page, int pageSize);
     Product getProduct(long productId);
     Price getPrice(long priceId);
     Price assignedPriceFor(long productId, long brandId, LocalDateTime time);
 
+    void createProduct(String shortName, String longName);
     void modifyPrice(long productId, long priceId, float variation, String currency);
 }

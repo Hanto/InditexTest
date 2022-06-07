@@ -18,11 +18,11 @@ import static com.inditex.test.product.domain.model.Currency.EUR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("SameParameterValue")
-public class ProductUseCaseTest extends BDDMockito
+public class TestUseCaseTest extends BDDMockito
 {
     private final PersistenceRepository dao = mock(PersistenceRepository.class);
     private final MemoryRepository memDao = mock(MemoryRepository.class);
-    private final ProductUseCaseI service = new SpringBeans().getProductService(dao, memDao);
+    private final TestUseCaseI service = new SpringBeans().getProductService(dao, memDao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

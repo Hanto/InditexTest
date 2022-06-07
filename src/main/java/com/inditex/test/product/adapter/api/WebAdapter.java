@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.application.ProductUseCaseI;
+import com.inditex.test.product.application.TestUseCaseI;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.Product;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Log4j2
 class WebAdapter
 {
-    @Autowired private final ProductUseCaseI productService;
+    @Autowired private final TestUseCaseI productService;
     @Autowired private final PriceDTOAssembler priceAssembler;
     @Autowired private final ProductDTOAssembler productAssembler;
 
