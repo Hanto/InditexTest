@@ -32,7 +32,7 @@ class TestControllerAdapter
     //--------------------------------------------------------------------------------------------------------
 
     @GetMapping("")
-    public ApiDTO getIndex()
+    public ApiDTO getIndex() throws NoSuchMethodException
     {
         ApiDTO api = new ApiDTO();
 
@@ -41,6 +41,7 @@ class TestControllerAdapter
         api.add(linkTo(methodOn(TestControllerAdapter.class).getProduct(null)).withRel("Product"));
         api.add(linkTo(methodOn(TestControllerAdapter.class).getPrice(null)).withRel("Price"));
         api.add(linkTo(methodOn(TestControllerAdapter.class).getPrice(null, null,null)).withRel("Price for product"));
+        api.add(linkTo(TestControllerAdapter.class.getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class)).withRel("Modify price"));
 
         return api;
     }
@@ -64,14 +65,14 @@ class TestControllerAdapter
         return productAssembler.toModel(product);
     }
 
-    @PatchMapping("/product/{productId}/{priceId}/{price}/{currency}")
+    @PatchMapping("/price/{productId}/{priceId}/{amount}/{currency}")
     public void modifyPrice(
         @PathVariable Long productId,
         @PathVariable Long priceId,
-        @PathVariable Float price,
+        @PathVariable Float amount,
         @PathVariable String currency)
     {
-        productService.modifyPrice(productId, priceId, price, currency);
+        productService.modifyPrice(productId, priceId, amount, currency);
     }
 
     @GetMapping("/price/{productId}/{brandId}/{dateTime}")

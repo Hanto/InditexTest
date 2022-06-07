@@ -32,8 +32,11 @@ class PriceDTOAssembler implements RepresentationModelAssembler<Price, PriceDTO>
             .getBrand(entity.getBrandId().getId()))
             .withRel("brand");
 
+        Link pricechange = getPricechange();
+
         dto.add(selfLink);
         dto.add(brandLink);
+        dto.add(pricechange);
 
         return dto;
     }
@@ -41,4 +44,19 @@ class PriceDTOAssembler implements RepresentationModelAssembler<Price, PriceDTO>
     @Override
     public CollectionModel<PriceDTO> toCollectionModel(Iterable<? extends Price> entities)
     {   return RepresentationModelAssembler.super.toCollectionModel(entities); }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private Link getPricechange()
+    {
+        try
+        {
+            return linkTo(TestControllerAdapter.class
+                .getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class))
+                .withRel("Modify price");
+        }
+        catch (Exception e)
+        {   throw new RuntimeException(e); }
+    }
 }
