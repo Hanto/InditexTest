@@ -6,7 +6,7 @@ import com.inditex.test.product.domain.model.Product;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public interface ProductServiceI
+public interface ProductUseCaseI
 {
     void createProduct(String shortName, String longName);
 
@@ -15,5 +15,5 @@ public interface ProductServiceI
     Price getPrice(long priceId);
     Price assignedPriceFor(long productId, long brandId, LocalDateTime time);
 
-    void modifyShortName(long priceId, String shortName);
+    void modifyPrice(long productId, long priceId, float variation, String currency);
 }

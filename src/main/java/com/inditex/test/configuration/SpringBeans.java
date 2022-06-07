@@ -1,9 +1,9 @@
 package com.inditex.test.configuration;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.application.MemoryDAO;
-import com.inditex.test.product.application.PersistenceDAO;
-import com.inditex.test.product.application.ProductService;
-import com.inditex.test.product.application.ProductServiceI;
+import com.inditex.test.product.application.ProductUseCase;
+import com.inditex.test.product.application.ProductUseCaseI;
+import com.inditex.test.product.domain.services.MemoryRepository;
+import com.inditex.test.product.domain.services.PersistenceRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration;
 public class SpringBeans
 {
     @Bean
-    public ProductServiceI getProductService(PersistenceDAO persistenceDAO, MemoryDAO memoryDAO)
-    {   return new ProductService(persistenceDAO, memoryDAO); }
+    public ProductUseCaseI getProductService(PersistenceRepository persistenceRepository, MemoryRepository memoryRepository)
+    {   return new ProductUseCase(persistenceRepository, memoryRepository); }
 }

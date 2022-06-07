@@ -35,7 +35,15 @@ public class Prices
             .filter(price -> price.getDateInterval().isInDateInTheInterval(dateTime))
             .max(Comparator.comparing(Price::getPriority))
             .orElseThrow(() -> new IllegalArgumentException(
-                format("There are no prices for the requested parameters, date: %s brand: %s",
-                    dateTime, brand.getId())));
+                format("There are no prices for the requested parameters, date: %s brand: %s", dateTime, brand.getId())));
+    }
+
+    public Price getPrice(PriceId priceId)
+    {
+        return prices.stream()
+            .filter(p -> p.getPriceId().equals(priceId))
+            .findAny()
+            .orElseThrow(() -> new IllegalArgumentException(
+                format("There is no price with the following id: %s", priceId.getId())));
     }
 }

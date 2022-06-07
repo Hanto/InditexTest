@@ -2,6 +2,8 @@ package com.inditex.test.product.application;// Created by jhant on 05/06/2022.
 
 import com.inditex.test.configuration.SpringBeans;
 import com.inditex.test.product.domain.model.*;
+import com.inditex.test.product.domain.services.MemoryRepository;
+import com.inditex.test.product.domain.services.PersistenceRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,11 +18,11 @@ import static com.inditex.test.product.domain.model.Currency.EUR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("SameParameterValue")
-public class ProductServiceTest extends BDDMockito
+public class ProductUseCaseTest extends BDDMockito
 {
-    private final PersistenceDAO dao = mock(PersistenceDAO.class);
-    private final MemoryDAO memDao = mock(MemoryDAO.class);
-    private final ProductServiceI service = new SpringBeans().getProductService(dao, memDao);
+    private final PersistenceRepository dao = mock(PersistenceRepository.class);
+    private final MemoryRepository memDao = mock(MemoryRepository.class);
+    private final ProductUseCaseI service = new SpringBeans().getProductService(dao, memDao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
@@ -63,18 +65,6 @@ public class ProductServiceTest extends BDDMockito
             Collection<Product> products = service.getProducts(1, 10);
 
             assertThat(products).hasSize(1);
-        }
-
-        @Test @DisplayName("THEN: can modify a product")
-        void test3()
-        {
-            givenAnAccountWithId(1L, "shortName", "longName");
-
-            service.modifyShortName(1L, "newName");
-
-            Product product = thenProductSaved(1).get(0);
-
-            assertThat(product.getProductName().getShortName()).isEqualTo("newName");
         }
 
         @Test @DisplayName("THEN: can retrieve a Price")

@@ -58,6 +58,12 @@ class PriceEntity implements Persistable<Long>
     @NotNull
     private BigDecimal money;
 
+    // VERSION:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Version
+    private Integer version = 0;
+
     // PERSISTABLE (for fast inserts:
     //--------------------------------------------------------------------------------------------------------
 

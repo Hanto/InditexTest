@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 @DataJpaTest @ActiveProfiles("H2") @EnableSniffy
-@Import({JpaH2Adapter.class, ProductMapper.class, PriceMapper.class})
+@Import({JpaH2Adapter.class, ProductMapper.class})
 class JpaH2AdapterTest
 {
     @Autowired private JpaH2Adapter adapter;
