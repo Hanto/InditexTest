@@ -9,9 +9,10 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
-@AnalyzeClasses(packages = "com.inditex.test", importOptions = {ImportOption.DoNotIncludeTests.class})
+@AnalyzeClasses(packages = DepedencyTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
 public class DepedencyTest
 {
+    static final String CORE_PACKAGE = "com.inditex.test";
     private static final String DOMAIN = "..domain..";
     private static final String ADAPTERS = "..adapters..";
     private static final String APPLICATION = "..application..";
@@ -23,7 +24,7 @@ public class DepedencyTest
     @ArchTest
     public void packagesShouldBeFreeOfCyles(JavaClasses importedClasses)
     {
-        ArchRule rule = slices().matching("com.inditex.test.(*)..").should()
+        ArchRule rule = slices().matching(CORE_PACKAGE + ".(*)..").should()
             .beFreeOfCycles();
         rule.check(importedClasses);
     }
