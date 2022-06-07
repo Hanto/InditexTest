@@ -14,7 +14,10 @@ import org.springframework.test.context.jdbc.Sql;
 import java.util.Collection;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,13 +52,13 @@ class HazelcastAdapterTest
         @Test @Sql("/test.sql") @DisplayName("THEN: productIds are unique")
         public void productIdSequenceTest()
         {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
+            ExecutorService executor = Executors.newCachedThreadPool();
             Queue<Future<Long>> generated = new ConcurrentLinkedDeque<>();
 
             for (int i=0; i<100; i++)
             {
                 generated.add(executor.submit(() -> adapter.generateUniqueProductId()));
-                generated.add(CompletableFuture.completedFuture(adapter.generateUniqueProductId()));
+                generated.add(executor.submit(() -> adapter.generateUniqueProductId()));
             }
 
             Set<Long> notDuplicated = toNotDuplicatedSet(generated);
@@ -66,13 +69,13 @@ class HazelcastAdapterTest
         @Test @Sql("/test.sql") @DisplayName("THEN: priceIds are unique")
         public void priceIdSequenceTest()
         {
-            ExecutorService executor = Executors.newSingleThreadExecutor();
+            ExecutorService executor = Executors.newCachedThreadPool();
             Queue<Future<Long>> generated = new ConcurrentLinkedDeque<>();
 
             for (int i=0; i<100; i++)
             {
                 generated.add(executor.submit(() -> adapter.generateUniquePriceId()));
-                generated.add(CompletableFuture.completedFuture(adapter.generateUniquePriceId()));
+                generated.add(executor.submit(() -> adapter.generateUniquePriceId()));
             }
 
             Set<Long> notDuplicated = toNotDuplicatedSet(generated);
