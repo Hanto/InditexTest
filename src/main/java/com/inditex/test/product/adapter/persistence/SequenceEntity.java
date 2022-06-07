@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.keyvalue.annotation.KeySpace;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.function.Supplier;
 
-@KeySpace(value = "Sequences")
 @Setter @AllArgsConstructor @NoArgsConstructor @Builder
 class SequenceEntity implements Serializable
 {
