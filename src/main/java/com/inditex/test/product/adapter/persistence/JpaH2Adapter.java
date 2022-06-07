@@ -5,7 +5,7 @@ import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;
 import com.inditex.test.product.domain.model.Product;
 import com.inditex.test.product.domain.model.ProductId;
-import com.inditex.test.product.domain.services.PersistenceRepository;
+import com.inditex.test.product.domain.ports.PersistenceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

@@ -2,7 +2,7 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 06/0
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
-import com.inditex.test.product.domain.services.MemoryRepository;
+import com.inditex.test.product.domain.ports.MemoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

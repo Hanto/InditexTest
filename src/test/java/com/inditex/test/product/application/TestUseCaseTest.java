@@ -2,8 +2,8 @@ package com.inditex.test.product.application;// Created by jhant on 05/06/2022.
 
 import com.inditex.test.configuration.SpringBeans;
 import com.inditex.test.product.domain.model.*;
-import com.inditex.test.product.domain.services.MemoryRepository;
-import com.inditex.test.product.domain.services.PersistenceRepository;
+import com.inditex.test.product.domain.ports.MemoryRepository;
+import com.inditex.test.product.domain.ports.PersistenceRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

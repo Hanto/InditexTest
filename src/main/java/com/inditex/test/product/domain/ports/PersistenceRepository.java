@@ -1,4 +1,4 @@
-package com.inditex.test.product.domain.services;// Created by jhant on 04/06/2022.
+package com.inditex.test.product.domain.ports;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;

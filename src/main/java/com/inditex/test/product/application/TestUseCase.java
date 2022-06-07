@@ -1,8 +1,8 @@
 package com.inditex.test.product.application;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.domain.model.*;
-import com.inditex.test.product.domain.services.MemoryRepository;
-import com.inditex.test.product.domain.services.PersistenceRepository;
+import com.inditex.test.product.domain.ports.MemoryRepository;
+import com.inditex.test.product.domain.ports.PersistenceRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.StaleStateException;
 import org.springframework.retry.annotation.Backoff;
