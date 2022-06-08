@@ -66,7 +66,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
 
         ApiError apiError = ApiError.builder()
             .status(HttpStatus.BAD_REQUEST)
-            .shortMessage("Invalid Entity")
+            .shortMessage("Invalid Parameters")
             .localizedMessage(ex.getLocalizedMessage())
             .fieldErrors(fieldErrors)
             .build();

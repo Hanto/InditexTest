@@ -64,7 +64,7 @@ public class ProductController
         dtos.add(linkTo(methodOn(this.getClass()).getProducts(page, pageSize)).withSelfRel());
 
         if (page > 1)
-            dtos.add(linkTo(methodOn(this.getClass()).getProducts(--page, pageSize)).withRel("Previous page"));
-        dtos.add(linkTo(methodOn(this.getClass()).getProducts(++page, pageSize)).withRel("Next page"));
+            dtos.add(linkTo(methodOn(this.getClass()).getProducts(page -1, pageSize)).withRel("Previous page"));
+        dtos.add(linkTo(methodOn(this.getClass()).getProducts(page +1, pageSize)).withRel("Next page"));
     }
 }
