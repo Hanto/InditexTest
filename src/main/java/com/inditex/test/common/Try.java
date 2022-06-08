@@ -2,10 +2,11 @@ package com.inditex.test.common;
 
 import lombok.extern.log4j.Log4j2;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 // Wraper that captures exceptions throw by functional interfaces (Consumer, Function)
-
 /**@author Ivan Delgado Huerta*/
 @Log4j2
 public class Try<L, R>
@@ -60,6 +61,39 @@ public class Try<L, R>
             {   return Try.success(function.apply(t));  }
             catch (Exception ex)
             {   return Try.failure(ex); }
+        };
+    }
+
+    public static <R> Supplier<Try<Throwable, R>> supplier(ThrowableSupplier<R> supplier)
+    {
+        return () ->
+        {
+            try
+            {   return Try.success(supplier.get()); }
+            catch (Exception ex)
+            {   return Try.failure(ex); }
+        };
+    }
+
+    public static <T> Consumer<T> consumer(ThrowableConsumer<T> consumer)
+    {
+        return (T t) ->
+        {
+            try
+            {   consumer.accept(t); }
+            catch (Exception ex)
+            {   log.warn("Exception while running consumer", ex); }
+        };
+    }
+
+    public static Runnable runnable(ThrowableRunnable runnable)
+    {
+        return () ->
+        {
+            try
+            {   runnable.run(); }
+            catch (Exception ex)
+            {   log.warn("Exception while running runnable", ex); }
         };
     }
 }
