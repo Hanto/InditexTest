@@ -6,7 +6,7 @@ import com.inditex.test.product.domain.model.ProductName;
 
 import java.util.Collection;
 
-public interface ProductInfoUseCase
+public interface ProductUseCase
 {
     void createProduct(ProductName command);
     Collection<Product> getProducts(PaginationCommand command);

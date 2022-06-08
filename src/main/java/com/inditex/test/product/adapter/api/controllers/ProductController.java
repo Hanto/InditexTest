@@ -3,7 +3,7 @@ package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 
 import com.inditex.test.product.adapter.api.dtos.ProductDTO;
 import com.inditex.test.product.adapter.api.mappers.ProductDTOAssembler;
 import com.inditex.test.product.application.port.in.PaginationCommand;
-import com.inditex.test.product.application.port.in.ProductInfoUseCase;
+import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.domain.model.Product;
 import com.inditex.test.product.domain.model.ProductId;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController @RequestMapping(value ="/api", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE})
 @RequiredArgsConstructor @SuppressWarnings("all")
 @Log4j2
-public class ProductInfoController
+public class ProductController
 {
-    @Autowired private final ProductInfoUseCase service;
+    @Autowired private final ProductUseCase service;
     @Autowired private final ProductDTOAssembler productAssembler;
 
     // MAIN:
@@ -39,7 +43,10 @@ public class ProductInfoController
         PaginationCommand command = new PaginationCommand(page, pageSize);
 
         Collection<Product> products = service.getProducts(command);
-        return productAssembler.toCollectionModel(products);
+        CollectionModel<ProductDTO> dtos = productAssembler.toCollectionModel(products);
+        addPaginationLinks(dtos, page, pageSize);
+
+        return dtos;
     }
 
     @GetMapping("/product/{productId}")
@@ -47,5 +54,17 @@ public class ProductInfoController
     {
         Product product = service.getProduct(new ProductId(productId));
         return productAssembler.toModel(product);
+    }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    private void addPaginationLinks(RepresentationModel<?>dtos, int page, int pageSize)
+    {
+        dtos.add(linkTo(methodOn(this.getClass()).getProducts(page, pageSize)).withSelfRel());
+
+        if (page > 1)
+            dtos.add(linkTo(methodOn(this.getClass()).getProducts(--page, pageSize)).withRel("Previous page"));
+        dtos.add(linkTo(methodOn(this.getClass()).getProducts(++page, pageSize)).withRel("Next page"));
     }
 }

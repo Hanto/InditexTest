@@ -1,11 +1,11 @@
 package com.inditex.test.configuration;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
-import com.inditex.test.product.application.port.in.ProductInfoUseCase;
+import com.inditex.test.product.application.port.in.PriceUseCase;
+import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.application.port.out.MemoryRepository;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
-import com.inditex.test.product.application.service.PriceManipulationService;
-import com.inditex.test.product.application.service.ProductInfoService;
+import com.inditex.test.product.application.service.PriceService;
+import com.inditex.test.product.application.service.ProductService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Configuration;
 public class SpringBeans
 {
     @Bean
-    public PriceManipulationUseCase getPriceManipulationService(PersistenceRepository persistenceRepository)
-    {   return new PriceManipulationService(persistenceRepository); }
+    public PriceUseCase getPriceManipulationService(PersistenceRepository persistenceRepository)
+    {   return new PriceService(persistenceRepository); }
 
     @Bean
-    public ProductInfoUseCase getProductInfoService(PersistenceRepository persistenceRepository, MemoryRepository memoryRepository)
-    {   return new ProductInfoService(persistenceRepository, memoryRepository); }
+    public ProductUseCase getProductInfoService(PersistenceRepository persistenceRepository, MemoryRepository memoryRepository)
+    {   return new ProductService(persistenceRepository, memoryRepository); }
 }

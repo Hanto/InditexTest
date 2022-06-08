@@ -26,11 +26,11 @@ public class RootController
         ApiDTO api = new ApiDTO();
 
         api.add(linkTo(methodOn(RootController.class).getIndex()).withSelfRel());
-        api.add(linkTo(methodOn(ProductInfoController.class).getProducts(null, null)).withRel("All products"));
-        api.add(linkTo(methodOn(ProductInfoController.class).getProduct(null)).withRel("Product"));
-        api.add(linkTo(methodOn(PriceManipulationController.class).getPrice(null, null,null)).withRel("Price for product"));
-        api.add(linkTo(methodOn(PriceManipulationController.class).getPrice(null)).withRel("Price"));
-        api.add(linkTo(PriceManipulationController.class.getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class)).withRel("Modify price"));
+        api.add(linkTo(methodOn(ProductController.class).getProducts(null, null)).withRel("All products"));
+        api.add(linkTo(methodOn(ProductController.class).getProduct(null)).withRel("Product"));
+        api.add(linkTo(methodOn(PriceController.class).getPrice(null, null,null)).withRel("Price for product"));
+        api.add(linkTo(methodOn(PriceController.class).getPrice(null)).withRel("Price"));
+        api.add(linkTo(PriceController.class.getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class)).withRel("Modify price"));
 
         return api;
     }

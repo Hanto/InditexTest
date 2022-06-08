@@ -3,7 +3,7 @@ package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 
 import com.inditex.test.product.adapter.api.dtos.PriceDTO;
 import com.inditex.test.product.adapter.api.mappers.PriceDTOAssembler;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
-import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
+import com.inditex.test.product.application.port.in.PriceUseCase;
 import com.inditex.test.product.application.port.in.QueryPriceCommand;
 import com.inditex.test.product.domain.model.*;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ import java.time.LocalDateTime;
 @RestController @RequestMapping(value ="/api", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE})
 @RequiredArgsConstructor @SuppressWarnings("all")
 @Log4j2
-public class PriceManipulationController
+public class PriceController
 {
-    @Autowired private final PriceManipulationUseCase service;
+    @Autowired private final PriceUseCase service;
     @Autowired private final PriceDTOAssembler priceAssembler;
 
     // MAIN:

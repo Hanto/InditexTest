@@ -2,7 +2,7 @@ package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 
 
 import com.inditex.test.product.adapter.api.mappers.PriceDTOAssembler;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
-import com.inditex.test.product.application.port.in.PriceManipulationUseCase;
+import com.inditex.test.product.application.port.in.PriceUseCase;
 import com.inditex.test.product.application.port.in.QueryPriceCommand;
 import com.inditex.test.product.domain.model.BrandId;
 import com.inditex.test.product.domain.model.Money;
@@ -25,11 +25,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = PriceManipulationController.class)
-public class PriceManipulationControllerTest
+@WebMvcTest(controllers = PriceController.class)
+public class PriceControllerTest
 {
     @Autowired private MockMvc mockMvc;
-    @MockBean private PriceManipulationUseCase service;
+    @MockBean private PriceUseCase service;
     @MockBean private PriceDTOAssembler priceAssembler;
 
     // MAIN:

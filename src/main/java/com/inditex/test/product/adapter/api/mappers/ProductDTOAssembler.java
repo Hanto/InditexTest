@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.api.mappers;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.adapter.api.controllers.ProductInfoController;
+import com.inditex.test.product.adapter.api.controllers.ProductController;
 import com.inditex.test.product.adapter.api.dtos.PriceDTO;
 import com.inditex.test.product.adapter.api.dtos.ProductDTO;
 import com.inditex.test.product.domain.model.Product;
@@ -35,7 +35,7 @@ public class ProductDTOAssembler implements RepresentationModelAssembler<Product
 
         productDTO.setPrices(priceDTOs);
 
-        Link selfLink = linkTo(methodOn(ProductInfoController.class)
+        Link selfLink = linkTo(methodOn(ProductController.class)
             .getProduct(productDTO.getProductId()))
             .withSelfRel();
 

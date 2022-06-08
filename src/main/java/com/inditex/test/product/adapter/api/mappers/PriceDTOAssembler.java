@@ -1,7 +1,7 @@
 package com.inditex.test.product.adapter.api.mappers;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.adapter.api.controllers.BrandController;
-import com.inditex.test.product.adapter.api.controllers.PriceManipulationController;
+import com.inditex.test.product.adapter.api.controllers.PriceController;
 import com.inditex.test.product.adapter.api.dtos.PriceDTO;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.Product;
@@ -28,7 +28,7 @@ public class PriceDTOAssembler implements RepresentationModelAssembler<Price, Pr
     {
         PriceDTO dto = mapper.fromModel(price);
 
-        Link selfLink = linkTo(methodOn(PriceManipulationController.class)
+        Link selfLink = linkTo(methodOn(PriceController.class)
             .getPrice(price.getPriceId().getId()))
             .withSelfRel();
 
@@ -64,7 +64,7 @@ public class PriceDTOAssembler implements RepresentationModelAssembler<Price, Pr
     {
         try
         {
-            return linkTo(PriceManipulationController.class
+            return linkTo(PriceController.class
                 .getMethod("modifyPrice", Long.class, Long.class, Float.class, String.class),
                 productId, priceId, null, null)
                 .withRel("Modify price");

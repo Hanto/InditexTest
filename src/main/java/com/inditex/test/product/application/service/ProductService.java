@@ -1,7 +1,7 @@
 package com.inditex.test.product.application.service;// Created by jhant on 07/06/2022.
 
 import com.inditex.test.product.application.port.in.PaginationCommand;
-import com.inditex.test.product.application.port.in.ProductInfoUseCase;
+import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.application.port.out.MemoryRepository;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
 import com.inditex.test.product.domain.model.Product;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 
 @RequiredArgsConstructor
-public class ProductInfoService implements ProductInfoUseCase
+public class ProductService implements ProductUseCase
 {
     private final PersistenceRepository persistenceRepository;
     private final MemoryRepository memoryRepository;

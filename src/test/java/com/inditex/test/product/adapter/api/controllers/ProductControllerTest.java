@@ -2,7 +2,7 @@ package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 
 
 import com.inditex.test.product.adapter.api.mappers.ProductDTOAssembler;
 import com.inditex.test.product.application.port.in.PaginationCommand;
-import com.inditex.test.product.application.port.in.ProductInfoUseCase;
+import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.domain.model.ProductId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -18,11 +18,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = ProductInfoController.class)
-public class ProductInfoControllerTest
+@WebMvcTest(controllers = ProductController.class)
+public class ProductControllerTest
 {
     @Autowired private MockMvc mockMvc;
-    @MockBean private ProductInfoUseCase service;
+    @MockBean private ProductUseCase service;
     @MockBean private ProductDTOAssembler productAssembler;
 
     // MAIN:
