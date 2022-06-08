@@ -41,6 +41,7 @@ public class PriceService implements PriceUseCase
     // UPDATE:
     //--------------------------------------------------------------------------------------------------------
 
+    @Override
     @Retryable(
         value = {StaleStateException.class},
         maxAttempts = 10,
