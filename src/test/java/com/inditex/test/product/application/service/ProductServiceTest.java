@@ -1,6 +1,5 @@
 package com.inditex.test.product.application.service;// Created by jhant on 07/06/2022.
 
-import com.inditex.test.configuration.SpringBeans;
 import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.application.port.out.MemoryRepository;
@@ -25,7 +24,7 @@ public class ProductServiceTest extends BDDMockito
 {
     private final PersistenceRepository dao = Mockito.mock(PersistenceRepository.class);
     private final MemoryRepository memDao = Mockito.mock(MemoryRepository.class);
-    private final ProductUseCase service = new SpringBeans().getProductInfoService(dao, memDao);
+    private final ProductUseCase service = new ProductService(dao, memDao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

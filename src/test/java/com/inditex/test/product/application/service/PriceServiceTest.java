@@ -1,6 +1,5 @@
 package com.inditex.test.product.application.service;// Created by jhant on 05/06/2022.
 
-import com.inditex.test.configuration.SpringBeans;
 import com.inditex.test.product.application.port.in.PriceUseCase;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
 import com.inditex.test.product.domain.model.*;
@@ -19,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PriceServiceTest extends BDDMockito
 {
     private final PersistenceRepository dao = Mockito.mock(PersistenceRepository.class);
-    private final PriceUseCase service = new SpringBeans().getPriceManipulationService(dao);
+    private final PriceUseCase service = new PriceService(dao);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

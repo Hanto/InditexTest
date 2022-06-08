@@ -1,5 +1,6 @@
 package com.inditex.test.product.application.service;// Created by jhant on 07/06/2022.
 
+import com.inditex.test.common.UseCase;
 import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.application.port.out.MemoryRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
+@UseCase
 @RequiredArgsConstructor
 public class ProductService implements ProductUseCase
 {
