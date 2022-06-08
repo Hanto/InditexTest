@@ -100,7 +100,7 @@ public class ProductServiceTest extends BDDMockito
         ArgumentCaptor<Product> accountCaptor = ArgumentCaptor.forClass(Product.class);
         then(dao)
             .should(Mockito.times(numberOfProductsSaved))
-            .saveProduct(accountCaptor.capture());
+            .saveNewProduct(accountCaptor.capture());
 
         return accountCaptor.getAllValues();
     }

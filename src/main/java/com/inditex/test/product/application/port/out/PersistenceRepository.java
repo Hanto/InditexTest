@@ -14,4 +14,5 @@ public interface PersistenceRepository
     Price loadPrice(PriceId priceId);
 
     void saveProduct(Product product);
+    void saveNewProduct(Product product);
 }

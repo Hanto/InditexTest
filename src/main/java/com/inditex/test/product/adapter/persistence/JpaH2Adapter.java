@@ -61,6 +61,14 @@ public class JpaH2Adapter implements PersistenceRepository
         productRepo.save(entity);
     }
 
+    @Override
+    public void saveNewProduct(Product product)
+    {
+        ProductEntity entity = productMapper.fromDomain(product);
+        entity.setNew(true);
+        productRepo.save(entity);
+    }
+
     // PRICES:
     //--------------------------------------------------------------------------------------------------------
 

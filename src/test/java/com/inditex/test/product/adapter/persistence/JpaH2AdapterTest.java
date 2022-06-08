@@ -2,10 +2,7 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/0
 
 import com.inditex.test.product.adapter.persistence.mappers.PriceMapper;
 import com.inditex.test.product.adapter.persistence.mappers.ProductMapper;
-import com.inditex.test.product.domain.model.Price;
-import com.inditex.test.product.domain.model.PriceId;
-import com.inditex.test.product.domain.model.Product;
-import com.inditex.test.product.domain.model.ProductId;
+import com.inditex.test.product.domain.model.*;
 import io.sniffy.Sniffy;
 import io.sniffy.Spy;
 import io.sniffy.boot.EnableSniffy;
@@ -98,6 +95,14 @@ public class JpaH2AdapterTest
             product.changeShortName("newShortName");
 
             assertThatNoException().isThrownBy(() -> adapter.saveProduct(product));
+        }
+
+        @Test
+        @Sql("/test.sql") @DisplayName("THEN: a new product can be saved")
+        public void saveNewProduct()
+        {
+            Product product = new Product(new ProductId(9999L), new ProductName("short", "long"));
+            assertThatNoException().isThrownBy(() -> adapter.saveNewProduct(product));
         }
     }
 }

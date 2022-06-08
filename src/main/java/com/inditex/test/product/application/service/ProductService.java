@@ -28,7 +28,7 @@ public class ProductService implements ProductUseCase
         ProductId id    = new ProductId(memoryRepository.generateUniqueProductId());
         Product product = new Product(id, name);
 
-        persistenceRepository.saveProduct(product);
+        persistenceRepository.saveNewProduct(product);
     }
 
     @Override

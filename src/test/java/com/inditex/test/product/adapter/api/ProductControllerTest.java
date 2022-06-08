@@ -1,5 +1,6 @@
 package com.inditex.test.product.adapter.api;// Created by jhant on 07/06/2022.
 
+import com.inditex.test.product.adapter.api.dtos.ProductDTO;
 import com.inditex.test.product.adapter.api.mappers.ProductDTOAssembler;
 import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductUseCase;
@@ -11,10 +12,15 @@ import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,6 +43,8 @@ public class ProductControllerTest
         {
             MockHttpServletRequestBuilder get = get("/api/products/{page}/{pageSize}", 1, 10);
 
+            givenAListOfProducts();
+
             mockMvc.perform(get)
                 .andExpect(status().isOk());
 
@@ -55,5 +63,16 @@ public class ProductControllerTest
             BDDMockito.then(service)
                 .should().getProduct(eq(new ProductId(38455L)));
         }
+    }
+
+    // HELPER:
+    //--------------------------------------------------------------------------------------------------------
+
+    void givenAListOfProducts()
+    {
+        ProductDTO dto = new ProductDTO();
+
+        given(productAssembler.toCollectionModel(anyCollection()))
+            .willReturn(CollectionModel.of(List.of(dto)));
     }
 }
