@@ -7,10 +7,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,10 +23,10 @@ import java.util.stream.Collectors;
 public class RestErrorHandler extends ResponseEntityExceptionHandler
 {
     // BAD REQUEST:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     // Throw when argument anotated with @Valid failed: (DTO Validation)
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @Override @NonNull
     protected ResponseEntity<Object>handleMethodArgumentNotValid(
@@ -55,7 +52,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
     }
 
     // Display the result of constaint violations (Entity Validation)
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Object>handleConstraintViolation(ConstraintViolationException ex, WebRequest request)
@@ -74,26 +71,8 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    // Throw when missing parameter
-    //--------------------------------------------------------------------------------------------------------------------
-
-    @Override @NonNull
-    protected ResponseEntity<Object>handleMissingServletRequestParameter(
-        MissingServletRequestParameterException ex, @NonNull HttpHeaders headers, @NonNull HttpStatus status, @NonNull WebRequest request)
-    {
-        String error = String.format("Invalid URL: %s parameter is missing", ex.getParameterName());
-
-        ApiError apiError = ApiError.builder()
-            .status(HttpStatus.BAD_REQUEST)
-            .shortMessage(error)
-            .localizedMessage(ex.getLocalizedMessage())
-            .build();
-
-        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
-    }
-
     // Argument is not the expected type
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object>handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, WebRequest request)
@@ -110,33 +89,13 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    // FORBIDDEN:
-    //--------------------------------------------------------------------------------------------------------------------
-
-    // Access denied for the current user
-    //--------------------------------------------------------------------------------------------------------------------
-
-    @ExceptionHandler({AccessDeniedException.class})
-    public ResponseEntity<ApiError>handleUserDenied(AccessDeniedException ex, WebRequest request)
-    {
-        String error = String.format("Access denied to: %s, for the user: %s",
-            ((ServletWebRequest)request).getRequest().getRequestURI(),
-            request.getUserPrincipal() != null? request.getUserPrincipal().getName() : "current");
-
-        ApiError apiError = ApiError.builder()
-            .status(HttpStatus.FORBIDDEN)
-            .shortMessage(error)
-            .localizedMessage(ex.getLocalizedMessage())
-            .build();
-
-        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
-    }
-
     // NOT FOUND REQUEST:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
-    // Throw when url doesn't exist
-    //--------------------------------------------------------------------------------------------------------------------
+    // Throw when url doesn't exist, needs these application.properties:
+    // spring.mvc.throw-exception-if-no-handler-found=true
+    // spring.web.resources.add-mappings=false
+    //--------------------------------------------------------------------------------------------------------
 
     @Override @NonNull
     protected ResponseEntity<Object> handleNoHandlerFoundException(
@@ -154,7 +113,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
     }
 
     // DEFAULT:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object>handleAll(Exception ex, WebRequest request)
@@ -171,7 +130,7 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
     }
 
     // HELPER:
-    //--------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------
 
     private GlobalErrors toGlobalError(ObjectError error)
     {
