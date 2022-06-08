@@ -1,4 +1,4 @@
-package com.inditex.test;// Created by jhant on 07/06/2022.
+package com.inditex.test.common;// Created by jhant on 07/06/2022.
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ImportOption;
@@ -9,8 +9,8 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
-@AnalyzeClasses(packages = DependencyTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
-public class DependencyTest
+@AnalyzeClasses(packages = HexagonalArchitectureTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
+public class HexagonalArchitectureTest
 {
     static final String CORE_PACKAGE = "com.inditex.test";
     private static final String DOMAIN = "..domain..";

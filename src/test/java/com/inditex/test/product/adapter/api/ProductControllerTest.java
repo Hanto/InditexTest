@@ -37,8 +37,7 @@ public class ProductControllerTest
     @Nested @DisplayName("WHEN: Accessing the API Endpoints")
     class Endpoints
     {
-        @Test
-        @DisplayName("THEN: all products api works")
+        @Test @DisplayName("THEN: all products api works")
         void getProductsTest() throws Exception
         {
             MockHttpServletRequestBuilder get = get("/api/products/{page}/{pageSize}", 1, 10);

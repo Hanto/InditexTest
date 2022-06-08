@@ -16,6 +16,4 @@ public class ApiError
     private String localizedMessage;
     @JsonInclude(NON_EMPTY)
     private List<FieldErrors> fieldErrors;
-    @JsonInclude(NON_EMPTY)
-    private List<GlobalErrors> globalErrors;
 }

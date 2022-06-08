@@ -4,9 +4,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -24,32 +21,6 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
 {
     // BAD REQUEST:
     //--------------------------------------------------------------------------------------------------------
-
-    // Throw when argument anotated with @Valid failed: (DTO Validation)
-    //--------------------------------------------------------------------------------------------------------
-
-    @Override @NonNull
-    protected ResponseEntity<Object>handleMethodArgumentNotValid(
-        MethodArgumentNotValidException ex, @NonNull HttpHeaders headers, @NonNull HttpStatus status, @NonNull WebRequest request)
-    {
-        List<FieldErrors> fieldErrors = ex.getBindingResult().getFieldErrors().stream()
-            .map(this::toFieldError)
-            .collect(Collectors.toList());
-
-        List<GlobalErrors> globalErrors = ex.getBindingResult().getGlobalErrors().stream()
-            .map(this::toGlobalError)
-            .collect(Collectors.toList());
-
-        ApiError apiError = ApiError.builder()
-            .status(HttpStatus.BAD_REQUEST)
-            .shortMessage("Invalid URL parameter")
-            .localizedMessage(ex.getLocalizedMessage())
-            .fieldErrors(fieldErrors)
-            .globalErrors(globalErrors)
-            .build();
-
-        return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
-    }
 
     // Display the result of constaint violations (Entity Validation)
     //--------------------------------------------------------------------------------------------------------
@@ -131,24 +102,6 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
-
-    private GlobalErrors toGlobalError(ObjectError error)
-    {
-        return GlobalErrors.builder()
-            .type(error.getObjectName())
-            .reason(error.getDefaultMessage())
-            .build();
-    }
-
-    private FieldErrors toFieldError(FieldError error)
-    {
-        return FieldErrors.builder()
-            .entityName(error.getObjectName())
-            .fieldName(error.getField())
-            .fieldValue(error.getRejectedValue() != null ? error.getRejectedValue().toString() : "")
-            .reason(error.getDefaultMessage())
-            .build();
-    }
 
     private FieldErrors toFieldError(ConstraintViolation<?> violation)
     {
