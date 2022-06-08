@@ -51,7 +51,7 @@ En la base de datos de comercio electrónico de la compañía disponemos de la t
 
 # Project Features
 - **Architecture:** Hexagonal architecture with DDD (Domain Driven Development) for a rich domain model
-- **ArchUnit** Automatically test all the layers are correctly decoupled
+- **ArchUnit** Automatically test all the layers are correctly decoupled and following an Hexagonal Architecture
 - **HATEOAS endpoints** (Hypermedia as the engine of the application state), all the endpoints are easily traversable
 - **HazelCast:** Distributed in memory datagrid to cache database calls (open `hazelcast.yml` to configure its parameters)
 - **HazelCast Repositories:** to store runtime data (Entity sequence generation done in batches to reduce database calls)
