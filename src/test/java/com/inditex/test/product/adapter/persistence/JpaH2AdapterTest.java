@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.persistence.repositories;// Created by jhant on 04/06/2022.
+package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/06/2022.
 
 import com.inditex.test.product.adapter.persistence.mappers.PriceMapper;
 import com.inditex.test.product.adapter.persistence.mappers.ProductMapper;

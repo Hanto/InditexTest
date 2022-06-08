@@ -1,7 +1,7 @@
 package com.inditex.test.product.adapter.api.mappers;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.product.adapter.api.controllers.BrandController;
-import com.inditex.test.product.adapter.api.controllers.PriceController;
+import com.inditex.test.product.adapter.api.BrandController;
+import com.inditex.test.product.adapter.api.PriceController;
 import com.inditex.test.product.adapter.api.dtos.PriceDTO;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.Product;

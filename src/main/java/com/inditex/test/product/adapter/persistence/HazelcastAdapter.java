@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.persistence.repositories;// Created by jhant on 06/06/2022.
+package com.inditex.test.product.adapter.persistence;// Created by jhant on 06/06/2022.
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;

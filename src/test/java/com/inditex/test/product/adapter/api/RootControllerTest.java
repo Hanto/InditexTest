@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 07/06/2022.
+package com.inditex.test.product.adapter.api;// Created by jhant on 07/06/2022.
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

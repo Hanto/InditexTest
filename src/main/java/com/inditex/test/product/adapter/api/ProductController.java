@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 07/06/2022.
+package com.inditex.test.product.adapter.api;// Created by jhant on 07/06/2022.
 
 import com.inditex.test.product.adapter.api.dtos.ProductDTO;
 import com.inditex.test.product.adapter.api.mappers.ProductDTOAssembler;
@@ -61,10 +61,10 @@ public class ProductController
 
     private void addPaginationLinks(RepresentationModel<?>dtos, int page, int pageSize)
     {
-        dtos.add(linkTo(methodOn(this.getClass()).getProducts(page, pageSize)).withSelfRel());
+        dtos.add(linkTo(methodOn(ProductController.class).getProducts(page, pageSize)).withSelfRel());
 
         if (page > 1)
-            dtos.add(linkTo(methodOn(this.getClass()).getProducts(page -1, pageSize)).withRel("Previous page"));
-        dtos.add(linkTo(methodOn(this.getClass()).getProducts(page +1, pageSize)).withRel("Next page"));
+            dtos.add(linkTo(methodOn(ProductController.class).getProducts(page -1, pageSize)).withRel("Previous page"));
+        dtos.add(linkTo(methodOn(ProductController.class).getProducts(page +1, pageSize)).withRel("Next page"));
     }
 }

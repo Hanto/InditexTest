@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.persistence.repositories;// Created by jhant on 03/06/2022.
+package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.YamlConfigBuilder;

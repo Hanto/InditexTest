@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.api.controllers;// Created by jhant on 05/06/2022.
+package com.inditex.test.product.adapter.api;// Created by jhant on 05/06/2022.
 
 import com.inditex.test.product.adapter.api.mappers.PriceDTOAssembler;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
