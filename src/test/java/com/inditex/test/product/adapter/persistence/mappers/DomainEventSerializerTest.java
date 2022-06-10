@@ -1,8 +1,7 @@
-package com.inditex.test.product.adapter.api.mappers;// Created by jhant on 10/06/2022.
+package com.inditex.test.product.adapter.persistence.mappers;// Created by jhant on 10/06/2022.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.inditex.test.product.adapter.persistence.mappers.DomainEventSerializer;
 import com.inditex.test.product.domain.events.PriceChanged;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,11 +27,6 @@ public class DomainEventSerializerTest
         String json = serializer.toJson(expected);
         PriceChanged result = serializer.fromJson(json, PriceChanged.class.getSimpleName());
 
-        //assertThat(result).isEqualTo(expected);
-        //assertThatAreEquals(PriceChanged::getEventId, result, expected);
-        //assertThatAreEquals(PriceChanged::getType, result, expected);
-        //assertThatAreEquals(PriceChanged::getAggregateId, result, expected);
-        //assertThatAreEquals(PriceChanged::getOccurredOn, result, expected);
         assertThatAreEquals(PriceChanged::getNewPrice, result, expected);
         assertThatAreEquals(PriceChanged::getOldPrice, result, expected);
     }

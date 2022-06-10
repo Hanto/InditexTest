@@ -26,6 +26,7 @@ public class DomainEventMapper
             .aggregateId(event.getAggregateId())
             .occurredOn(event.getOccurredOn())
             .eventJson(serializer.toJson(event))
+            .sent(false)
             .build();
     }
 }
