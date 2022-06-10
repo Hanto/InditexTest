@@ -53,6 +53,9 @@ public class EventStoreConsumer
         eventRepo.saveAll(events);
     }
 
+    // EVENT PUBLISHER:
+    //----------------------------------------------------------------------------------------
+
     private void sendMessage(DomainEventEntity event)
     {
         Optional<EventRelayConfigEntity> optional = relayConfigRepo.findById(event.getType());
