@@ -33,7 +33,7 @@ public class EventStoreConsumer
     //----------------------------------------------------------------------------------------
 
     @Transactional
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 10000)
     @SchedulerLock(name = "Outbox-Relay")
     public void consume()
     {
