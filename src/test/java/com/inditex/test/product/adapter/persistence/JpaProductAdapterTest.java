@@ -1,5 +1,6 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 04/06/2022.
 
+import com.inditex.test.configuration.JpaConfiguration;
 import com.inditex.test.product.adapter.persistence.mappers.PriceMapper;
 import com.inditex.test.product.adapter.persistence.mappers.ProductMapper;
 import com.inditex.test.product.domain.model.*;

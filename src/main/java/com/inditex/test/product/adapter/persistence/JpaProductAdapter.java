@@ -1,10 +1,12 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
+import com.inditex.test.product.adapter.persistence.entities.JpaPriceRepository;
+import com.inditex.test.product.adapter.persistence.entities.JpaProductRepository;
 import com.inditex.test.product.adapter.persistence.entities.PriceEntity;
 import com.inditex.test.product.adapter.persistence.entities.ProductEntity;
 import com.inditex.test.product.adapter.persistence.mappers.PriceMapper;
 import com.inditex.test.product.adapter.persistence.mappers.ProductMapper;
-import com.inditex.test.product.application.port.out.PersistenceRepository;
+import com.inditex.test.product.application.port.out.ProductRepository;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;
 import com.inditex.test.product.domain.model.Product;
@@ -23,10 +25,10 @@ import static java.lang.String.format;
 
 @Component
 @RequiredArgsConstructor
-public class JpaProductAdapter implements PersistenceRepository
+public class JpaProductAdapter implements ProductRepository
 {
-    @Autowired private final PriceRepository priceRepo;
-    @Autowired private final ProductRepository productRepo;
+    @Autowired private final JpaPriceRepository priceRepo;
+    @Autowired private final JpaProductRepository productRepo;
     @Autowired private final ProductMapper productMapper;
     @Autowired private final PriceMapper priceMapper;
 
