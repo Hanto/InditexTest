@@ -4,6 +4,8 @@ import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.inditex.test.common.Try;
+import com.inditex.test.configuration.HzConfiguration;
+import com.inditex.test.configuration.JpaConfiguration;
 import com.inditex.test.product.adapter.persistence.mappers.PriceMapper;
 import com.inditex.test.product.adapter.persistence.mappers.ProductMapper;
 import org.junit.jupiter.api.*;
@@ -25,10 +27,10 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest @ActiveProfiles("H2Hazel")
-@Import({JpaProductAdapter.class, ProductMapper.class, PriceMapper.class, HazelcastAdapter.class, HazelcastConfig.class, JpaConfiguration.class})
-public class HazelcastAdapterTest
+@Import({JpaProductAdapter.class, ProductMapper.class, PriceMapper.class, HzIdentifierAdapter.class, HzConfiguration.class, JpaConfiguration.class})
+public class HzIdentifierAdapterTest
 {
-    @Autowired private HazelcastAdapter adapter;
+    @Autowired private HzIdentifierAdapter adapter;
     private static HazelcastInstance hazelcast;
 
     // HAZELCAST INIT:

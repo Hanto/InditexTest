@@ -2,8 +2,10 @@ package com.inditex.test.product.adapter.persistence;// Created by jhant on 06/0
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
+import com.inditex.test.product.adapter.persistence.entities.JpaPriceRepository;
+import com.inditex.test.product.adapter.persistence.entities.JpaProductRepository;
 import com.inditex.test.product.adapter.persistence.entities.SequenceEntity;
-import com.inditex.test.product.application.port.out.MemoryRepository;
+import com.inditex.test.product.application.port.out.IdentifierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,11 +14,11 @@ import java.util.function.Supplier;
 
 @Component
 @RequiredArgsConstructor
-public class HazelcastAdapter implements MemoryRepository
+public class HzIdentifierAdapter implements IdentifierRepository
 {
     @Autowired private final HazelcastInstance hazelcast;
-    @Autowired private final PriceRepository priceRepository;
-    @Autowired private final ProductRepository productRepository;
+    @Autowired private final JpaPriceRepository jpaPriceRepository;
+    @Autowired private final JpaProductRepository jpaProductRepository;
 
     private static final String SEQUENCE_MAP_REGION = "SEQUENCE_MAP_REGION";
     private static final String PRODUCT_ID_SEQUENCE = "ProductId_Sequence";
@@ -28,10 +30,10 @@ public class HazelcastAdapter implements MemoryRepository
     //--------------------------------------------------------------------------------------------------------
 
     @Override public long generateUniqueProductId()
-    {   return generateUniqueId(productRepository::getNextId, PRODUCT_ID_SEQUENCE, PRODUCT_ID_INTERVAL); }
+    {   return generateUniqueId(jpaProductRepository::getNextId, PRODUCT_ID_SEQUENCE, PRODUCT_ID_INTERVAL); }
 
     @Override public long generateUniquePriceId()
-    {   return generateUniqueId(priceRepository::getNextId, PRICE_ID_SEQUENCE, PRICE_ID_INTERVAL); }
+    {   return generateUniqueId(jpaPriceRepository::getNextId, PRICE_ID_SEQUENCE, PRICE_ID_INTERVAL); }
 
     // HELPER:
     //--------------------------------------------------------------------------------------------------------
