@@ -14,7 +14,7 @@ public abstract class DomainEvent implements Serializable
 {
     @EqualsAndHashCode.Include
     protected String eventId;
-    protected String className;
+    protected String type;
     protected Long aggregateId;
     protected LocalDateTime occurredOn;
 
@@ -24,7 +24,7 @@ public abstract class DomainEvent implements Serializable
     public DomainEvent(Long aggregateId, Class<?>eventClass)
     {
         this.eventId = UUID.randomUUID().toString();
-        this.className = eventClass.getName();
+        this.type = eventClass.getSimpleName();
         this.aggregateId = aggregateId;
         this.occurredOn = LocalDateTime.now();
     }

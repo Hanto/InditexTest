@@ -29,7 +29,7 @@ public class DomainEventSerializerTest
 
         assertThat(result).isEqualTo(expected);
         assertThatAreEquals(PriceChangedEvent::getEventId, result, expected);
-        assertThatAreEquals(PriceChangedEvent::getClassName, result, expected);
+        assertThatAreEquals(PriceChangedEvent::getType, result, expected);
         assertThatAreEquals(PriceChangedEvent::getAggregateId, result, expected);
         assertThatAreEquals(PriceChangedEvent::getOccurredOn, result, expected);
         assertThatAreEquals(PriceChangedEvent::getNewPrice, result, expected);
