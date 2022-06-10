@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 //Aggregate root
 @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) @ToString
-public class Product extends Entity
+public class Product extends DomainEntity
 {
     @EqualsAndHashCode.Include
     @Getter private ProductId productId;
@@ -66,7 +66,7 @@ public class Product extends Entity
     public List<DomainEvent> pullAllDomainEvents()
     {
         List<DomainEvent>events = prices.getPriceList().stream()
-            .map(Entity::pullDomainEvents)
+            .map(DomainEntity::pullDomainEvents)
             .flatMap(Collection::stream).collect(Collectors.toList());
 
         events.addAll(pullDomainEvents());

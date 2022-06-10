@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) @ToString
-public class Price extends Entity
+public class Price extends DomainEntity
 {
     @EqualsAndHashCode.Include
     @Getter private PriceId priceId;

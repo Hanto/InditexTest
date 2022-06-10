@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Entity
+public abstract class DomainEntity
 {
     private List<DomainEvent>domainEvents = new ArrayList<>();
 
