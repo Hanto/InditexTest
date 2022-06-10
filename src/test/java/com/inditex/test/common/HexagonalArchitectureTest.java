@@ -14,7 +14,7 @@ public class HexagonalArchitectureTest
 {
     static final String CORE_PACKAGE = "com.inditex.test";
     private static final String DOMAIN = "..domain..";
-    private static final String ADAPTERS = "..adapters..";
+    private static final String ADAPTERS = "..adapter..";
     private static final String APPLICATION = "..application..";
     private static final String CONFIGURATION = "..configuration..";
 

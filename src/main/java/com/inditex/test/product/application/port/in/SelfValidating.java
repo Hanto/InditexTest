@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.spring;// Created by jhant on 07/06/2022.
+package com.inditex.test.product.application.port.in;// Created by jhant on 07/06/2022.
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;

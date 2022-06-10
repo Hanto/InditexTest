@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.spring;// Created by jhant on 10/06/2022.
+package com.inditex.test.configuration;// Created by jhant on 10/06/2022.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
