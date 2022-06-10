@@ -5,7 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
+@EnableJpaRepositories
+(
+    basePackages = JpaConfiguration.ENTITY_PACKAGES,
+    repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class
+)
 public class JpaConfiguration
 {
+    public static final String ENTITY_PACKAGES = "com.inditex.test.product.adapter.persistence";
 }
