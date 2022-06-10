@@ -1,7 +1,6 @@
 package com.inditex.test.product.adapter.persistence.mappers;// Created by jhant on 10/06/2022.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.inditex.test.product.domain.events.DomainEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +28,13 @@ public class DomainEventSerializer
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T fromJson(String json)
+    public <T> T fromJson(String json, String simpleClassName)
     {
         try
         {
-            ObjectNode node = objectMapper.readValue(json, ObjectNode.class);
-            String className = format("%s.%s", EVENT_PACKAGE, node.get("type").asText());
+            //ObjectNode node = objectMapper.readValue(json, ObjectNode.class);
+            //String className = format("%s.%s", EVENT_PACKAGE, node.get("type").asText());
+            String className = format("%s.%s", EVENT_PACKAGE, simpleClassName);
             Class<?> clazz = Class.forName(className);
             return (T) objectMapper.readValue(json, clazz);
         }
