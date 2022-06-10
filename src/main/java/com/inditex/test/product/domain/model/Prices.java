@@ -8,6 +8,7 @@ import java.util.*;
 
 import static java.lang.String.format;
 
+//Aggregate
 @NoArgsConstructor @ToString
 public class Prices
 {

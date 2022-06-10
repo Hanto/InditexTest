@@ -20,8 +20,8 @@ public class ProductTest
             Product product = generateProduct(1L, "short", "long");
 
             assertThat(product.getProductId()).isEqualTo(new ProductId(1L));
-            assertThat(product.getShortName()).isEqualTo("short");
-            assertThat(product.getLongName()).isEqualTo("long");
+            assertThat(product.getProductName().getShortName()).isEqualTo("short");
+            assertThat(product.getProductName().getLongName()).isEqualTo("long");
             assertThat(product.getVersion()).isEqualTo(0);
             assertThat(product.getPriceList()).hasSize(0);
         }
@@ -33,7 +33,7 @@ public class ProductTest
 
             product.changeShortName("newShortName");
 
-            assertThat(product.getShortName()).isEqualTo("newShortName");
+            assertThat(product.getProductName().getShortName()).isEqualTo("newShortName");
         }
 
         @Test @DisplayName("THEN: a new price can be added")

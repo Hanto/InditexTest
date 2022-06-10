@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+//Aggregate root
 @AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 public class Product
 {
     @EqualsAndHashCode.Include
     @Getter private ProductId productId;
-    private ProductName productName;
+    @Getter private ProductName productName;
     private final Prices prices;
     @Getter private final int version;
 
@@ -30,6 +31,12 @@ public class Product
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
 
+    public void changeShortName(String shortName)
+    {   this.productName = new ProductName(shortName, productName.getLongName()); }
+
+    // BUSINESS:
+    //--------------------------------------------------------------------------------------------------------
+
     public void addPrice(Price price)
     {   addPrices(List.of(price)); }
 
@@ -38,18 +45,6 @@ public class Product
 
     public void removePrice(Price price)
     {   this.prices.removePrice(price); }
-
-    public void changeShortName(String shortName)
-    {   this.productName = new ProductName(shortName, productName.getLongName()); }
-
-    // BUSINESS:
-    //--------------------------------------------------------------------------------------------------------
-
-    public String getShortName()
-    {   return productName.getShortName(); }
-
-    public String getLongName()
-    {   return productName.getLongName(); }
 
     public Collection<Price> getPriceList()
     {   return prices.getPriceList(); }

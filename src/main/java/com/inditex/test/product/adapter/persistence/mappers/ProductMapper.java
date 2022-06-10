@@ -53,8 +53,8 @@ public class ProductMapper
 
         return ProductEntity.builder()
             .productId(product.getProductId().getId())
-            .shortName(product.getShortName())
-            .longName(product.getLongName())
+            .shortName(product.getProductName().getShortName())
+            .longName(product.getProductName().getLongName())
             .prices(priceEntities)
             .version(product.getVersion())
             .build();

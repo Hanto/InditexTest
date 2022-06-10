@@ -44,8 +44,8 @@ public class ProductServiceTest extends BDDMockito
             Product product = thenProductSaved(1).get(0);
 
             assertThat(product.getProductId().getId()).isEqualTo(1L);
-            assertThat(product.getShortName()).isEqualTo("short");
-            assertThat(product.getLongName()).isEqualTo("long");
+            assertThat(product.getProductName().getShortName()).isEqualTo("short");
+            assertThat(product.getProductName().getLongName()).isEqualTo("long");
             assertThat(product.getPriceList()).hasSize(0);
         }
 
@@ -57,8 +57,8 @@ public class ProductServiceTest extends BDDMockito
             Product product = service.getProduct(new ProductId(1L));
 
             assertThat(product.getProductId().getId()).isEqualTo(1L);
-            assertThat(product.getShortName()).isEqualTo("shortName");
-            assertThat(product.getLongName()).isEqualTo("longName");
+            assertThat(product.getProductName().getShortName()).isEqualTo("shortName");
+            assertThat(product.getProductName().getLongName()).isEqualTo("longName");
         }
 
         @Test @DisplayName("THEN: can retrieve all the Products")

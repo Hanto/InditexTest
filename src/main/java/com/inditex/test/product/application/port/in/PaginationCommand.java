@@ -1,6 +1,6 @@
 package com.inditex.test.product.application.port.in;// Created by jhant on 07/06/2022.
 
-import com.inditex.test.common.SelfValidating;
+import com.inditex.test.product.adapter.spring.SelfValidating;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
