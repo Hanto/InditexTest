@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Getter @NoArgsConstructor @ToString(callSuper = true)
-public class PriceChangedEvent extends DomainEvent implements Serializable
+public class PriceChanged extends DomainEvent implements Serializable
 {
     private BigDecimal oldPrice;
     private BigDecimal newPrice;
@@ -18,9 +18,9 @@ public class PriceChangedEvent extends DomainEvent implements Serializable
     //--------------------------------------------------------------------------------------------------------
 
     @Builder
-    public PriceChangedEvent(Long aggregateId, BigDecimal oldPrice, BigDecimal newPrice)
+    public PriceChanged(Long aggregateId, BigDecimal oldPrice, BigDecimal newPrice)
     {
-        super(aggregateId, PriceChangedEvent.class);
+        super(aggregateId, PriceChanged.class);
         this.oldPrice = oldPrice;
         this.newPrice = newPrice;
     }

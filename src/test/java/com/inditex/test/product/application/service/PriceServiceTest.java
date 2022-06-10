@@ -1,13 +1,15 @@
 package com.inditex.test.product.application.service;// Created by jhant on 05/06/2022.
 
 import com.inditex.test.product.application.port.in.PriceUseCase;
+import com.inditex.test.product.application.port.out.EventBus;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
 import com.inditex.test.product.domain.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
-import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
@@ -15,10 +17,12 @@ import static com.inditex.test.product.domain.model.Currency.EUR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("SameParameterValue")
+@ExtendWith(MockitoExtension.class)
 public class PriceServiceTest extends BDDMockito
 {
-    private final PersistenceRepository dao = Mockito.mock(PersistenceRepository.class);
-    private final PriceUseCase service = new PriceService(dao);
+    private final PersistenceRepository dao = mock(PersistenceRepository.class);
+    private final EventBus eventBus = mock(EventBus.class);
+    private final PriceUseCase service = new PriceService(dao, eventBus);
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------

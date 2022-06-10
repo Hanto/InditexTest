@@ -1,6 +1,5 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 03/06/2022.
 
-import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
 import com.inditex.test.product.adapter.persistence.entities.PriceEntity;
 import com.inditex.test.product.adapter.persistence.entities.ProductEntity;
 import com.inditex.test.product.adapter.persistence.mappers.PriceMapper;
@@ -13,7 +12,6 @@ import com.inditex.test.product.domain.model.ProductId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -24,9 +22,8 @@ import static com.inditex.test.product.adapter.persistence.entities.ProductEntit
 import static java.lang.String.format;
 
 @Component
-@EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
 @RequiredArgsConstructor
-public class JpaH2Adapter implements PersistenceRepository
+public class JpaProductAdapter implements PersistenceRepository
 {
     @Autowired private final PriceRepository priceRepo;
     @Autowired private final ProductRepository productRepo;

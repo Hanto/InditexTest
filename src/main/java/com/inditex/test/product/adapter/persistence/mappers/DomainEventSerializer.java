@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.bus;// Created by jhant on 10/06/2022.
+package com.inditex.test.product.adapter.persistence.mappers;// Created by jhant on 10/06/2022.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;

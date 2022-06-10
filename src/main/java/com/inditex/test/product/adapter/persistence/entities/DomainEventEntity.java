@@ -1,13 +1,10 @@
-package com.inditex.test.product.adapter.bus;// Created by jhant on 10/06/2022.
+package com.inditex.test.product.adapter.persistence.entities;// Created by jhant on 10/06/2022.
 
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -35,7 +32,7 @@ public class DomainEventEntity
     @NotNull
     private LocalDateTime occurredOn;
 
-    @Column(name = "EVENT_JSON", nullable = false)
+    @Column(name = "EVENT_JSON", nullable = false) @Lob
     @NotNull
     private String eventJson;
 }

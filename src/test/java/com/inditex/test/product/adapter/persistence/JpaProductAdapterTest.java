@@ -25,10 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 @DataJpaTest @ActiveProfiles("H2") @EnableSniffy
-@Import({JpaH2Adapter.class, ProductMapper.class, PriceMapper.class})
-public class JpaH2AdapterTest
+@Import({JpaProductAdapter.class, ProductMapper.class, PriceMapper.class, JpaConfiguration.class})
+public class JpaProductAdapterTest
 {
-    @Autowired private JpaH2Adapter adapter;
+    @Autowired private JpaProductAdapter adapter;
     private final Spy<?> profiler = Sniffy.spy();
 
     // INIT:

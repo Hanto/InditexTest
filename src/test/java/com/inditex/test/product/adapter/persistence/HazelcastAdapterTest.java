@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest @ActiveProfiles("H2Hazel")
-@Import({JpaH2Adapter.class, ProductMapper.class, PriceMapper.class, HazelcastAdapter.class, HazelcastConfig.class})
+@Import({JpaProductAdapter.class, ProductMapper.class, PriceMapper.class, HazelcastAdapter.class, HazelcastConfig.class, JpaConfiguration.class})
 public class HazelcastAdapterTest
 {
     @Autowired private HazelcastAdapter adapter;

@@ -1,5 +1,6 @@
-package com.inditex.test.product.adapter.bus;// Created by jhant on 10/06/2022.
+package com.inditex.test.product.adapter.persistence.mappers;// Created by jhant on 10/06/2022.
 
+import com.inditex.test.product.adapter.persistence.entities.DomainEventEntity;
 import com.inditex.test.product.domain.events.DomainEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

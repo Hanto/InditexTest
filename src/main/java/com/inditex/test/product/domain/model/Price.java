@@ -1,6 +1,6 @@
 package com.inditex.test.product.domain.model;// Created by jhant on 03/06/2022.
 
-import com.inditex.test.product.domain.events.PriceChangedEvent;
+import com.inditex.test.product.domain.events.PriceChanged;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,6 +36,6 @@ public class Price extends Entity
         Money oldMoney = money;
         money = money.plus(moneyToAdd);
 
-        recordEvent(new PriceChangedEvent(priceId.getId(), oldMoney.getCuantity(), money.getCuantity()));
+        recordEvent(new PriceChanged(priceId.getId(), oldMoney.getCuantity(), money.getCuantity()));
     }
 }
