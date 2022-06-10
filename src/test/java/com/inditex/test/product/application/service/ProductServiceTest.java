@@ -2,8 +2,8 @@ package com.inditex.test.product.application.service;// Created by jhant on 07/0
 
 import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductUseCase;
-import com.inditex.test.product.application.port.out.MemoryRepository;
-import com.inditex.test.product.application.port.out.PersistenceRepository;
+import com.inditex.test.product.application.port.out.IdentifierRepository;
+import com.inditex.test.product.application.port.out.ProductRepository;
 import com.inditex.test.product.domain.model.Product;
 import com.inditex.test.product.domain.model.ProductId;
 import com.inditex.test.product.domain.model.ProductName;
@@ -22,8 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings("SameParameterValue")
 public class ProductServiceTest extends BDDMockito
 {
-    private final PersistenceRepository dao = Mockito.mock(PersistenceRepository.class);
-    private final MemoryRepository memDao = Mockito.mock(MemoryRepository.class);
+    private final ProductRepository dao = Mockito.mock(ProductRepository.class);
+    private final IdentifierRepository memDao = Mockito.mock(IdentifierRepository.class);
     private final ProductUseCase service = new ProductService(dao, memDao);
 
     // MAIN:

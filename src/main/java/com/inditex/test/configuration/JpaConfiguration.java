@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.persistence;// Created by jhant on 10/06/2022.
+package com.inditex.test.configuration;// Created by jhant on 10/06/2022.
 
 import com.cosium.spring.data.jpa.entity.graph.repository.support.EntityGraphJpaRepositoryFactoryBean;
 import org.springframework.context.annotation.Configuration;

@@ -7,7 +7,7 @@ import com.inditex.test.product.domain.model.ProductId;
 
 import java.util.Collection;
 
-public interface PersistenceRepository
+public interface ProductRepository
 {
     Collection<Product> loadProducts(int page, int pageSize);
     Product loadProduct(ProductId productId);

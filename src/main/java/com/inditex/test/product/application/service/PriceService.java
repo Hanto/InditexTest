@@ -5,7 +5,7 @@ import com.inditex.test.product.application.port.in.ModifyPriceCommand;
 import com.inditex.test.product.application.port.in.PriceUseCase;
 import com.inditex.test.product.application.port.in.QueryPriceCommand;
 import com.inditex.test.product.application.port.out.EventBus;
-import com.inditex.test.product.application.port.out.PersistenceRepository;
+import com.inditex.test.product.application.port.out.ProductRepository;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;
 import com.inditex.test.product.domain.model.Product;
@@ -23,7 +23,7 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRES_NE
 @Log4j2
 public class PriceService implements PriceUseCase
 {
-    private final PersistenceRepository persistenceRepository;
+    private final ProductRepository productRepository;
     private final EventBus eventBus;
 
     // MAIN:
@@ -32,13 +32,13 @@ public class PriceService implements PriceUseCase
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Price getPrice(PriceId priceId)
-    {   return persistenceRepository.loadPrice(priceId); }
+    {   return productRepository.loadPrice(priceId); }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Price assignedPriceFor(QueryPriceCommand command)
     {
-        Product product = persistenceRepository.loadProduct(command.getProductId());
+        Product product = productRepository.loadProduct(command.getProductId());
         return product.getPriceAt(command.getLocalDateTime(), command.getBrandId());
     }
 
@@ -55,12 +55,12 @@ public class PriceService implements PriceUseCase
         rollbackFor = Exception.class)
     public void modifyPrice(ModifyPriceCommand command)
     {
-        Product product = persistenceRepository.loadProduct(command.getProductId());
+        Product product = productRepository.loadProduct(command.getProductId());
         Price price = product.getPrice(command.getPriceId());
 
         price.addCost(command.getMoney());
 
-        persistenceRepository.saveProduct(product);
+        productRepository.saveProduct(product);
         eventBus.publish(product.pullAllDomainEvents());
     }
 }

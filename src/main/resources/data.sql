@@ -22,3 +22,6 @@ insert into PRICES
 (8, 35454, 1, '2020-06-15 00.00.00', '2020-06-15 11.00.00', 1, 'EUR', 30.50, 0),
 (9, 35454, 1, '2020-06-15 16.00.00', '2020-12-31 23.59.59', 1, 'EUR', 38.95, 0);
 
+insert into EVENT_RELAY_CONFIG
+(event_type, topic_name) values
+('PriceChanged', 'PriceChangedTopic');
