@@ -4,6 +4,7 @@ import com.inditex.test.common.UseCase;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
 import com.inditex.test.product.application.port.in.PriceUseCase;
 import com.inditex.test.product.application.port.in.QueryPriceCommand;
+import com.inditex.test.product.application.port.out.EventBus;
 import com.inditex.test.product.application.port.out.PersistenceRepository;
 import com.inditex.test.product.domain.model.Price;
 import com.inditex.test.product.domain.model.PriceId;
@@ -23,6 +24,7 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRES_NE
 public class PriceService implements PriceUseCase
 {
     private final PersistenceRepository persistenceRepository;
+    private final EventBus eventBus;
 
     // MAIN:
     //--------------------------------------------------------------------------------------------------------
@@ -59,7 +61,6 @@ public class PriceService implements PriceUseCase
         price.addCost(command.getMoney());
 
         persistenceRepository.saveProduct(product);
-
-        product.pullAllDomainEvents().forEach(e -> log.debug("EVENT: " + e));
+        eventBus.publish(product.pullAllDomainEvents());
     }
 }
