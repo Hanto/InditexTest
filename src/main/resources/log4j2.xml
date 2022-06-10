@@ -21,7 +21,7 @@
 
     <Loggers>
 
-        <Logger name="com." level="debug" additivity="false"> <AppenderRef ref="ConsoleAppender" /> </Logger>
+        <Logger name="com.inditex" level="debug" additivity="false"> <AppenderRef ref="ConsoleAppender" /> </Logger>
         <Root level="info"> <AppenderRef ref="ConsoleAppender" /> </Root>
 
     </Loggers>

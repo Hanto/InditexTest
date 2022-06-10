@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -50,6 +51,23 @@ public class RestErrorHandler extends ResponseEntityExceptionHandler
     {
         String error = String.format("Invalid URL: parameter %s should be of type %s", ex.getName(),
             ex.getRequiredType() != null ? ex.getRequiredType().getCanonicalName() : "");
+
+        ApiError apiError = ApiError.builder()
+            .status(HttpStatus.BAD_REQUEST)
+            .shortMessage(error)
+            .localizedMessage(ex.getLocalizedMessage())
+            .build();
+
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    // Throw when Rest verb not allowed
+    //--------------------------------------------------------------------------------------------------------------------
+
+    @Override @NonNull
+    protected ResponseEntity<Object>handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, @NonNull HttpHeaders headers, @NonNull HttpStatus status, @NonNull WebRequest request)
+    {
+        String error = String.format("Rest method: %s is not allowed", ex.getMethod());
 
         ApiError apiError = ApiError.builder()
             .status(HttpStatus.BAD_REQUEST)

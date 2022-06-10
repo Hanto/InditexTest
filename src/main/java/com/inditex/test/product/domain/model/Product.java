@@ -1,5 +1,6 @@
 package com.inditex.test.product.domain.model;// Created by jhant on 03/06/2022.
 
+import com.inditex.test.product.domain.events.DomainEvent;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,10 +9,11 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //Aggregate root
-@AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
-public class Product
+@AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) @ToString
+public class Product extends Entity
 {
     @EqualsAndHashCode.Include
     @Getter private ProductId productId;
@@ -58,4 +60,17 @@ public class Product
     public Price getPrice(PriceId priceId)
     {   return prices.getPrice(priceId); }
 
+    // EVENTS:
+    //--------------------------------------------------------------------------------------------------------
+
+    public List<DomainEvent> pullAllDomainEvents()
+    {
+        List<DomainEvent>events = prices.getPriceList().stream()
+            .map(Entity::pullDomainEvents)
+            .flatMap(Collection::stream).collect(Collectors.toList());
+
+        events.addAll(pullDomainEvents());
+
+        return events;
+    }
 }

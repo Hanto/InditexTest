@@ -1,15 +1,12 @@
 package com.inditex.test.product.domain.events;// Created by jhant on 10/06/2022.
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Getter @AllArgsConstructor @NoArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
 public abstract class DomainEvent implements Serializable
 {
     @EqualsAndHashCode.Include

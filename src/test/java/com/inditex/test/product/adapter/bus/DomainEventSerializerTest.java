@@ -7,6 +7,7 @@ import com.inditex.test.product.domain.events.PriceChangedEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,12 +21,14 @@ public class DomainEventSerializerTest
 
         PriceChangedEvent expected = PriceChangedEvent.builder()
             .aggregateId(1L)
-            .newPrice(10)
-            .oldPrice(5)
+            .newPrice(new BigDecimal("25.0"))
+            .oldPrice(new BigDecimal("10.0"))
             .build();
 
         String json = serializer.toJson(expected);
         PriceChangedEvent result = serializer.fromJson(json);
+
+        System.out.println(expected);
 
         assertThat(result).isEqualTo(expected);
         assertThatAreEquals(PriceChangedEvent::getEventId, result, expected);

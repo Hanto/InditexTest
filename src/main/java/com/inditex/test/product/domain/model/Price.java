@@ -1,12 +1,13 @@
 package com.inditex.test.product.domain.model;// Created by jhant on 03/06/2022.
 
+import com.inditex.test.product.domain.events.PriceChangedEvent;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true) @ToString
-public class Price
+@AllArgsConstructor @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false) @ToString
+public class Price extends Entity
 {
     @EqualsAndHashCode.Include
     @Getter private PriceId priceId;
@@ -30,6 +31,11 @@ public class Price
     // BUSINESS:
     //--------------------------------------------------------------------------------------------------------
 
-    public void addCost(Money money)
-    {   this.money = this.money.plus(money); }
+    public void addCost(Money moneyToAdd)
+    {
+        Money oldMoney = money;
+        money = money.plus(moneyToAdd);
+
+        recordEvent(new PriceChangedEvent(priceId.getId(), oldMoney.getCuantity(), money.getCuantity()));
+    }
 }
