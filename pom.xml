@@ -147,6 +147,13 @@
 			<version>1.3.3</version>
 		</dependency>
 
+		<!-- support for java time serialization/deserialization -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+
+		</dependency>
+
 		<!--  Swagger 2, to automatically generate API documentation
         ======================================================================================!-->
 
