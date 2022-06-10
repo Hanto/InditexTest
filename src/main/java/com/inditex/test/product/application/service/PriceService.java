@@ -35,7 +35,7 @@ public class PriceService implements PriceUseCase
     public Price assignedPriceFor(QueryPriceCommand command)
     {
         Product product = persistenceRepository.loadProduct(command.getProductId());
-        return product.getPrices().getPriceAt(command.getLocalDateTime(), command.getBrandId());
+        return product.getPriceAt(command.getLocalDateTime(), command.getBrandId());
     }
 
     // UPDATE:
@@ -52,7 +52,7 @@ public class PriceService implements PriceUseCase
     public void modifyPrice(ModifyPriceCommand command)
     {
         Product product = persistenceRepository.loadProduct(command.getProductId());
-        Price price = product.getPrices().getPrice(command.getPriceId());
+        Price price = product.getPrice(command.getPriceId());
 
         price.addCost(command.getMoney());
 

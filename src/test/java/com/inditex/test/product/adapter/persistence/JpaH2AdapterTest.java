@@ -62,10 +62,10 @@ public class JpaH2AdapterTest
             Product product = adapter.loadProduct(new ProductId(354550L));
 
             assertThat(product.getProductId().getId()).isEqualTo(354550L);
-            assertThat(product.getProductName().getShortName()).isEqualTo("Black TShirt");
-            assertThat(product.getProductName().getLongName()).isEqualTo("Black TShirt from hell");
-            assertThat(product.getPrices().getPriceList()).hasSize(5);
-            assertThat(product.getPrices().getPriceList()).isUnmodifiable();
+            assertThat(product.getShortName()).isEqualTo("Black TShirt");
+            assertThat(product.getLongName()).isEqualTo("Black TShirt from hell");
+            assertThat(product.getPriceList()).hasSize(5);
+            assertThat(product.getPriceList()).isUnmodifiable();
 
             profiler.verify(SqlQueries.atMostOneQuery());
         }

@@ -32,8 +32,8 @@ public class ProductDTOAssemblerTest
             ProductDTO productDTO = assembler.toModel(product);
 
             assertThat(productDTO.getProductId()).isEqualTo(product.getProductId().getId());
-            assertThat(productDTO.getShortName()).isEqualTo(product.getProductName().getShortName());
-            assertThat(productDTO.getLongName()).isEqualTo(product.getProductName().getLongName());
+            assertThat(productDTO.getShortName()).isEqualTo(product.getShortName());
+            assertThat(productDTO.getLongName()).isEqualTo(product.getLongName());
             assertThat(productDTO.getPrices()).hasSize(1);
 
             for (PriceDTO priceDTO: productDTO.getPrices())

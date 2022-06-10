@@ -13,8 +13,8 @@ public class ProductDTOMapper
     {
         return ProductDTO.builder()
             .productId(model.getProductId().getId())
-            .shortName(model.getProductName().getShortName())
-            .longName(model.getProductName().getLongName())
+            .shortName(model.getShortName())
+            .longName(model.getLongName())
             .build();
     }
 }

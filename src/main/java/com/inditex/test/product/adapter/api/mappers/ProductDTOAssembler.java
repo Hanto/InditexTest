@@ -29,7 +29,7 @@ public class ProductDTOAssembler implements RepresentationModelAssembler<Product
     public ProductDTO toModel(Product entity)
     {
         ProductDTO productDTO = mapper.fromModel(entity);
-        List<PriceDTO> priceDTOs = entity.getPrices().getPriceList().stream()
+        List<PriceDTO> priceDTOs = entity.getPriceList().stream()
             .map(price -> priceDTOAssembler.toModel(price, entity))
             .toList();
 

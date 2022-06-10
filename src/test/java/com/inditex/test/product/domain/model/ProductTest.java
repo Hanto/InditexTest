@@ -20,9 +20,10 @@ public class ProductTest
             Product product = generateProduct(1L, "short", "long");
 
             assertThat(product.getProductId()).isEqualTo(new ProductId(1L));
-            assertThat(product.getProductName()).isEqualTo(new ProductName("short", "long"));
+            assertThat(product.getShortName()).isEqualTo("short");
+            assertThat(product.getLongName()).isEqualTo("long");
             assertThat(product.getVersion()).isEqualTo(0);
-            assertThat(product.getPrices().getPriceList()).hasSize(0);
+            assertThat(product.getPriceList()).hasSize(0);
         }
 
         @Test @DisplayName("THEN: name can be changed")
@@ -32,7 +33,7 @@ public class ProductTest
 
             product.changeShortName("newShortName");
 
-            assertThat(product.getProductName().getShortName()).isEqualTo("newShortName");
+            assertThat(product.getShortName()).isEqualTo("newShortName");
         }
 
         @Test @DisplayName("THEN: a new price can be added")
@@ -43,7 +44,7 @@ public class ProductTest
 
             product.addPrice(price);
 
-            assertThat(product.getPrices().getPriceList()).hasSize(1);
+            assertThat(product.getPriceList()).hasSize(1);
         }
 
         @Test @DisplayName("THEN: an existing price can be removed")
@@ -53,9 +54,9 @@ public class ProductTest
             Price price     = generatePrice();
 
             product.addPrice(price);
-            assertThat(product.getPrices().getPriceList()).hasSize(1);
+            assertThat(product.getPriceList()).hasSize(1);
             product.removePrice(price);
-            assertThat(product.getPrices().getPriceList()).hasSize(0);
+            assertThat(product.getPriceList()).hasSize(0);
 
         }
     }

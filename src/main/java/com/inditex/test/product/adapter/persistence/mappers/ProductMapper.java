@@ -47,14 +47,14 @@ public class ProductMapper
 
     public ProductEntity fromDomain(Product product)
     {
-        List<PriceEntity>priceEntities = product.getPrices().getPriceList().stream()
+        List<PriceEntity>priceEntities = product.getPriceList().stream()
             .map(priceMapper::fromDomain).toList();
         priceEntities.forEach(price -> price.setProductId(product.getProductId().getId()));
 
         return ProductEntity.builder()
             .productId(product.getProductId().getId())
-            .shortName(product.getProductName().getShortName())
-            .longName(product.getProductName().getLongName())
+            .shortName(product.getShortName())
+            .longName(product.getLongName())
             .prices(priceEntities)
             .version(product.getVersion())
             .build();
