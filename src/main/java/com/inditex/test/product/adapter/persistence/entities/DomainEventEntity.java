@@ -3,6 +3,7 @@ package com.inditex.test.product.adapter.persistence.entities;// Created by jhan
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity @DynamicInsert @DynamicUpdate @Table(name = "EVENT_STORE")
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
-public class DomainEventEntity
+public class DomainEventEntity implements Persistable<String>
 {
     // ENTITY:
     //--------------------------------------------------------------------------------------------------------
@@ -35,4 +36,18 @@ public class DomainEventEntity
     @Column(name = "EVENT_JSON", nullable = false) @Lob
     @NotNull
     private String eventJson;
+
+    @Column(name = "SENT", nullable = false)
+    @NotNull
+    private Boolean sent;
+
+    // PERSISTABLE (for fast inserts:
+    //--------------------------------------------------------------------------------------------------------
+
+    @Override
+    public String getId()
+    {   return eventId; }
+
+    @Transient
+    private boolean isNew = false;
 }
