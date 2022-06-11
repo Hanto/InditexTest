@@ -48,7 +48,10 @@ public class EventStoreConsumer
                 event.setSent(true);
             }
             catch (Exception e)
-            {   event.setSent(false); }
+            {
+                log.error(e);
+                event.setSent(false);
+            }
         }
 
         eventRepo.saveAll(events);

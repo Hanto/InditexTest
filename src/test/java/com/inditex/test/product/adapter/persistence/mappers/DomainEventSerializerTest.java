@@ -23,6 +23,11 @@ public class DomainEventSerializerTest
         String json = serializer.toJson(expected);
         PriceChanged result = serializer.fromJson(json, PriceChanged.class.getSimpleName());
 
+        assertThat(result).isEqualTo(expected);
+        assertThatAreEquals(PriceChanged::getEventId, result, expected);
+        assertThatAreEquals(PriceChanged::getType, result, expected);
+        assertThatAreEquals(PriceChanged::getAggregateId, result, expected);
+        assertThatAreEquals(PriceChanged::getOccurredOn, result, expected);
         assertThatAreEquals(PriceChanged::getNewPrice, result, expected);
         assertThatAreEquals(PriceChanged::getOldPrice, result, expected);
     }
