@@ -5,11 +5,12 @@ import com.inditex.test.product.domain.events.DomainEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-@Component
+@Component @Primary
 @RequiredArgsConstructor
 public class SpringEventBusAdapter implements EventBus
 {

@@ -1,4 +1,4 @@
-package com.inditex.test.product.adapter.bus;// Created by jhant on 10/06/2022.
+package com.inditex.test.product.application.eventhandlers;// Created by jhant on 10/06/2022.
 
 import com.inditex.test.product.application.port.out.EventRepository;
 import com.inditex.test.product.domain.events.DomainEvent;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SpringEventStoreListener
+public class DomainEventHandler
 {
     @Autowired private final EventRepository eventAdapter;
 
