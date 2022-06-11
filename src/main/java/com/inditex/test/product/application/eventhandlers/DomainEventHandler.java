@@ -1,20 +1,15 @@
-package com.inditex.test.product.application.eventhandlers;// Created by jhant on 10/06/2022.
+package com.inditex.test.product.application.eventhandlers;// Created by jhant on 11/06/2022.
 
 import com.inditex.test.common.annotations.SpringComponent;
-import com.inditex.test.product.application.port.out.EventRepository;
 import com.inditex.test.product.domain.events.DomainEvent;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.log4j.Log4j2;
 
 @SpringComponent
 @RequiredArgsConstructor
+@Log4j2
 public class DomainEventHandler implements DomainListener<DomainEvent>
 {
-    @Autowired private final EventRepository eventAdapter;
-
-    // PRODUCTS:
-    //--------------------------------------------------------------------------------------------------------
-
-    @Override public void onApplicationEvent(DomainEvent event)
-    {   eventAdapter.saveNewEvent(event); }
+    @Override public void onApplicationEvent(DomainEvent domainEvent)
+    {   log.debug("Domain event: {}", domainEvent); }
 }

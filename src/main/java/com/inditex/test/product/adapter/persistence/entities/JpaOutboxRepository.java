@@ -10,10 +10,10 @@ import org.springframework.data.jpa.repository.QueryHints;
 import javax.persistence.LockModeType;
 import javax.persistence.QueryHint;
 
-public interface JpaDomainEventRepository extends JpaRepository<DomainEventEntity, String>
+public interface JpaOutboxRepository extends JpaRepository<OutboxEntity, String>
 {
     String SKIP_LOCKED = "-2";
     @QueryHints(@QueryHint(name = AvailableSettings.JPA_LOCK_TIMEOUT, value = SKIP_LOCKED))
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Page<DomainEventEntity> findBySent(boolean sent, Pageable pageable);
+    Page<OutboxEntity> findBySent(boolean sent, Pageable pageable);
 }

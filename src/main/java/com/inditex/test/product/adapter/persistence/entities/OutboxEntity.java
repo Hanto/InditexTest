@@ -9,9 +9,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity @DynamicInsert @DynamicUpdate @Table(name = "EVENT_STORE")
+@Entity @DynamicInsert @DynamicUpdate @Table(name = "OUTBOX")
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
-public class DomainEventEntity implements Persistable<String>
+public class OutboxEntity implements Persistable<String>
 {
     // ENTITY:
     //--------------------------------------------------------------------------------------------------------

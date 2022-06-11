@@ -1,10 +1,10 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 10/06/2022.
 
 import com.inditex.test.product.adapter.messaging.MessagePublisher;
-import com.inditex.test.product.adapter.persistence.entities.DomainEventEntity;
-import com.inditex.test.product.adapter.persistence.entities.EventRelayConfigEntity;
-import com.inditex.test.product.adapter.persistence.entities.JpaDomainEventRepository;
-import com.inditex.test.product.adapter.persistence.entities.JpaEventRelayConfigRepository;
+import com.inditex.test.product.adapter.persistence.entities.JpaOutboxRepository;
+import com.inditex.test.product.adapter.persistence.entities.JpaRelayConfigRepository;
+import com.inditex.test.product.adapter.persistence.entities.OutboxEntity;
+import com.inditex.test.product.adapter.persistence.entities.RelayConfigEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
@@ -23,10 +23,10 @@ import static java.lang.String.format;
 @Component
 @RequiredArgsConstructor
 @Log4j2
-public class EventStoreConsumer
+public class JpaOutboxConsumer
 {
-    @Autowired private final JpaEventRelayConfigRepository relayConfigRepo;
-    @Autowired private final JpaDomainEventRepository eventRepo;
+    @Autowired private final JpaRelayConfigRepository relayConfigRepo;
+    @Autowired private final JpaOutboxRepository eventRepo;
     @Autowired private final MessagePublisher messagePublisher;
 
 
@@ -38,9 +38,9 @@ public class EventStoreConsumer
     @SchedulerLock(name = "Outbox-Relay")
     public void consume()
     {
-        List<DomainEventEntity> events = eventRepo.findBySent(false, Pageable.ofSize(100)).getContent();
+        List<OutboxEntity> events = eventRepo.findBySent(false, Pageable.ofSize(100)).getContent();
 
-        for (DomainEventEntity event: events)
+        for (OutboxEntity event: events)
         {
             try
             {
@@ -60,11 +60,11 @@ public class EventStoreConsumer
     // EVENT PUBLISHER:
     //----------------------------------------------------------------------------------------
 
-    private void sendMessage(DomainEventEntity event)
+    private void sendMessage(OutboxEntity event)
     {
-        Optional<EventRelayConfigEntity> optional = relayConfigRepo.findById(event.getEventType());
+        Optional<RelayConfigEntity> optional = relayConfigRepo.findById(event.getEventType());
 
-        EventRelayConfigEntity config = optional.orElseThrow(
+        RelayConfigEntity config = optional.orElseThrow(
             () -> new EntityNotFoundException(format("No configuration found for event type: %s", event.getEventType())));
 
         messagePublisher.sendMessage(event.getEventJson(), config.getTopicName());

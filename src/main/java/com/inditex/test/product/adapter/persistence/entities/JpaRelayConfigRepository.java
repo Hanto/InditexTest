@@ -2,6 +2,6 @@ package com.inditex.test.product.adapter.persistence.entities;// Created by jhan
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JpaEventRelayConfigRepository extends JpaRepository<EventRelayConfigEntity, String>
+public interface JpaRelayConfigRepository extends JpaRepository<RelayConfigEntity, String>
 {
 }

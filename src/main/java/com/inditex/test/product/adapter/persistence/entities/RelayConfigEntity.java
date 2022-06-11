@@ -13,9 +13,9 @@ import javax.persistence.Table;
 import static org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE;
 
 @Entity @DynamicInsert @DynamicUpdate @Table(name = "EVENT_RELAY_CONFIG")
-@Cache(region = EventRelayConfigEntity.RELAYCONFIG_CACHE_REGION, usage = READ_WRITE)
+@Cache(region = RelayConfigEntity.RELAYCONFIG_CACHE_REGION, usage = READ_WRITE)
 @Setter @Getter @AllArgsConstructor @NoArgsConstructor @Builder
-public class EventRelayConfigEntity
+public class RelayConfigEntity
 {
     public static final String RELAYCONFIG_CACHE_REGION = "RelayConfig";
 

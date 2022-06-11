@@ -2,7 +2,7 @@ package com.inditex.test.product.application.port.out;// Created by jhant on 10/
 
 import com.inditex.test.product.domain.events.DomainEvent;
 
-public interface EventRepository
+public interface OutboxRepository
 {
     void saveNewEvent(DomainEvent event);
 }
