@@ -1,4 +1,4 @@
-package com.inditex.test.common;
+package com.inditex.test.common.functionalinterfaces;
 
 /**@author Ivan Delgado Huerta*/
 @FunctionalInterface

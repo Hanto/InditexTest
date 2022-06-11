@@ -9,8 +9,8 @@ import com.tngtech.archunit.lang.ArchRule;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
-@AnalyzeClasses(packages = HexagonalArchitectureTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
-public class HexagonalArchitectureTest
+@AnalyzeClasses(packages = ArchitectureTest.CORE_PACKAGE, importOptions = {ImportOption.DoNotIncludeTests.class})
+public class ArchitectureTest
 {
     static final String CORE_PACKAGE = "com.inditex.test";
     private static final String DOMAIN = "..domain..";

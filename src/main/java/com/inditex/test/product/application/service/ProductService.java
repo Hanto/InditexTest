@@ -1,6 +1,6 @@
 package com.inditex.test.product.application.service;// Created by jhant on 07/06/2022.
 
-import com.inditex.test.common.UseCase;
+import com.inditex.test.common.annotations.UseCase;
 import com.inditex.test.product.application.port.in.PaginationCommand;
 import com.inditex.test.product.application.port.in.ProductUseCase;
 import com.inditex.test.product.application.port.out.IdentifierRepository;

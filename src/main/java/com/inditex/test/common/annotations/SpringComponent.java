@@ -1,4 +1,4 @@
-package com.inditex.test.common;// Created by jhant on 11/06/2022.
+package com.inditex.test.common.annotations;// Created by jhant on 11/06/2022.
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

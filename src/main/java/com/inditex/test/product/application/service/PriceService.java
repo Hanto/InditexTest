@@ -1,6 +1,6 @@
 package com.inditex.test.product.application.service;// Created by jhant on 04/06/2022.
 
-import com.inditex.test.common.UseCase;
+import com.inditex.test.common.annotations.UseCase;
 import com.inditex.test.product.application.port.in.ModifyPriceCommand;
 import com.inditex.test.product.application.port.in.PriceUseCase;
 import com.inditex.test.product.application.port.in.QueryPriceCommand;

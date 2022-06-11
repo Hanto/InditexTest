@@ -1,5 +1,9 @@
 package com.inditex.test.common;// Created by jhant on 08/06/2022.
 
+import com.inditex.test.common.functionalinterfaces.ThrowableConsumer;
+import com.inditex.test.common.functionalinterfaces.ThrowableFunction;
+import com.inditex.test.common.functionalinterfaces.ThrowableRunnable;
+import com.inditex.test.common.functionalinterfaces.ThrowableSupplier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -16,7 +20,8 @@ public class TryTest extends BDDMockito
     // FUNCTION:
     //--------------------------------------------------------------------------------------------------------
 
-    @Mock ThrowableFunction<Integer, Integer>function;
+    @Mock
+    ThrowableFunction<Integer, Integer> function;
 
     @Nested @DisplayName("WHEN: Try.Function")
     class TryFunction
@@ -67,7 +72,8 @@ public class TryTest extends BDDMockito
     // SUPPLIER:
     //--------------------------------------------------------------------------------------------------------
 
-    @Mock ThrowableSupplier<Integer>supplier;
+    @Mock
+    ThrowableSupplier<Integer> supplier;
 
     @Nested @DisplayName("WHEN: Try.Supplier")
     class TrySupplier
@@ -118,7 +124,8 @@ public class TryTest extends BDDMockito
     // CONSUMER:
     //--------------------------------------------------------------------------------------------------------
 
-    @Mock ThrowableConsumer<Integer>consumer;
+    @Mock
+    ThrowableConsumer<Integer> consumer;
 
     @Nested @DisplayName("WHEN: Try.Consumer")
     class TryConsumer
@@ -159,7 +166,8 @@ public class TryTest extends BDDMockito
     // RUNNABLE:
     //--------------------------------------------------------------------------------------------------------
 
-    @Mock ThrowableRunnable runnable;
+    @Mock
+    ThrowableRunnable runnable;
 
     @Nested @DisplayName("WHEN: Try.Runnable")
     class TryRunnable

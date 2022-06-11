@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class KafkaPublisher implements MessagePublisher
 {
-
     @Override
     public void sendMessage(String message, String topicName)
     {

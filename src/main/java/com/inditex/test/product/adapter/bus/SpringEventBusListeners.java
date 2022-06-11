@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.bus;// Created by jhant on 11/06/2022.
 
-import com.inditex.test.common.SpringComponent;
+import com.inditex.test.common.annotations.SpringComponent;
 import com.inditex.test.product.application.eventhandlers.DomainListener;
 import com.inditex.test.product.domain.events.DomainEvent;
 import lombok.RequiredArgsConstructor;

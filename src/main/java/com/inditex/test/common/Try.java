@@ -1,5 +1,9 @@
 package com.inditex.test.common;
 
+import com.inditex.test.common.functionalinterfaces.ThrowableConsumer;
+import com.inditex.test.common.functionalinterfaces.ThrowableFunction;
+import com.inditex.test.common.functionalinterfaces.ThrowableRunnable;
+import com.inditex.test.common.functionalinterfaces.ThrowableSupplier;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.function.Consumer;
