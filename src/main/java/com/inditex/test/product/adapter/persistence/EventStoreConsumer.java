@@ -62,10 +62,10 @@ public class EventStoreConsumer
 
     private void sendMessage(DomainEventEntity event)
     {
-        Optional<EventRelayConfigEntity> optional = relayConfigRepo.findById(event.getType());
+        Optional<EventRelayConfigEntity> optional = relayConfigRepo.findById(event.getEventType());
 
         EventRelayConfigEntity config = optional.orElseThrow(
-            () -> new EntityNotFoundException(format("No configuration found for event type: %s", event.getType())));
+            () -> new EntityNotFoundException(format("No configuration found for event type: %s", event.getEventType())));
 
         messagePublisher.sendMessage(event.getEventJson(), config.getTopicName());
     }

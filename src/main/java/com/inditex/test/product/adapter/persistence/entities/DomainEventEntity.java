@@ -21,9 +21,9 @@ public class DomainEventEntity implements Persistable<String>
     @Setter(AccessLevel.NONE)
     private String eventId;
 
-    @Column(name = "TYPE", nullable = false)
+    @Column(name = "EVENT_TYPE", nullable = false)
     @NotNull
-    private String type;
+    private String eventType;
 
     @Column(name = "AGGREGATE_ID", nullable = false)
     @NotNull

@@ -22,7 +22,7 @@ public class DomainEventMapper
     {
         return DomainEventEntity.builder()
             .eventId(event.getEventId())
-            .type(event.getType())
+            .eventType(event.getType())
             .aggregateId(event.getAggregateId())
             .occurredOn(event.getOccurredOn())
             .eventJson(serializer.toJson(event))
@@ -34,5 +34,5 @@ public class DomainEventMapper
     //--------------------------------------------------------------------------------------------------------
 
     public DomainEvent fromEntity(DomainEventEntity entity)
-    {   return serializer.fromJson(entity.getEventJson(), entity.getType()); }
+    {   return serializer.fromJson(entity.getEventJson(), entity.getEventType()); }
 }
