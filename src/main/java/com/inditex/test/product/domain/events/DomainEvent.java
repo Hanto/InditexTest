@@ -1,6 +1,5 @@
 package com.inditex.test.product.domain.events;// Created by jhant on 10/06/2022.
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.io.Serializable;
@@ -11,10 +10,10 @@ import java.util.UUID;
 public abstract class DomainEvent implements Serializable
 {
     @EqualsAndHashCode.Include
-    @JsonIgnore protected String eventId;
-    @JsonIgnore protected String type;
-    @JsonIgnore protected Long aggregateId;
-    @JsonIgnore protected LocalDateTime occurredOn;
+    @NonNull private String eventId;
+    @NonNull private String type;
+    @NonNull private Long aggregateId;
+    @NonNull private LocalDateTime occurredOn;
 
     // CONSTRUCTOR:
     //--------------------------------------------------------------------------------------------------------

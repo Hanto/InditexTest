@@ -29,4 +29,10 @@ public class DomainEventMapper
             .sent(false)
             .build();
     }
+
+    // FROM ENTITY:
+    //--------------------------------------------------------------------------------------------------------
+
+    public DomainEvent fromEntity(DomainEventEntity entity)
+    {   return serializer.fromJson(entity.getEventJson(), entity.getType()); }
 }

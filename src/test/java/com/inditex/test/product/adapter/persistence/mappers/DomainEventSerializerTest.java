@@ -18,11 +18,7 @@ public class DomainEventSerializerTest
     {
         DomainEventSerializer serializer = createDomainEventSerializer();
 
-        PriceChanged expected = PriceChanged.builder()
-            .aggregateId(1L)
-            .newPrice(new BigDecimal("25.0"))
-            .oldPrice(new BigDecimal("10.0"))
-            .build();
+        PriceChanged expected = new PriceChanged(1L, new BigDecimal("25.0"), new BigDecimal("10.0"));
 
         String json = serializer.toJson(expected);
         PriceChanged result = serializer.fromJson(json, PriceChanged.class.getSimpleName());

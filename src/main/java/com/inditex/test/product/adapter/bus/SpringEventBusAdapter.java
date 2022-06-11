@@ -11,7 +11,7 @@ import java.util.Collection;
 
 @Component
 @RequiredArgsConstructor
-public class EventBusAdapter implements EventBus
+public class SpringEventBusAdapter implements EventBus
 {
     @Autowired private final ApplicationEventPublisher publisher;
 
