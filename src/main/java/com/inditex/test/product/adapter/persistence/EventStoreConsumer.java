@@ -1,6 +1,6 @@
 package com.inditex.test.product.adapter.persistence;// Created by jhant on 10/06/2022.
 
-import com.inditex.test.product.adapter.msgbroker.MsgProducer;
+import com.inditex.test.product.adapter.messaging.MessagePublisher;
 import com.inditex.test.product.adapter.persistence.entities.DomainEventEntity;
 import com.inditex.test.product.adapter.persistence.entities.EventRelayConfigEntity;
 import com.inditex.test.product.adapter.persistence.entities.JpaDomainEventRepository;
@@ -27,7 +27,8 @@ public class EventStoreConsumer
 {
     @Autowired private final JpaEventRelayConfigRepository relayConfigRepo;
     @Autowired private final JpaDomainEventRepository eventRepo;
-    @Autowired private final MsgProducer broker;
+    @Autowired private final MessagePublisher messagePublisher;
+
 
     // OUTBOX RELAY CONSUMER:
     //----------------------------------------------------------------------------------------
@@ -63,6 +64,6 @@ public class EventStoreConsumer
         EventRelayConfigEntity config = optional.orElseThrow(
             () -> new EntityNotFoundException(format("No configuration found for event type: %s", event.getType())));
 
-        broker.sendEvent(event, config.getTopicName());
+        messagePublisher.sendMessage(event.getEventJson(), config.getTopicName());
     }
 }
